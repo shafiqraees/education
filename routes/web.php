@@ -17,7 +17,7 @@ use App\Http\Controllers\Teacher\StudentController;
 */
 
 Route::get('/', function () {
-    return redirect(route('teacher.login'));
+    return redirect(route('login'));
 });
 Auth::routes();
 Route::namespace("Teacher")->prefix('teacher')->group(function(){
@@ -64,6 +64,27 @@ Route::namespace("Teacher")->prefix('teacher')->group(function(){
     // for Profile
     Route::get('/profile', [TeacherHomeController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/edit', [TeacherHomeController::class, 'profileUpdate'])->name('profile.update');
+});
+Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+    Route::get('/profile', [HomeController::class, 'editProfile'])->name('edit.profile');
+    Route::post('/update', [HomeController::class, 'updateProfile'])->name('update.profile');
+    Route::get('/marketing', [HomeController::class, 'marketing'])->name('marketer.marketing');
+    Route::get('/add/detail/{id}', [HomeController::class, 'addDetail'])->name('add.detail');
+    Route::get('/create/add', [HomeController::class, 'createAdd'])->name('create.add');
+    Route::post('/mach/audience', [HomeController::class, 'machAudience'])->name('audience');
+    Route::post('/create/save', [HomeController::class, 'saveAdd'])->name('save.add');
+    Route::post('/status/update/{id}', [HomeController::class, 'addStatusUpdate'])->name('addstatus.update');
+    #-------------------- marketer routes add by WOL-17------------------------------#
+    Route::get('/buycredits'  , [HomeController::class, 'buycreditslist'])->name('buyredits');
+    Route::get('/selectedpackage/{id}', [HomeController::class, 'selectedpackage'])->name('selected.package');
+    Route::get('/cancelpayfastrequest'  , [HomeController::class, 'cancelpayfastcreditrequest'])->name('payfast.cancel');
+    Route::get('/notify'  , [HomeController::class, 'notifypayfast']);
+    Route::get('/transactions', [HomeController::class, 'usertransactions'])->name('transactions');
+    Route::get('/transactiondetail/{id}', [HomeController::class, 'transactiondetail'])->name('transaction-detail');
+    Route::get('under-construction', [HomeController::class, 'underConstrut'])->name('under-cons');
+    Route::get('analytical/marketing', [HomeController::class, 'analyticalMarketing'])->name('analytical.marketing');
+    Route::get('marketing/compaign', [HomeController::class, 'marketingCompaign'])->name('marketing.report');
 });
 
 
