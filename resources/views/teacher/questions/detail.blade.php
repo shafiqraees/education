@@ -61,7 +61,7 @@
                                                         <option value="Unpublish" {{ ( $data->status == "Unpublish") ? 'selected' : '' }}>Unpublish</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-6 mt-1">
+                                                <div class="col-md-4 mt-1">
                                                     <label class="inline-block" for="sel1">Type</label>
                                                     <select class="form-control" aria-invalid="false" name="type" required>
                                                         <option value="Multiple Choice" {{ ( $data->type == "Multiple Choice") ? 'selected' : '' }}>Multiple Choice</option>
@@ -69,7 +69,7 @@
                                                         <option value="Short Answer" {{ ( $data->type == "Short Answer") ? 'selected' : '' }}>Short Answer</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-6 mt-1">
+                                                <div class="col-md-4 mt-1">
 
                                                     <div class="form-group ">
                                                         <label class="inline-block" for="sel1">Images</label>
@@ -86,6 +86,10 @@
 
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="col-md-4 mt-1">
+                                                    <label class="inline-block" for="sel1">Marks </label>
+                                                    <input type="text" name="marks" value="{{$data->marks}}" class="form-control heightinputs" id="basicInput" required>
                                                 </div>
 {{--
                                                 <img src="{{Storage::disk('public')->exists('xs/'.$data->image) ? Storage::disk('public')->url('xs/'.$data->image) : Storage::disk('public')->url('default.png')}}"  />

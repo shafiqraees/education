@@ -19,6 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->string('name');
             $table->text('questio_code')->nullable();
             $table->text('image')->nullable();
+            $table->string('marks')->nullable();
             $table->enum('type', ['Multiple Choice', 'True/False', 'Short Answer'])->default('Multiple Choice');
             $table->enum('status', ['Publish', 'Unpublish'])->default('Publish');
             $table->timestamps();

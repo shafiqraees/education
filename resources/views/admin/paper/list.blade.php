@@ -76,7 +76,7 @@
                                                                             <td>{{isset($row->question) ? count($row->question) : 0}} </td>
                                                                             <td>{{!empty($row->created_at->diffForHumans()) ? $row->created_at->diffForHumans() : ""}}</td>
                                                                             <td>
-                                                                                <a href="javascript:void(0)" class="btn btn-icon bg-dark white papers" data-id="{{$row->id}}" data-url="{{route('paper.destroy')}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="delete"><i class="la la-trash"></i></a>
+                                                                                <a href="javascript:void(0)" class="btn btn-icon bg-dark white papers" data-id="{{$row->id}}" data-url="{{route('admin.paper.destroy')}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="delete"><i class="la la-trash"></i></a>
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach

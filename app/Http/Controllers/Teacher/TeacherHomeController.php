@@ -97,6 +97,7 @@ class TeacherHomeController extends Controller
 
         $validated = $request->validate([
             'name' => 'required',
+            'marks' => 'required',
         ]);
 
         try {
@@ -109,6 +110,7 @@ class TeacherHomeController extends Controller
                 'name' => $request->name,
                 'teacher_id' => Auth::guard('teacher')->user()->id,
                 'status' => $request->status,
+                'marks' => $request->marks,
                 'type' => $request->type,
                 'image' => !empty($quiz_image) ? $quiz_image : "",
                 'questio_code' => Hash::make($request->name.time()),
@@ -198,6 +200,7 @@ class TeacherHomeController extends Controller
                     'name' => !empty($request->name) ? $request->name : $data->name,
                     'teacher_id' => Auth::guard('teacher')->user()->id,
                     'status' => !empty($request->status) ? $request->status : $data->status,
+                    'marks' => !empty($request->marks) ? $request->marks : $data->marks,
                     'type' => !empty($request->type) ? $request->type : $data->type,
                 ];
                 $data->update($cat_data);

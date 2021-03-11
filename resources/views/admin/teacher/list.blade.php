@@ -99,7 +99,7 @@
                                                                             <td>{{!empty($row->created_at->diffForHumans()) ? $row->created_at->diffForHumans() : ""}}</td>
                                                                             <td>
                                                                                 <a href="{{route('edit.admin.teacher',$row->id)}}" class="btn btn-icon bg-dark white" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="la la-pencil"></i></a>
-                                                                                <a href="javascript:void(0)" class="btn btn-icon bg-dark white students" data-id="{{$row->id}}" data-url="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="delete"><i class="la la-trash"></i></a>
+                                                                                <a href="javascript:void(0)" class="btn btn-icon bg-dark white teachers" data-id="{{$row->id}}" data-url="{{route('delete.admin.teacher')}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="delete"><i class="la la-trash"></i></a>
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach

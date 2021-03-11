@@ -10,6 +10,7 @@ use App\Models\LaunchQuiz;
 use App\Models\Question;
 use App\Models\Teacher;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -189,6 +190,30 @@ class HomeController extends Controller
         } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors(['Sorry Record not found.']);
+        }
+    }
+
+    /**
+     * delete the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteTeacher(Request $request)
+    {
+        try {
+            $ques= Teacher::find($request->id);
+            if ($ques) {
+                $data = $ques->delete();
+                return $this->apiResponse(JsonResponse::HTTP_OK, 'data', $data);
+            } else {
+                return $this->apiResponse(JsonResponse::HTTP_NOT_FOUND, 'message', 'Question not found');
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
         }
     }
     /**

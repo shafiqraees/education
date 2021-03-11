@@ -65,7 +65,7 @@
                                                         <option value="Unpublish">Unpublish</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-6 mt-1">
+                                                <div class="col-md-4 mt-1">
                                                     <label class="inline-block" for="sel1">Type</label>
                                                     <select class="form-control" id="test_type" aria-invalid="false" name="type" required>
                                                         <option value="Multiple Choice">Multiple Choice</option>
@@ -73,7 +73,7 @@
                                                         <option value="Short Answer">Short Answer</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-6 mt-1">
+                                                <div class="col-md-4 mt-1">
                                                     <div class="form-group ">
                                                         <label class="inline-block" for="sel1">Image</label>
                                                         <div class="input-group">
@@ -87,6 +87,11 @@
                                                             <input type="file" name="photo" class="form-control heightinputs errormessage " accept="image/*">
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="col-md-4 mt-1">
+                                                    <label class="inline-
+                                                    block" for="sel1">Marks</label>
+                                                    <input type="text" name="marks" class="form-control heightinputs" placeholder="Please enter marks here" id="basicInput" required>
                                                 </div>
                                                 <div class="col-md-6 mt-1 ShortAnswer" style="display: none">
                                                     <label class="inline-block" for="sel1">Short Answer</label>
