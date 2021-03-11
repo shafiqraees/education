@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\ClassRoom;
+use App\Models\LaunchQuiz;
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -23,6 +31,66 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        try {
+            return view('user.dashboard');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('home'))->withErrors('Sorry record not found.');
+        }
+    }
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function editProfile() {
+        try {
+            $user = Auth::user();
+            return view('user.home.profile',compact('user',));
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors('Sorry Record not found');
+        }
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProfile(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+        if(!empty($request->Password)){
+            $validated = $request->validate([
+                'password_confirmation' => 'required|same:Password',
+            ]);
+        }
+        try {
+
+            $id = Auth::user()->id;
+            $user = User::find($id);
+            if ($request->hasFile('profile_pic')){
+                UpdateImageAllSizes($request, 'profile/', $user->profile_photo_path);
+                $path = 'profile/'.$request->profile_pic->hashName();
+            }
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => !empty($request->password) ? bcrypt($request->password) : $user->password,
+                'org_password' => !empty($request->password) ? $request->password : $user->password,
+                'profile_photo_path' => !empty($path) ? $path : $user->profile_photo_path,
+            ];
+            $user->update($data);
+            //return redirect(route('profile.edit', $user))->with('success', 'Profile updated successfully.');
+            return Redirect::back()->with('success','Profile updated successfully');
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors('Sorry Record not found');
+        }
     }
 }

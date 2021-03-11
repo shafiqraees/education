@@ -65,9 +65,6 @@ Route::namespace("Teacher")->prefix('teacher')->group(function(){
     Route::get('/profile', [TeacherHomeController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/edit', [TeacherHomeController::class, 'profileUpdate'])->name('profile.update');
 });
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-});
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'adminLogin'])->name('admin.login.submit');
@@ -103,6 +100,11 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin'], function () 
     Route::get('/paper', [\App\Http\Controllers\Admin\StudentController::class, 'papers'])->name('admin.all.paper');
     Route::get('/launch/papers', [\App\Http\Controllers\Admin\StudentController::class, 'launchPapers'])->name('admin.launch.paper');
     Route::delete('/delete/paper', [\App\Http\Controllers\Admin\StudentController::class, 'deletePaper'])->name('admin.paper.destroy');
+});
+Route::group(['middleware' => ['auth'], 'prefix' => 'student'], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/profile', [HomeController::class, 'editProfile'])->name('user.edit.profile');
+    Route::post('/profile', [HomeController::class, 'updateProfile'])->name('user.update.profile');
 });
 
 
