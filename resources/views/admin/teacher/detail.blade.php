@@ -1,16 +1,16 @@
-@extends('admin.layouts.main')
+@extends('teacher.layouts.main')
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">Interest</h3>
+                    <h3 class="content-header-title mb-0 d-inline-block">Stdents</h3>
                     <div class="row breadcrumbs-top d-inline-block">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admindashboard')}}">Dashboard</a> </li>
-                                <li class="breadcrumb-item"><a href="{{route('topic_list')}}">Topics</a> </li>
-                                <li class="breadcrumb-item active">Topic edit </li>
+                                <li class="breadcrumb-item"><a href="{{route('teacher.home')}}">Dashboard</a> </li>
+                                <li class="breadcrumb-item"><a href="{{route('all.students')}}">Questions</a> </li>
+                                <li class="breadcrumb-item active">Stdent edit </li>
                             </ol>
                         </div>
                     </div>
@@ -37,14 +37,15 @@
                 </div>
             @endif
             <div class="content-body">
-                <form class="form-horizontal" id="formsss" method="post" action="{{route('topic_update',$data->id)}}" name="specifycontent" enctype="multipart/form-data">
+                <form class="form-horizontal" id="formsss" method="post" action="{{route('update.student',$data->id)}}" name="specifycontent" enctype="multipart/form-data">
                     @csrf
                     <section id="card-bordered-options">
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <div class="card box-shadow-0 border-dark">
                                     <div class="card-header card-head-inverse bg-dark">
-                                        <h4 class="card-title text-white">Update Interest</h4>
+                                        <h4 class="card-title text-white">Update Stdent</h4>
+{{--                                        <h4 class="card-title text-white" style="float: right">{{$data->id}}</h4>--}}
                                     </div>
                                     <div class="card-content collapse show">
                                         <div class="card-body">
@@ -54,16 +55,42 @@
                                                     <input type="text" name="name" value="{{$data->name}}" class="form-control heightinputs" id="basicInput" required>
                                                 </div>
                                                 <div class="col-md-6 mt-1">
+                                                    <label class="inline-block" for="sel1">Email </label>
+                                                    <input type="email" name="email" value="{{$data->email}}" class="form-control heightinputs" id="basicInput" readonly>
+                                                </div>
+                                                <div class="col-md-6 mt-1">
+                                                    <label class="inline-block" for="sel1">Password </label>
+                                                    <input type="password" name="password"  class="form-control heightinputs" id="basicInput">
+                                                </div>
+                                                <div class="col-md-6 mt-1">
+                                                    <label class="inline-block" for="sel1">Confirm Password</label>
+                                                    <input type="password" name="password_confirmation"  class="form-control heightinputs" id="basicInput">
+                                                </div>
+                                                <div class="col-md-6 mt-1">
+                                                    <label class="inline-block" for="sel1">Roll Number</label>
+                                                    <input type="text" name="roll_number" value="{{$data->roll_number}}" class="form-control heightinputs" id="basicInput" readonly>
+                                                </div>
+
+                                                <div class="col-md-6 mt-1">
+                                                    <label class="inline-block" for="sel1">Calss Room</label>
+                                                    <select class="form-control" id="test_type" aria-invalid="false" name="class_room" required>
+                                                        <option value="">Select Calss Room</option>
+                                                            @foreach($class as $name)
+                                                                <option value="{{  $name->id }}" {{ ( $data->class_room_id == $name->id) ? 'selected' : '' }}>{{  $name->name }}</option>
+                                                            @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 mt-1">
                                                     <label class="inline-block" for="sel1">Status</label>
                                                     <select class="form-control" aria-invalid="false" name="status" required>
-                                                        <option value="Publish" {{ ( $data->status == "Publish") ? 'selected' : '' }}>Publish</option>
-                                                        <option value="Unpublish" {{ ( $data->status == "Unpublish") ? 'selected' : '' }}>Unpublish</option>
+                                                        <option value="true" {{ ( $data->is_active == "true") ? 'selected' : '' }}>Active</option>
+                                                        <option value="false" {{ ( $data->is_active == "false") ? 'selected' : '' }}>DeActive</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6 mt-1">
 
                                                     <div class="form-group ">
-                                                        <label class="inline-block" for="sel1">Images</label>
+                                                        <label class="inline-block" for="sel1">Image</label>
 
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
@@ -73,14 +100,11 @@
                                                             </div>
                                                                     </span>
                                                             </div>
-                                                            <input type="file" name="profile_pic"  id="basicInputfiled" class="form-control  heightinputs errormessage " name="bannerupload" accept="image/*" required>
-
+                                                            <input type="file" name="profile_pic"  id="basicInputfiled" class="form-control  heightinputs errormessage " accept="image/*">
                                                         </div>
-                                                    </div>
 
-                                                </div>
-                                                <div class="col-md-6 mt-3">
-                                                    <img src="{{Storage::disk('s3')->exists('xs/'.$data->image) ? Storage::disk('s3')->url('xs/'.$data->image) : Storage::disk('s3')->url('default.png')}}" />
+                                                        <a href="{{Storage::disk('public')->exists('lg/'.$data->profile_photo_path) ? Storage::disk('public')->url('lg/'.$data->profile_photo_path) : Storage::disk('public')->url('default.png')}}" target="_blank">  <img class="pt-2" src="{{Storage::disk('public')->exists('xs/'.$data->profile_photo_path) ? Storage::disk('public')->url('xs/'.$data->profile_photo_path) : Storage::disk('public')->url('default.png')}}"></a>
+                                                    </div>
                                                 </div>
                                             </fieldset>
                                             <div class="form-actions float-right mt-0 pt-0 buttonbordertop">

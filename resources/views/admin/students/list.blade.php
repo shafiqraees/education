@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('teacher.layouts.main')
 <style>
     .dataTables_filter{
         display: none;
@@ -9,12 +9,12 @@
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">Users</h3>
+                    <h3 class="content-header-title mb-0 d-inline-block">Students</h3>
                     <div class="row breadcrumbs-top d-inline-block">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admindashboard')}}">Dashboard</a> </li>
-                                <li class="breadcrumb-item active">Users </li>
+                                <li class="breadcrumb-item"><a href="{{route('teacher.home')}}">Dashboard</a> </li>
+                                <li class="breadcrumb-item active">Students </li>
                             </ol>
                         </div>
                     </div>
@@ -39,45 +39,43 @@
                         <div class="card">
                             <div class="card-content collapse show">
                                 <div class="card-body">
-                                    <form name="search" action="{{route('alluser')}}"method="get">
-                                        <div class="row">
-                                            <div class="col-md-5 mb-1">
-                                                <fieldset>
-                                                    <div class="input-group">
-                                                        <input type="text" name="keyword" value="{{old('keyword', request('keyword'))}}" class="form-control heightinputs" placeholder="Search" aria-describedby="button-addon4">
-                                                        <div class="input-group-append">
-                                                        </div>
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-xl-5 col-md-5 ">
-                                                <div class="form-group">
-                                                    <fieldset class="form-group">
-                                                        <input class="form-control heightinputs" value="{{old('date', request('date'))}}" name="date" id="datefield" type="date" ></input>
-                                                    </fieldset>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-2 col-md-2">
-                                                <button type="cancel" class="btn btn-dark heightinputs refresh_btn"> <i class="fonticon-classname"></i> Refresh </button>
-                                                <button type="submit" class="btn btn-dark heightinputs"> <i class="fonticon-classname"></i> Filter </button>
-                                            </div>
-
+                                    <div class="row">
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="form-actions"> <a href="{{ route('create.student')}}" class="btn btn-social btn-dark btn-dark text-center mt-1 pr-1"> <span class="la la-plus font-medium-3"></span> Add New student</a> </div>
                                         </div>
-                                    </form>
+                                    </div>
+                                    <br>
                                     <section id="basic-form-layouts">
                                         <div class="row match-height">
                                             <div class="col-12">
                                                 <div class="card">
                                                     <div class="card-content collapse show">
+                                                        {{--<form name="search" action="{{route('all.queston')}}"method="get">
+                                                            <div class="row">
+                                                                <div class="col-md-10 mb-1">
+                                                                    <fieldset>
+                                                                        <div class="input-group">
+                                                                            <input type="text" name="keyword" value="{{old('keyword', request('keyword'))}}" class="form-control heightinputs" placeholder="Search" aria-describedby="button-addon4">
+                                                                        </div>
+                                                                    </fieldset>
+                                                                </div>
+
+                                                                <div class="col-xl-2 col-md-2">
+                                                                    <button type="submit" class="btn btn-dark heightinputs"> <i class="fonticon-classname"></i> Filter </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </form>--}}
                                                         <div class="card-dashboard filter_hide">
                                                             <table class="table table-striped table-bordered zero-configuration">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>Id</th>
                                                                     <th>Name</th>
-                                                                    <th>Email </th>
-                                                                    <th>Buisness</th>
-                                                                    <th>Created at</th>
+                                                                    <th>Email</th>
+                                                                    <th>Class </th>
+                                                                    <th>Status</th>
+                                                                    <th>Created Date</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                                 </thead>
@@ -88,10 +86,19 @@
                                                                             <td>{{$row->id}} </td>
                                                                             <td>{{$row->name}} </td>
                                                                             <td>{{$row->email}} </td>
-                                                                            <td>{{$row->profiles_count}} </td>
-                                                                            <td>{{date('d M Y',strtotime($row->created_at))}}</td>
+                                                                            <td>{{isset($row->className->name) ? $row->className->name : ""}} </td>
                                                                             <td>
-                                                                                <a href="{{route('selected.userdetail',$row->id)}}" class="btn btn-icon bg-dark white" data-toggle="tooltip" data-placement="top" title="" data-original-title="View User detail"><i class="ft-user"></i></a>
+                                                                                @if($row->is_active=="true")
+                                                                                    <span class="badge badge-default badge-success">Actice</span>
+                                                                                @elseif($row->is_active=="false")
+                                                                                    <span class="badge badge-default badge-warning">DeActive </span>
+                                                                                @endif
+                                                                            </td>
+                                                                            <td>{{!empty($row->created_at->diffForHumans()) ? $row->created_at->diffForHumans() : ""}}</td>
+                                                                            <td>
+                                                                                <a href="{{route('edit.student',$row->id)}}" class="btn btn-icon bg-dark white" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="la la-pencil"></i></a>
+
+                                                                                <a href="javascript:void(0)" class="btn btn-icon bg-dark white students" data-id="{{$row->id}}" data-url="{{route('delete.student')}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="delete"><i class="la la-trash"></i></a>
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach

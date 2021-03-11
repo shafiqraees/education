@@ -29,7 +29,10 @@ class RedirectIfAuthenticated
                     } elseif($guard == "teacher") {
                         //teacher guard.
                         return redirect()->route('teacher.home');
-                    } else {
+                    } elseif($guard == "user") {
+                //teacher guard.
+                return redirect()->route('home');
+            } else {
                 //default guard.
                 return redirect()->route('home');
             }

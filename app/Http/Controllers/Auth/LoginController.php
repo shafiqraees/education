@@ -38,10 +38,10 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('guest:admin')->except('logout');
-        $this->middleware('guest:teacher')->except('logout');
+       /* $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:teacher')->except('logout');*/
     }
-    public function showAdminLoginForm()
+    /*public function showAdminLoginForm()
     {
         return view('auth.login', ['url' => '/admin/login']);
     }
@@ -75,5 +75,5 @@ class LoginController extends Controller
             return redirect()->intended('/teacher');
         }
         return back()->withInput($request->only('email', 'remember'));
-    }
+    }*/
 }

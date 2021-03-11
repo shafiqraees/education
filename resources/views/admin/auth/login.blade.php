@@ -14,9 +14,11 @@
                                     </div>
                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"> <span>Login with Education portal</span> </h6>
                                 </div>
+
                                 <div class="card-content">
                                     <div class="card-body">
                                         @if ($errors->any())
+
                                             <div class="alert alert-danger">
                                                 <ul>
                                                     @foreach ($errors->all() as $error)
@@ -39,7 +41,7 @@
                                             </div>
 
                                         @endif
-                                        <form id="login-form" method="POST" name="registration" action="{{ route('login') }}">
+                                        <form id="login-form" method="POST" name="registration" action="{{ route('admin.login.submit') }}">
                                             @csrf
                                             <fieldset class="form-group position-relative has-icon-left login_admin_error">
                                                 <input type="email" name="email" class="form-control form-control-lg input-lg" id="email" placeholder="Your Email">

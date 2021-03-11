@@ -17,12 +17,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        dd('here');
-        $currrent_id = Auth::guard('teacher')->user()->id;
-        $data = Question::whereTeacherId($currrent_id)->whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
-        dd($currrent_id);
-        try {
 
+        try {
+            $currrent_id = Auth::guard('teacher')->user()->id;
             $data = Question::whereTeacherId($currrent_id)->whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
             return view('teacher.questions.list', compact('data'));
 
