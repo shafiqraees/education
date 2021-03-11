@@ -74,8 +74,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/logout', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
 });
 Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin'], function () {
-    Route::get('/home', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
-    Route::get('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'editProfile'])->name('admin.edi.profile');
+    Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
+    Route::get('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'editProfile'])->name('admin.edit.profile');
+    Route::post('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'updateProfile'])->name('admin.update.profile');
     Route::get('teacher', [\App\Http\Controllers\Admin\HomeController::class, 'allTeachers'])->name('admin.teacher');
     Route::get('add/teacher', [\App\Http\Controllers\Admin\HomeController::class, 'createTeacher'])->name('admin.teacher.create');
     Route::post('/save/teacher', [\App\Http\Controllers\Admin\HomeController::class, 'storeTeacher'])->name('save.admin.teacher');

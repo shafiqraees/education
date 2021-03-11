@@ -14,10 +14,10 @@
                 </ul>
                 <ul class="nav navbar-nav float-right">
                     <li class="dropdown dropdown-user nav-item"> <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"> <span class="mr-1">Welcome, <span class="user-name text-bold-700">{{Auth::guard('admin')->user()->name}}</span> </span> <span class="avatar avatar-online"> <img class="img-fluid user_imge"  src="{{Storage::disk('public')->exists('md/'.Auth::guard('admin')->user()->profile_photo_path) ? Storage::disk('public')->url('md/'.Auth::guard('admin')->user()->profile_photo_path) : Storage::disk('public')->url('default.png')}}" alt="avatar"></span> </a>
-                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{route('admin.edi.profile')}}"><i class="ft-user"></i> Edit Profile</a>
+                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{route('admin.edit.profile')}}"><i class="ft-user"></i> Edit Profile</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('logout') }}"onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();"><i class="ft-power"></i> Logout</a><form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            <a class="dropdown-item" href="{{ route('admin.logout') }}"onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"><i class="ft-power"></i> Logout</a><form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </div>

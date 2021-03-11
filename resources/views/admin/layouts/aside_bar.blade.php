@@ -31,7 +31,7 @@
             <li class=" nav-item"><a href="{{ route('admin.logout') }}"
                                      onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
-                    <i class="ft-power"></i><span class="menu-title" data-i18n="nav.morris_charts.main">Signout</span></a> <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    <i class="ft-power"></i><span class="menu-title" data-i18n="nav.morris_charts.main">Signout</span></a> <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
             </li>

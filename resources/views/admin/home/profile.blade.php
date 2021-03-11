@@ -8,7 +8,7 @@
                     <div class="row breadcrumbs-top d-inline-block">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admindashboard')}}">Dashboard</a> </li>
+                                <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Dashboard</a> </li>
                                 <li class="breadcrumb-item active">Profile</li>
                             </ol>
                         </div>
@@ -50,7 +50,7 @@
                                             <label for="imageUpload"></label>
                                         </div>
                                         <div class="avatar-preview">
-                                            <div id="imagePreview" style="background-image: url({{Storage::disk('s3')->exists('md/'.$user->profile_photo_path) ? Storage::disk('s3')->url('md/'.$user->profile_photo_path) : Storage::disk('s3')->url('default.png')}});">
+                                            <div id="imagePreview" style="background-image: url({{Storage::disk('public')->exists('md/'.$user->profile_photo_path) ? Storage::disk('public')->url('md/'.$user->profile_photo_path) : Storage::disk('public')->url('default.png')}});">
                                             </div>
                                             <h4 class="card-title mt-2 mb-0">{{$user->name}}</h4>
                                         </div>
