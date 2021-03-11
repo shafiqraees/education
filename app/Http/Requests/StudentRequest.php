@@ -27,7 +27,7 @@ class StudentRequest extends FormRequest
             'name' => 'required',
             'password' => 'required|confirmed|min:6',
             'email' => 'unique:users',
-            'phone' => 'required',
+            'roll_number' => 'required',
         ];
     }
 }

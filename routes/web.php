@@ -74,7 +74,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/logout', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
 });
 Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin'], function () {
-    Route::get('/home', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');    Route::get('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'editProfile'])->name('admin.edi.profile');
+    Route::get('/home', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
     Route::get('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'editProfile'])->name('admin.edi.profile');
     Route::get('teacher', [\App\Http\Controllers\Admin\HomeController::class, 'allTeachers'])->name('admin.teacher');
     Route::get('add/teacher', [\App\Http\Controllers\Admin\HomeController::class, 'createTeacher'])->name('admin.teacher.create');
@@ -82,6 +82,26 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin'], function () 
     Route::get('/edit/teacher/{id}', [\App\Http\Controllers\Admin\HomeController::class, 'editTeacher'])->name('edit.admin.teacher');
     Route::post('/edit/teacher/{id}', [\App\Http\Controllers\Admin\HomeController::class, 'updateTeacher'])->name('update.admin.teacher');
     Route::delete('/delete/teacher', [\App\Http\Controllers\Admin\HomeController::class, 'deleteTeacher'])->name('delete.admin.teacher');
+
+    // for Students
+    Route::get('/students', [\App\Http\Controllers\Admin\StudentController::class, 'students'])->name('admin.all.students');
+    Route::get('/create/student', [\App\Http\Controllers\Admin\StudentController::class, 'createStudent'])->name('admin.create.student');
+    Route::post('/save/student', [\App\Http\Controllers\Admin\StudentController::class, 'storeStudent'])->name('admin.save.student');
+    Route::get('/edit/student/{id}', [\App\Http\Controllers\Admin\StudentController::class, 'editStudent'])->name('admin.edit.student');
+    Route::post('/edit/student/{id}', [\App\Http\Controllers\Admin\StudentController::class, 'updateStudent'])->name('admin.update.student');
+    Route::delete('/delete/student', [\App\Http\Controllers\Admin\StudentController::class, 'deleteStudent'])->name('admin.delete.student');
+
+    // for calss rooms
+    Route::get('/classrooms', [\App\Http\Controllers\Admin\StudentController::class, 'classRooms'])->name('admin.class.room');
+    Route::get('/create/classrooms', [\App\Http\Controllers\Admin\StudentController::class, 'createClassRooms'])->name('admin.create.class.room');
+    Route::post('/save/classrooms', [\App\Http\Controllers\Admin\StudentController::class, 'storeClassRooms'])->name('admin.save.class.room');
+    Route::get('/edit/classrooms/{id}', [\App\Http\Controllers\Admin\StudentController::class, 'editClassRooms'])->name('admin.edit.class.room');
+    Route::post('/edit/classrooms/{id}', [\App\Http\Controllers\Admin\StudentController::class, 'updateClassRooms'])->name('admin.update.class.room');
+    Route::delete('/delete/classrooms', [\App\Http\Controllers\Admin\StudentController::class, 'deleteClassRooms'])->name('admin.delete.class.room');
+    // for Students
+    Route::get('/paper', [\App\Http\Controllers\Admin\StudentController::class, 'papers'])->name('admin.all.paper');
+    Route::get('/launch/papers', [\App\Http\Controllers\Admin\StudentController::class, 'launchPapers'])->name('admin.launch.paper');
+    Route::delete('/delete/paper', [\App\Http\Controllers\Admin\StudentController::class, 'deletePaper'])->name('admin.paper.destroy');
 });
 
 

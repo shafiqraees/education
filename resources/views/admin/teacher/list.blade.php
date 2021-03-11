@@ -74,7 +74,7 @@
                                                                     <th>Name</th>
                                                                     <th>Email</th>
                                                                     <th>Phone</th>
-                                                                    <th>Address</th>
+                                                                    <th>Gender</th>
                                                                     <th>Status</th>
                                                                     <th>Created Date</th>
                                                                     <th>Action</th>
@@ -88,7 +88,7 @@
                                                                             <td>{{$row->name}} </td>
                                                                             <td>{{$row->email}} </td>
                                                                             <td>{{$row->phone}} </td>
-                                                                            <td>{{$row->address}} </td>
+                                                                            <td>{{$row->gender}} </td>
                                                                             <td>
                                                                                 @if($row->is_active=="true")
                                                                                     <span class="badge badge-default badge-success">Actice</span>
@@ -98,7 +98,7 @@
                                                                             </td>
                                                                             <td>{{!empty($row->created_at->diffForHumans()) ? $row->created_at->diffForHumans() : ""}}</td>
                                                                             <td>
-                                                                                <a href="#" class="btn btn-icon bg-dark white" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="la la-pencil"></i></a>
+                                                                                <a href="{{route('edit.admin.teacher',$row->id)}}" class="btn btn-icon bg-dark white" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="la la-pencil"></i></a>
                                                                                 <a href="javascript:void(0)" class="btn btn-icon bg-dark white students" data-id="{{$row->id}}" data-url="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="delete"><i class="la la-trash"></i></a>
                                                                             </td>
                                                                         </tr>

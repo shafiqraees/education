@@ -9,4 +9,12 @@ class QuestionPaper extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function teacher() {
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function question() {
+        return $this->hasMany(QuestonPapersQuestion::class);
+    }
 }

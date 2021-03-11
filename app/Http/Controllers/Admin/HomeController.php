@@ -95,30 +95,92 @@ class HomeController extends Controller
      */
     public function storeTeacher(StudentRequest $request)
     {
-
         try {
             if($request->hasFile('image')){
                 SaveImageAllSizes($request, 'profile/');
                 $path = 'profile/'.$request->image->hashName();
             }
             DB::beginTransaction();
-            $class_data = [
+            $data = [
                 'name' => $request->name,
                 'email' => $request->email,
-                'class_room_id' => $request->class_room,
-                'roll_number' => $request->roll_number,
                 'is_active' => $request->status,
+                'phone' => $request->phone,
+                'gender' => $request->gender,
                 'password' => bcrypt($request->password),
                 'org_password' => $request->password,
                 'profile_photo_path' => !empty($path) ? $path : "",
             ];
-            $data =  User::create($class_data);
+            Teacher::create($data);
             DB::commit();
-            return redirect(route('all.students'))->with('success', 'Class Room added successfully.');
+            return redirect(route('admin.teacher'))->with('success', 'Teacher added successfully.');
 
         } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');
+        }
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editTeacher($id)
+    {
+
+        try {
+            $data = Teacher::find($id);
+            if ($data) {
+                return view('admin.teacher.detail',compact('data'));
+            } else {
+                return Redirect::back()->withErrors('Sorry teacher not found');
+            }
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors('Sorry Record not found');
+        }
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateTeacher(Request $request, $id)
+    {
+        if(!empty($request->password)){
+            $validated = $request->validate([
+                'password_confirmation' => 'required|same:password',
+            ]);
+        }
+        try {
+            $data = Teacher::find($id);
+            if ($data) {
+                if($request->hasFile('profile_pic')){
+                    UpdateImageAllSizes($request, 'profile/', $data->profile_photo_path);
+                    $path = 'profile/'.$request->profile_pic->hashName();
+                }
+                DB::beginTransaction();
+                $user_data = [
+                    'name' => !empty($request->name) ? $request->name : $data->name,
+                    'is_active' => !empty($request->status) ? $request->status : $data->is_active,
+                    'phone' => !empty($request->phone) ? $request->phone : $data->phone,
+                    'gender' => !empty($request->gender) ? $request->gender : $data->gender,
+                    'password' => !empty($request->password) ? bcrypt($request->password) : $data->password,
+                    'org_password' => !empty($request->password) ? $request->password : $data->password,
+                    'profile_photo_path' => !empty($path) ? $path : "",
+                ];
+                $data->update($user_data);
+                DB::commit();
+                return redirect(route('admin.teacher'))->with('success', 'Teacher updated successfully.');
+            } else {
+                return Redirect::back()->withErrors(['Sorry student not found.']);
+            }
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors(['Sorry Record not found.']);
         }
     }
 }

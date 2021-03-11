@@ -1,16 +1,21 @@
-@extends('teacher.layouts.main')
+@extends('admin.layouts.main')
+<style>
+    .dataTables_filter{
+        display: none;
+    }
+</style>
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">Stdents</h3>
+                    <h3 class="content-header-title mb-0 d-inline-block">Students</h3>
                     <div class="row breadcrumbs-top d-inline-block">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('teacher.home')}}">Dashboard</a> </li>
-                                <li class="breadcrumb-item"><a href="{{route('all.students')}}">Questions</a> </li>
-                                <li class="breadcrumb-item active">Stdent edit </li>
+                                <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Dashboard</a> </li>
+                                <li class="breadcrumb-item"><a href="{{route('admin.all.students')}}">Stdents</a> </li>
+                                <li class="breadcrumb-item active">Student edit </li>
                             </ol>
                         </div>
                     </div>
@@ -37,7 +42,7 @@
                 </div>
             @endif
             <div class="content-body">
-                <form class="form-horizontal" id="formsss" method="post" action="{{route('update.student',$data->id)}}" name="specifycontent" enctype="multipart/form-data">
+                <form class="form-horizontal" id="formsss" method="post" action="{{route('admin.update.student',$data->id)}}" name="specifycontent" enctype="multipart/form-data">
                     @csrf
                     <section id="card-bordered-options">
                         <div class="row">

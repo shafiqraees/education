@@ -419,6 +419,7 @@ class TeacherHomeController extends Controller
                 'password' => bcrypt($request->password),
                 'org_password' => $request->password,
                 'profile_photo_path' => !empty($path) ? $path : "",
+                'teacher_id' => Auth::guard('teacher')->user()->id,
             ];
             $data =  User::create($class_data);
             DB::commit();

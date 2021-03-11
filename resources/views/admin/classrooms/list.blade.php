@@ -9,12 +9,12 @@
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">Students</h3>
+                    <h3 class="content-header-title mb-0 d-inline-block">Class Rooms</h3>
                     <div class="row breadcrumbs-top d-inline-block">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Dashboard</a> </li>
-                                <li class="breadcrumb-item active">Students </li>
+                                <li class="breadcrumb-item active">Class Room</li>
                             </ol>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-xl-3 col-md-6">
-                                            <div class="form-actions"> <a href="{{ route('admin.create.student')}}" class="btn btn-social btn-dark btn-dark text-center mt-1 pr-1"> <span class="la la-plus font-medium-3"></span> Add New student</a> </div>
+                                            <div class="form-actions"> <a href="{{ route('admin.create.class.room')}}" class="btn btn-social btn-dark btn-dark text-center mt-1 pr-1"> <span class="la la-plus font-medium-3"></span> Add New Class Room</a> </div>
                                         </div>
                                     </div>
                                     <br>
@@ -71,10 +71,9 @@
                                                                 <thead>
                                                                 <tr>
                                                                     <th>Id</th>
-                                                                    <th>Name</th>
-                                                                    <th>Email</th>
-                                                                    <th>Class </th>
-                                                                    <th>Status</th>
+                                                                    <th>Title</th>
+                                                                    <th>Class Code</th>
+                                                                    <th>Status </th>
                                                                     <th>Created Date</th>
                                                                     <th>Action</th>
                                                                 </tr>
@@ -85,20 +84,18 @@
                                                                         <tr>
                                                                             <td>{{$row->id}} </td>
                                                                             <td>{{$row->name}} </td>
-                                                                            <td>{{$row->email}} </td>
-                                                                            <td>{{isset($row->className->name) ? $row->className->name : ""}} </td>
+                                                                            <td>{{$row->class_code}} </td>
                                                                             <td>
-                                                                                @if($row->is_active=="true")
-                                                                                    <span class="badge badge-default badge-success">Actice</span>
-                                                                                @elseif($row->is_active=="false")
-                                                                                    <span class="badge badge-default badge-warning">DeActive </span>
+                                                                                @if($row->status=="Publish")
+                                                                                    <span class="badge badge-default badge-success">Publish</span>
+                                                                                @elseif($row->status=="Unpublish")
+                                                                                    <span class="badge badge-default badge-warning">Unpublish </span>
                                                                                 @endif
                                                                             </td>
-                                                                            <td>{{!empty($row->created_at->diffForHumans()) ? $row->created_at->diffForHumans() : ""}}</td>
+                                                                            <td>{{ $row->created_at->diffForHumans() }}</td>
                                                                             <td>
-                                                                                <a href="{{route('admin.edit.student',$row->id)}}" class="btn btn-icon bg-dark white" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="la la-pencil"></i></a>
-
-                                                                                <a href="javascript:void(0)" class="btn btn-icon bg-dark white students" data-id="{{$row->id}}" data-url="{{route('admin.delete.student')}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="delete"><i class="la la-trash"></i></a>
+                                                                                <a href="{{route('admin.edit.class.room',$row->id)}}" class="btn btn-icon bg-dark white" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="la la-pencil"></i></a>
+                                                                                <a href="javascript:void(0)" class="btn btn-icon bg-dark white classroom" data-id="{{$row->id}}" data-url="{{route('admin.delete.class.room')}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="delete"><i class="la la-trash"></i></a>
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
