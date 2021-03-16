@@ -12,4 +12,8 @@ class Teacher extends Authenticatable
     use HasFactory, Notifiable;
     protected $guarded = [];
     protected $guard = 'teacher';
+
+    public function subAdmin() {
+        return $this->belongsTo(SubAdmin::class);
+    }
 }

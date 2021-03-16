@@ -1,126 +1,112 @@
 @extends('admin.layouts.main')
-<style>
-   /* .dataTables_filter{
-        display: none;
-    }*/
-</style>
 @section('content')
-    <div class="app-content content">
-        <div class="content-wrapper">
-            <div class="content-header row">
-                <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">Teachers</h3>
-                    <div class="row breadcrumbs-top d-inline-block">
-                        <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Dashboard</a> </li>
-                                <li class="breadcrumb-item"><a href="{{route('admin.teacher')}}">Teachers</a> </li>
-                                <li class="breadcrumb-item active">Teacher Create </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @if (session()->has('success'))
-                <div class="alert alert-success"> @if(is_array(session('success')))
-                        <ul>
-                            @foreach (session('success') as $message)
-                                <li>{{ $message }}</li>
-                            @endforeach
-                        </ul>
-                    @else
-                        {{ session('success') }}
-                    @endif </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
+    <div class="container-fluid">
+        @if (session()->has('success'))
+            <div class="alert alert-success"> @if(is_array(session('success')))
                     <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
                         @endforeach
                     </ul>
-                </div>
-            @endif
-            <div class="content-body">
-                <form class="form-horizontal"id="quiz" name="quiz" method="post" action="{{route('save.admin.teacher')}}"  enctype="multipart/form-data">
+                @else
+                    {{ session('success') }}
+                @endif </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <div class="row">
+            <div class="col-md-12">
+                <form id="LoginValidation" action="{{route('teacher.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <section id="card-bordered-options">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12">
-                                <div class="card box-shadow-0 border-dark">
-                                    <div class="card-header card-head-inverse bg-dark">
-                                        <h4 class="card-title text-white">Create Teacher</h4>
-                                        {{-- <h4 class="card-title text-white" style="float: right">{{$quiz_number}}</h4>--}}
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">contacts</i>
+                            </div>
+                            <h4 class="card-title">Create Teacher Form</h4>
+                        </div>
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Name *</label>
+                                        <input type="text" class="form-control" id="name" required="true" name="name">
                                     </div>
-                                    <div class="card-content collapse show">
-                                        <div class="card-body">
-
-                                            <fieldset class="form-group row" id="extrafileds">
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-
-                                                    block" for="sel1">Name</label>
-                                                    <input type="text" name="name" class="form-control heightinputs " id="basicInput" required>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">email</label>
-                                                    <input type="email" name="email" class="form-control heightinputs " id="basicInput" required>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">password</label>
-                                                    <input type="password" name="password" class="form-control heightinputs " id="basicInput" required>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Confirm Password</label>
-                                                    <input type="password" name="password_confirmation" class="form-control heightinputs " id="basicInput" required>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Phone</label>
-                                                    <input type="tel" name="phone" class="form-control heightinputs " id="basicInput" required>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Gender</label>
-                                                    <select class="form-control" id="test_type" aria-invalid="false" name="gender" required>
-                                                        <option value="">Select Gender</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Status</label>
-                                                    <select class="form-control" id="test_type" aria-invalid="false" name="status" >
-                                                        <option value="true">Active</option>
-                                                        <option value="false">DeActive</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <div class="form-group ">
-                                                        <label class="inline-block" for="sel1">Image</label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                    <span class="input-group-text bg-dark border-dark white" id="basic-addon7 fonticon-container">
-                                                            <div class="fonticon-wrap">
-                                                                <i class="ft-image"></i>
-                                                            </div>
-                                                                    </span>
-                                                            </div>
-                                                            <input type="file" name="image" class="form-control heightinputs errormessage " accept="image/*">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                            <div class="form-actions float-right mt-0 pt-0 buttonbordertop">
-                                                <button type="submit" value="submit" class="btn btn-social btn-dark btn-dark text-center  pr-1"> <span class="la la-check font-medium-3"></span> Create </button>
-                                            </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="examplePasswords" class="bmd-label-floating"> email *</label>
+                                        <input type="email" name="email" class="form-control" id="class_code" required="true">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Password *</label>
+                                        <input type="password" class="form-control" id="name" required="true" name="password">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="examplePasswords" class="bmd-label-floating"> Password Conformation *</label>
+                                        <input type="password" name="password_confirmation" class="form-control" id="class_code" required="true">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Phone *</label>
+                                        <input type="tel" class="form-control" id="roll_number" required="true" name="phone">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="gender" id="class_room" class="form-control" required="true">
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="">Select Status</option>
+                                            <option value="true">Active</option>
+                                            <option value="false">DeActive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-4">
+                                    <h4 class="title">Profile Image</h4>
+                                    <div class="fileinput fileinput-new text-center" data-provides="fileinput" style="display: block !important;">
+                                        <div class="fileinput-new thumbnail">
+                                            <img src="{{asset('public/assets/img/image_placeholder.jpg')}}" alt="...">
+                                        </div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                        <div>
+                                              <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">Select image</span>
+                                                <span class="fileinput-exists">Change</span>
+                                                <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg" />
+                                              </span>
+                                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                        <div class="card-footer ml-auto mr-auto">
+                            <button type="submit" class="btn btn-rose">Submit</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 @endsection
-

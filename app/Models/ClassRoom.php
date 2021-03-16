@@ -11,4 +11,8 @@ class ClassRoom extends Model
 {
     use Notifiable,HasFactory, SoftDeletes;
     protected $guarded = [];
+
+    public function rooms() {
+        return $this->hasManyThrough(ClassRoom::class,Teacher::class,'sub_admin_id','teacher_id');
+    }
 }

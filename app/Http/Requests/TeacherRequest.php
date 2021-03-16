@@ -25,10 +25,8 @@ class TeacherRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'class_room' => 'required',
             'password' => 'required|confirmed|min:6',
             'email' => 'unique:users',
-            'roll_number' => 'unique:users',
         ];
     }
 }

@@ -17,6 +17,7 @@ class CreateTeachersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
+            $table->unsignedBigInteger('sub_admin_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -36,6 +37,7 @@ class CreateTeachersTable extends Migration
             $table->softDeletes();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->foreign('sub_admin_id')->references('id')->on('sub_admins')->onDelete('cascade');
         });
     }
 

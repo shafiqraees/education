@@ -54,6 +54,10 @@ return [
         'teacher' => [
             'driver' => 'session',
             'provider' => 'teachers',
+        ],
+        'subadmin' => [
+            'driver' => 'session',
+            'provider' => 'subadmins',
         ]
     ],
 
@@ -87,6 +91,10 @@ return [
         'teachers' => [
             'driver' => 'eloquent',
             'model' => \App\Models\Teacher::class,
+        ],
+        'subadmins' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\SubAdmin::class,
         ]
 
 
@@ -127,6 +135,12 @@ return [
         'teachers' => [
             'provider' => 'teachers',
             'table' => 'teacher',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'subadmins' => [
+            'provider' => 'teachers',
+            'table' => 'subadmin',
             'expire' => 60,
             'throttle' => 60,
         ],
