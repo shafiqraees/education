@@ -60,7 +60,7 @@ class PaperController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storePaper(Request $request)
+    public function store(Request $request)
     {
 
         $validated = $request->validate([
@@ -74,7 +74,6 @@ class PaperController extends Controller
                 'name' => $request->paper_name,
                 'paper_code' => $request->paper_code,
                 'teacher_id' => Auth::guard('teacher')->user()->id,
-                'status' => $request->status,
             ];
             // dd($quiz_data);
             $quiz = QuestionPaper::create($quiz_data);
@@ -89,7 +88,7 @@ class PaperController extends Controller
                 }
             }
             DB::commit();
-            return redirect(route('all.paper'))->with('success', 'Question added successfully.');
+            return redirect(route('quiz.index'))->with('success', 'Question added successfully.');
         } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');
@@ -153,7 +152,6 @@ class PaperController extends Controller
             $ques= Question::find($request->id);
             if ($ques) {
                 $data = Question::whereId($request->id)->whereHas('option')->with(['option'])->first();
-
                 $transformed_data = Transformer::transformOption($data);
                 return $this->apiResponse(JsonResponse::HTTP_OK, 'data', $transformed_data);
             } else {
@@ -166,77 +164,6 @@ class PaperController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function launchQuizIndex()
-    {
-        try {
-            $data = LaunchQuiz::orderBy('id','desc')->get();
-            return view('teacher.launchPaper.List', compact('data'));
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
-        }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function launchQuizCreate()
-    {
-        try {
-            $id = Auth::guard('teacher')->user()->id;
-            $data = ClassRoom::whereStatus('Publish')->whereNull('deleted_at')->orderBy('id','desc')->get();
-            $papers = QuestionPaper::whereTeacherId($id)->whereStatus('Publish')->whereNull('deleted_at')->orderBy('id','desc')->get();
-            return view('teacher.launchPaper.create', compact('data','papers'));
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
-        }
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeLaunchQuiz(Request $request)
-    {
-        $validated = $request->validate([
-            'paper_id' => 'required',
-            'class_room' => 'required',
-        ]);
-
-        try {
-            DB::beginTransaction();
-            $quiz_data = [
-                'class_room_id' => $request->class_room,
-                'question_paper_id' => $request->paper_id,
-                'teacher_id' => Auth::guard('teacher')->user()->id,
-            ];
-            // dd($quiz_data);
-            $quiz = LaunchQuiz::create($quiz_data);
-            if ($request->setting) {
-                foreach ($request->setting as  $quiz_option) {
-                    $option_data = [
-                        'name' => $quiz_option,
-                        'launch_quizze_id' => $quiz->id,
-                    ];
-                    MethodSetting::create($option_data);
-                }
-            }
-            DB::commit();
-            return redirect(route('launch.quiz'))->with('success', 'Quiz launch successfully.');
-        } catch ( \Exception $e) {
-            DB::rollBack();
-            return Redirect::back()->withErrors('Sorry Record not found');
-        }
-    }
     /**
      * delete the specified resource in storage.
      *
@@ -260,27 +187,5 @@ class PaperController extends Controller
             return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
         }
     }
-    /**
-     * delete the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function deleteLaunchQuiz(Request $request)
-    {
-        try {
-            $ques= LaunchQuiz::find($request->id);
-            if ($ques) {
-                $data = $ques->delete();
-                return $this->apiResponse(JsonResponse::HTTP_OK, 'data', $data);
-            } else {
-                return $this->apiResponse(JsonResponse::HTTP_NOT_FOUND, 'message', 'Question not found');
-            }
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
-        }
-    }
 }

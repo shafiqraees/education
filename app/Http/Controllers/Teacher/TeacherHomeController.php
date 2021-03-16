@@ -378,7 +378,6 @@ class TeacherHomeController extends Controller
      */
     public function students() {
         try {
-
             $data = User::whereIsActive('true')->whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
             return view('teacher.students.list', compact('data'));
 
@@ -534,6 +533,7 @@ class TeacherHomeController extends Controller
                 'password_confirmation' => 'required|same:Password',
             ]);
         }
+
         try {
 
             $id = Auth::guard('teacher')->user()->id;

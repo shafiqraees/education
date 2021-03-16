@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Models\ClassRoom;
 use App\Models\Question;
+use App\Models\QuestionOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class QuestionController extends Controller
 {
@@ -36,7 +40,17 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        try {
+            $id = Auth::guard('teacher')->user()->id;
+            $quiz = Question::whereTeacherId($id)->whereStatus('Publish')->whereNull('deleted_at')->get();
+            $number = Question::orderBy('id', 'desc')->first()->id;
+            $quiz_number = $number + 1;
+            return view('teacher.questions.create',compact('quiz','quiz_number'));
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('home'))->withErrors('Sorry record not found.');
+        }
     }
 
     /**
@@ -47,7 +61,71 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+        try {
+            if($request->hasFile('photo')){
+                SavePhotoAllSizes($request, 'quiz/');
+                $quiz_image = 'quiz/'.$request->photo->hashName();
+            }
+            DB::beginTransaction();
+            $quiz_data = [
+                'name' => $request->name,
+                'teacher_id' => Auth::guard('teacher')->user()->id,
+                'type' => $request->type,
+                'image' => !empty($quiz_image) ? $quiz_image : "",
+                'questio_code' => Hash::make($request->name.time()),
+            ];
+            // dd($quiz_data);
+            if($request->hasFile('image')){
+                $files = $request->file('image');
+                $path = [];
+                foreach ($files as $file) {
+                    SaveBannerAllSizes($file, 'quiz_options/');
+                    $path[] .= 'quiz_options/'.$file->hashName();
+                }
+            }
+            $quiz = Question::create($quiz_data);
+            if ($request->type === "Multiple Choice") {
+                $question_ids = $request->question_id;
+                foreach ($request->option as  $key => $quiz_option) {
+                    if ($request->answer == $key) {
+                        $answer = $request->answer;
+                    }
+                    $option_data = [
+                        'question_id' => $quiz->id,
+                        'suggested_question_id' => $question_ids[$key],
+                        'answer' => !empty($answer) ? $answer : "",
+                        'name' => $quiz_option,
+                        'image' => !empty($path[$key]) ? $path[$key] : "",
+                    ];
+                    QuestionOption::create($option_data);
+                }
+            }
+            /*if ($request->type === "Short Answer") {
+                $option_data = [
+                    'question_id' => $quiz->id,
+                    'suggested_question_id' => $request->Short_question_id,
+                    'answer' => $request->ShortAnswer,
+                ];
+                QuestionOption::create($option_data);
+            }
+            if ($request->type === "True/False") {
+                $option_data = [
+                    'question_id' => $quiz->id,
+                    'suggested_question_id' => $request->true_false_question_id,
+                    'answer' => $request->truefalse,
+                ];
+                QuestionOption::create($option_data);
+            }*/
+            DB::commit();
+            return redirect(route('question.index'))->with('success', 'Question added successfully.');
+
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors('Sorry Record not found');
+        }
     }
 
     /**
@@ -69,7 +147,14 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $data = Question::find($id);
+            return view('teacher.questions.detail',compact('data'));
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('home'))->withErrors('Sorry record not found.');
+        }
     }
 
     /**
@@ -81,7 +166,70 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        try {
+            $data = Question::find($id);
+            if($request->hasFile('photo')){
+                UpdatePhotoAllSizes($request, 'quiz/', $data->image);
+                $path = 'quiz/'.$request->photo->hashName();
+            }
+            if ($data) {
+                DB::beginTransaction();
+                $cat_data = [
+                    'name' => !empty($request->name) ? $request->name : $data->name,
+                    'teacher_id' => Auth::guard('teacher')->user()->id,
+                    'type' => !empty($request->type) ? $request->type : $data->type,
+                ];
+                $data->update($cat_data);
+                $option_data = QuestionOption::whereQuestionId($id)->get();
+
+                if ($option_data) {
+                    QuestionOption::whereQuestionId($id)->delete();
+                }
+                if ($request->type === "Multiple Choice") {
+                    $question_ids = $request->question_id;
+                    foreach ($request->option as  $key => $quiz_option) {
+                        if ($request->answer == $key) {
+                            $answer = $request->answer;
+                        }
+                        $option_data = [
+                            'question_id' => $id,
+                            'suggested_question_id' => $question_ids[$key],
+                            'answer' => !empty($answer) ? $answer : "",
+                            'name' => $quiz_option,
+                            'image' => !empty($path[$key]) ? $path[$key] : "",
+                        ];
+                        QuestionOption::create($option_data);
+                    }
+                }
+                /*if ($request->type === "Short Answer") {
+                    $option_data = [
+                        'question_id' => $id,
+                        'suggested_question_id' => $request->Short_question_id,
+                        'answer' => $request->ShortAnswer,
+                    ];
+                    QuestionOption::create($option_data);
+                }
+                if ($request->type === "True/False") {
+                    $option_data = [
+                        'question_id' => $id,
+                        'suggested_question_id' => $request->true_false_question_id,
+                        'answer' => $request->truefalse,
+                    ];
+                    QuestionOption::create($option_data);
+                }*/
+                DB::commit();
+                return redirect(route('question.index'))->with('success', 'Question updated successfully.');
+            } else {
+                return Redirect::back()->withErrors(['Sorry Record not found.']);
+            }
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors(['Sorry Record not found.']);
+        }
     }
 
     /**

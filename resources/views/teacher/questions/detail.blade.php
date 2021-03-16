@@ -1,156 +1,133 @@
 @extends('teacher.layouts.main')
 @section('content')
-    <div class="app-content content">
-        <div class="content-wrapper">
-            <div class="content-header row">
-                <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">Questions</h3>
-                    <div class="row breadcrumbs-top d-inline-block">
-                        <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('teacher.home')}}">Dashboard</a> </li>
-                                <li class="breadcrumb-item"><a href="{{route('all.queston')}}">Questions</a> </li>
-                                <li class="breadcrumb-item active">Question edit </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @if (session()->has('success'))
-                <div class="alert alert-success"> @if(is_array(session('success')))
-                        <ul>
-                            @foreach (session('success') as $message)
-                                <li>{{ $message }}</li>
-                            @endforeach
-                        </ul>
-                    @else
-                        {{ session('success') }}
-                    @endif </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
+    <div class="container-fluid">
+        @if (session()->has('success'))
+            <div class="alert alert-success"> @if(is_array(session('success')))
                     <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
                         @endforeach
                     </ul>
-                </div>
-            @endif
-            <div class="content-body">
-                <form class="form-horizontal" id="formsss" method="post" action="{{route('update.question',$data->id)}}" name="specifycontent" enctype="multipart/form-data">
+                @else
+                    {{ session('success') }}
+                @endif </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <div class="row">
+            <div class="col-md-12">
+                <form id="LoginValidation" action="{{route('question.update',$data->id)}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                     @csrf
-                    <section id="card-bordered-options">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12">
-                                <div class="card box-shadow-0 border-dark">
-                                    <div class="card-header card-head-inverse bg-dark">
-                                        <h4 class="card-title text-white">Update Question</h4>
-                                        <h4 class="card-title text-white" style="float: right">{{$data->id}}</h4>
+                    @method('PUT')
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">contacts</i>
+                            </div>
+                            <h4 class="card-title">Edit Question Form</h4>
+                        </div>
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Name *</label>
+                                        <input type="text" class="form-control" id="name" required="true" name="name" value="{{$data->name}}">
                                     </div>
-                                    <div class="card-content collapse show">
-                                        <div class="card-body">
-                                            <fieldset class="form-group row">
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Name </label>
-                                                    <input type="text" name="name" value="{{$data->name}}" class="form-control heightinputs" id="basicInput" required>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Status</label>
-                                                    <select class="form-control" aria-invalid="false" name="status" required>
-                                                        <option value="Publish" {{ ( $data->status == "Publish") ? 'selected' : '' }}>Publish</option>
-                                                        <option value="Unpublish" {{ ( $data->status == "Unpublish") ? 'selected' : '' }}>Unpublish</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4 mt-1">
-                                                    <label class="inline-block" for="sel1">Type</label>
-                                                    <select class="form-control" aria-invalid="false" name="type" required>
-                                                        <option value="Multiple Choice" {{ ( $data->type == "Multiple Choice") ? 'selected' : '' }}>Multiple Choice</option>
-                                                        <option value="True/False" {{ ( $data->type == "True/False") ? 'selected' : '' }}>True/False</option>
-                                                        <option value="Short Answer" {{ ( $data->type == "Short Answer") ? 'selected' : '' }}>Short Answer</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4 mt-1">
-
-                                                    <div class="form-group ">
-                                                        <label class="inline-block" for="sel1">Images</label>
-
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                    <span class="input-group-text bg-dark border-dark white" id="basic-addon7 fonticon-container">
-                                                            <div class="fonticon-wrap">
-                                                                <i class="ft-image"></i>
-                                                            </div>
-                                                                    </span>
-                                                            </div>
-                                                            <input type="file" name="photo"  id="basicInputfiled" class="form-control  heightinputs errormessage " accept="image/*">
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 mt-1">
-                                                    <label class="inline-block" for="sel1">Marks </label>
-                                                    <input type="text" name="marks" value="{{$data->marks}}" class="form-control heightinputs" id="basicInput" required>
-                                                </div>
-{{--
-                                                <img src="{{Storage::disk('public')->exists('xs/'.$data->image) ? Storage::disk('public')->url('xs/'.$data->image) : Storage::disk('public')->url('default.png')}}"  />
---}}                                        @if($data->type == "Multiple Choice")
-                                                @foreach($data->option as $key => $option)
-
-                                                        <div class="col-md-1 mt-1 MultipleChoice">
-                                                            <label class="inline-block" for="sel1">Answer</label>
-
-                                                            <input type="radio" name="answer" value="{{$key}}" {{ ($option->answer == $key)? "checked" : "" }}  class="form-control heightinputs " id="answerfiled">
-                                                        </div>
-                                                        <div class="col-md-4 mt-1 MultipleChoice">
-                                                            <label class="inline-block" for="sel1">Option</label>
-                                                            <input type="text" name="option[]" value="{{$option->name}}" class="form-control heightinputs " placeholder="please enter option" id="basicInput">
-                                                        </div>
-                                                        <div class="col-md-4 mt-1 MultipleChoice">
-                                                            <label class="inline-block" for="sel1">File</label>
-                                                            <input type="file" name="image[]" class="form-control heightinputs " id="basicInput">
-                                                        </div>
-                                                        <div class="col-md-3 mt-1 MultipleChoice">
-                                                            <label class="inline-block" for="sel1">suggested Question Id</label>
-                                                            <input type="number" name="question_id[]" value="{{$option->suggested_question_id}}" placeholder="please enter question Id" class="form-control heightinputs " id="basicInput" >
-                                                        </div>
-
-                                                    @endforeach
-                                                @elseif($data->type == "True/False")
-                                                    <div class="col-md-3 mt-1 TrueFalse" >
-                                                        <label class="inline-block" for="sel1">True</label>
-                                                        <input type="radio" name="truefalse" value="false"{{ ($data->option[0]->answer == "true")? "checked" : "" }} class="form-control heightinputs " id="basicInput">
-                                                    </div>
-                                                    <div class="col-md-3 mt-1 TrueFalse" >
-                                                        <label class="inline-block" for="sel1">False</label>
-                                                        {{--//<input type="file" name="image[]" class="form-control heightinputs " id="basicInput" required>--}}
-                                                        <input type="radio" name="truefalse" value="false" {{ ($data->option[0]->answer == "false")? "checked" : "" }} class="form-control heightinputs " id="basicInput">
-                                                    </div>
-                                                    <div class="col-md-6 mt-1 TrueFalse" >
-                                                        <label class="inline-block" for="sel1">suggested Question Id</label>
-                                                        <input type="number" name="true_false_question_id" class="form-control heightinputs" value="{{$data->option[0]->suggested_question_id}}" id="basicInput" >
-                                                    </div>
-                                                @elseif($data->type == "Short Answer")
-                                                    <div class="col-md-6 mt-1 ShortAnswer" >
-                                                        <label class="inline-block" for="sel1">Short Answer</label>
-                                                        <textarea name="ShortAnswer" class="form-control">{{$data->option[0]->answer}}</textarea>
-                                                    </div>
-                                                    <div class="col-md-6 mt-1 ShortAnswer">
-                                                        <label class="inline-block" for="sel1">suggested Question Id</label>
-                                                        <input type="number" name="Short_question_id" value="{{$data->option[0]->suggested_question_id}}" class="form-control heightinputs " id="basicInput">
-                                                    </div>
-                                                @endif
-                                            </fieldset>
-                                            <div class="form-actions float-right mt-0 pt-0 buttonbordertop">
-                                                <button type="submit" class="btn btn-social btn-dark btn-dark text-center  pr-1"> <span class="la la-check font-medium-3"></span> Update </button>
-                                            </div>
-                                        </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <select name="type" id="type" class="form-control">
+                                            <option value="Multiple Choice" {{ ( $data->type == "Multiple Choice") ? 'selected' : '' }}>Multiple Choice</option>
+                                            <option value="True/False" {{ ( $data->type == "True/False") ? 'selected' : '' }}>True/False</option>
+                                            <option value="Short Answer" {{ ( $data->type == "Short Answer") ? 'selected' : '' }}>Short Answer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" name="image" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row" id="extrafileds">
+                                @if($data->type == "Multiple Choice")
+                                    @foreach($data->option as $key => $option)
+                                        <div class="col-md-1 MultipleChoice">
+                                            <div class="form-group">
+                                                <input type="radio" name="answer" value="{{$key}}" {{ ($option->answer == $key)? "checked" : "" }} class="form-control" id="name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 MultipleChoice">
+                                            <div class="form-group">
+                                                <label for="exampleEmails" class="bmd-label-floating"> Option </label>
+                                                <input type="text" class="form-control" id="name" name="option[]" value="{{$option->name}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 MultipleChoice">
+                                            <div class="form-group">
+                                                <label for="exampleEmails" class="bmd-label-floating"> suggested Question Id *</label>
+                                                <input type="number" class="form-control" id="name" name="question_id[]" value="{{$option->suggested_question_id}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 MultipleChoice" >
+                                            <div class="form-group">
+                                                <input type="file" class="form-control" name="image[]" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="mt-2 ml-1 More" style="display: block">
+                                <a data-toggle="add_extra_field" class="btn btn-rose">Add More Field</a>
+                            </div>
                         </div>
-                    </section>
+                        <div class="card-footer ml-auto mr-auto">
+                            <button type="submit" class="btn btn-rose">Submit</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 @endsection
+<script src="{{asset('public/assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
+<script>
+    var count =  1;
+    $(document).on('click','a[data-toggle=add_extra_field]',function (event) {
+
+        event.preventDefault();
+
+        var str = '<div class="col-md-1 MultipleChoice">\n' +
+            '<div class="form-group">\n' +
+            '<input type="radio" name="answer" value="'+ (count ++) +'" class="form-control" id="name">\n' +
+            '</div>\n' +
+            '</div>\n' +
+            '<div class="col-md-6 MultipleChoice">\n' +
+            '<div class="form-group">\n' +
+            '<label for="exampleEmails" class="bmd-label-floating"> Option </label>\n' +
+            '<input type="text" class="form-control" id="name" name="option[]">\n' +
+            '</div>\n' +
+            '</div>\n' +
+            '<div class="col-md-2 MultipleChoice">\n' +
+            '<div class="form-group">\n' +
+            '<label for="exampleEmails" class="bmd-label-floating"> suggested Question Id *</label>\n' +
+            '<input type="number" class="form-control" id="name" name="question_id[]">\n' +
+            '</div>\n' +
+            '</div>\n' +
+            '<div class="col-md-3 MultipleChoice" >\n' +
+            '<div class="form-group">\n' +
+            '<input type="file" class="form-control" name="image[]" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>\n' +
+            '</div>\n' +
+            '</div>';
+        $('#extrafileds').append(str);
+
+        //var nameval = $('#field_name').val();
+    });
+</script>

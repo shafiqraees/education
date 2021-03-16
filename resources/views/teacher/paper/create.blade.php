@@ -1,99 +1,158 @@
 @extends('teacher.layouts.main')
-<style>
-    .dataTables_filter{
-        display: none;
-    }
-</style>
 @section('content')
-    <div class="app-content content">
-        <div class="content-wrapper">
-            <div class="content-header row">
-                <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">Papers</h3>
-                    <div class="row breadcrumbs-top d-inline-block">
-                        <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('teacher.home')}}">Dashboard</a> </li>
-                                <li class="breadcrumb-item"><a href="{{route('all.paper')}}">Papers</a> </li>
-                                <li class="breadcrumb-item active">Paper Create </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @if (session()->has('success'))
-                <div class="alert alert-success"> @if(is_array(session('success')))
-                        <ul>
-                            @foreach (session('success') as $message)
-                                <li>{{ $message }}</li>
-                            @endforeach
-                        </ul>
-                    @else
-                        {{ session('success') }}
-                    @endif </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
+    <div class="container-fluid">
+        @if (session()->has('success'))
+            <div class="alert alert-success"> @if(is_array(session('success')))
                     <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
                         @endforeach
                     </ul>
-                </div>
-            @endif
-            <div class="content-body">
-                <form class="form-horizontal" id="formsss" method="post" action="{{route('paper.store')}}" name="specifycontent" enctype="multipart/form-data">
+                @else
+                    {{ session('success') }}
+                @endif </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <div class="row">
+            <div class="col-md-12">
+                <form id="LoginValidation" action="{{route('quiz.store')}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                     @csrf
-                    <section id="card-bordered-options">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12">
-                                <div class="card box-shadow-0 border-dark">
-                                    <div class="card-header card-head-inverse bg-dark">
-                                        <h4 class="card-title text-white">Create Paper</h4>
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">contacts</i>
+                            </div>
+                            <h4 class="card-title">Create Quiz Form</h4>
+                        </div>
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Name *</label>
+                                        <input type="text" class="form-control" id="name" required="true" name="paper_name">
                                     </div>
-                                    <div class="card-content collapse show">
-                                        <div class="card-body">
-                                            <fieldset class="form-group row" id="newData">
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-
-                                                    block" for="sel1">Name</label>
-                                                    <input type="text" name="paper_name" class="form-control heightinputs " id="basicInput" required>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-
-                                                    block" for="sel1">Paper Code</label>
-                                                    <input type="text" name="paper_code" class="form-control heightinputs " id="basicInput" required>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Status</label>
-                                                    <select class="form-control" aria-invalid="false" name="status" required>
-                                                        <option value="Publish">Publish</option>
-                                                        <option value="Unpublish">Unpublish</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Question</label>
-                                                    <select class="form-control select2" name="quiz_id[]" id="question" aria-invalid="false" required>
-                                                        <option value="">Select first Question</option>
-                                                        @foreach($data as $room)
-                                                            <option value="{{$room->id}}">{{$room->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <input type="hidden" id="ajaxurl" name="url" value="{{route('getoption')}}">
-                                                </div>
-                                            </fieldset>
-                                            <div class="form-actions float-right mt-0 pt-0 buttonbordertop">
-                                                <button type="submit" class="btn  btn-dark btn-dark text-center  pr-1"> <span class="la la-check font-medium-3"></span> Create </button>
-                                            </div>
-                                        </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Paper Code *</label>
+                                        <input type="text" class="form-control" id="name" required="true" name="paper_code">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <select name="quiz_id[]" id="question" class="form-control select2 quiz">
+                                            <option value="">Select first Question</option>
+                                            @foreach($data as $room)
+                                                <option value="{{$room->id}}">{{$room->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row" id="extrafileds">
+
+                            </div>
                         </div>
-                    </section>
+                        <div class="card-footer ml-auto mr-auto">
+                            <button type="submit" class="btn btn-rose">Submit</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+    <input type="hidden" id="ajaxurl" name="url" value="{{route('getoption')}}">
 @endsection
+<script src="{{asset('public/assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
+<script>
+    var count = 1;
+    $(document).on('change','.quiz',function(e){
+        e.preventDefault();
+        var id = $(this).val();
+        var url = $('#ajaxurl').val();
+        var _token =  $('meta[name="csrf-token"]').attr('content');
+        alert(id);
+        alert(url);
+        alert(_token);
+        ajaxOnChangeRequest(id,url,_token);
+    });
+    $(document).on('click','.nxtbtn',function(e){
+        e.preventDefault();
+        //var id = $(this).val();
+        var dataid = $(this).attr('data-id');
+        var url = $('#ajaxurl').val();
+        var _token =  $('meta[name="csrf-token"]').attr('content');
 
+        ajaxOnChangeRequest(dataid,url,_token);
+    });
+    function ajaxOnChangeRequest(id,url,_token) {
+        var str = '';
+        $.ajax({
+            url:url,
+            type:"get",
+            data:{
+                id:id,
+                _token: _token
+            },
+            success:function(response){
+                if(response) {
+                    if (response['data']['type'] === 'Multiple Choice') {
+                        var question =
+                            '<div class="col-md-6 MultipleChoice">\n' +
+                            '<div class="form-group">\n' +
+                            '<label for="exampleEmails" class="bmd-label-floating"> Name *</label>\n' +
+                            '<input type="text" name="quiz_name[]" value="'+ response['data']['name'] +'" class="form-control" id="name">\n' +
+                            '<input type="hidden" name="quiz_id[]" value="'+ response['data']['id'] +'" class="form-control" id="name">\n' +
+                            '</div>\n' +
+                            '</div>\n' +
+                            '<div class="col-md-6 MultipleChoice">\n' +
+                            '<div class="form-group">\n' +
+                            '<input type="file" class="form-control" name="image[]" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>\n' +
+                            '</div>\n' +
+                            '</div>';
+                        $('#extrafileds').append(question);
+                        $.each(response['data'].question_options,function (i,item){
+                            var str =
+                                '<div class="col-md-1 MultipleChoice">\n' +
+                                '<div class="form-group">\n' +
+                                '<input type="radio" name="answer" value="'+ (count ++) +'" class="form-control" id="name">\n' +
+                                '</div>\n' +
+                                '</div>\n' +
+                                '<div class="col-md-6 MultipleChoice">\n' +
+                                '<div class="form-group">\n' +
+                                '<label for="exampleEmails" class="bmd-label-floating"> Option </label>\n' +
+                                '<input type="text" class="form-control" id="name" name="option[]"  value="'+ item.name +'">\n' +
+                                '</div>\n' +
+                                '</div>\n' +
+                                '<div class="col-md-2 MultipleChoice">\n' +
+                                '<div class="form-group pt-3">\n' +
+                                '<label for="exampleEmails" class="bmd-label-floating"> Next Question id </label>\n' +
+                                '<a href="javascript:void(0)"> <span class="nxtbtn" style="border: 1px solid; border-color: #bdaaaa; padding: 1px 6px;" data-id="'+ item.suggested_question_id +'">'+ item.suggested_question_id +'</span></a>\n' +
+                                '</div>\n' +
+                                '</div>\n' +
+                                '<div class="col-md-3 MultipleChoice" >\n' +
+                                '<div class="form-group">\n' +
+                                '<input type="file" class="form-control" name="image[]" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>\n' +
+                                '</div>\n' +
+                                '</div>\n' +
+                                '</div>';
+                            $('#extrafileds').append(str);
+                        });
+                    }
+
+                }
+            },
+            error     : function (result){
+                alert('sorry reord not found')
+            }
+        });
+    }
+</script>
