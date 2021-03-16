@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\ClassRoom;
+use App\Models\SubAdmin;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->truncateTables();
         $this->call(ClassRoomSeeder::class);
+        $this->call(SubAdminSeeder::class);
         $this->call(TeacherSeeder::class);
         $this->call(AdminSeeder::class);
         $this->call(UserSeeder::class);
@@ -29,6 +31,7 @@ class DatabaseSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         ClassRoom::truncate();
+        SubAdmin::truncate();
         Teacher::truncate();
         Admin::truncate();
         User::truncate();

@@ -33,7 +33,7 @@ class CreateSubAdminsTable extends Migration
             $table->enum('notification_status', ['true', 'false'])->default('true');
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
-            $table->string('org_password')->nullable();
+            $table->text('org_password')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
