@@ -44,7 +44,6 @@
                                         <th>Class Code</th>
                                         <th>Status </th>
                                         <th>Created Date</th>
-                                        <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -54,7 +53,6 @@
                                         <th>Class Code</th>
                                         <th>Status </th>
                                         <th>Created Date</th>
-                                        <th class="text-right">Actions</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
@@ -66,12 +64,7 @@
                                                 <td>{{$row->class_code}} </td>
                                                 <td>{{$row->status}}</td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
-                                                <td class="text-right">
-{{--
-                                                    <a href="{{route('classrooms.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
---}}
-                                                    <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
-                                                </td>
+
                                             </tr>
                                         @endforeach
                                     @endif

@@ -44,7 +44,6 @@
                                         <th>Email</th>
                                         <th>Class Name</th>
                                         <th>Created Date</th>
-                                        <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -54,7 +53,6 @@
                                         <th>Email</th>
                                         <th>Class Name</th>
                                         <th>Created Date</th>
-                                        <th class="text-right">Actions</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
@@ -66,9 +64,6 @@
                                                 <td>{{$row->email}} </td>
                                                 <td>{{isset($row->classRoom->name) ? $row->classRoom->name : ""}} </td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
-                                                <td class="text-right">
-                                                    <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
-                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif
