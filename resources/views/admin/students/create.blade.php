@@ -23,7 +23,7 @@
         @endif
         <div class="row">
             <div class="col-md-12">
-                <form id="LoginValidation" action="{{route('students.store')}}" method="post" enctype="multipart/form-data">
+                <form id="LoginValidation" action="{{route('student.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card ">
                         <div class="card-header card-header-rose card-header-icon">

@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="{{ asset('public/assets/css/material-DataTables.net.css?v=2.2.2') }}">
     <!-- CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets/css/select2.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('public/app-assets/vendors/css/extensions/sweetalert.css')}}">
-
+    <link rel="stylesheet" type="text/css" href="{{asset('public/assets/css/sweetalert.css')}}">
 </head>
 

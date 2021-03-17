@@ -27,7 +27,7 @@
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                        <a class="dropdown-item" href="{{route('admin.edit.profile')}}">Profile</a>
+                        <a class="dropdown-item" href="{{route('subadmin.edit.profile')}}">Profile</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('subadmin.logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"><i class="ft-power"></i>Log out</a><form id="logout-form" action="{{ route('subadmin.logout') }}" method="POST" class="d-none">

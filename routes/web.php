@@ -55,8 +55,8 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin'], function () 
     Route::get('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'editProfile'])->name('admin.edit.profile');
     Route::post('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'updateProfile'])->name('admin.update.profile');
     // for Students
-    Route::resource('students', \App\Http\Controllers\Admin\StudentsController::class);
-    Route::resource('classrooms', \App\Http\Controllers\Admin\ClassRoomController::class);
+    Route::resource('student', \App\Http\Controllers\Admin\StudentsController::class);
+    Route::resource('classroom', \App\Http\Controllers\Admin\ClassRoomController::class);
     // for Students
     Route::get('/quiz', [\App\Http\Controllers\Admin\StudentController::class, 'papers'])->name('quiz.all');
     Route::get('/launch/quiz', [\App\Http\Controllers\Admin\StudentController::class, 'launchPapers'])->name('admin.launch.quiz');
@@ -71,11 +71,11 @@ Route::group(['prefix' => 'subadmin'], function () {
 
 Route::group(['middleware' => ['auth:subadmin'], 'prefix' => 'subadmin'], function () {
     Route::get('/', [\App\Http\Controllers\SubAdmin\HomeController::class, 'index'])->name('subadmin.home');
-    Route::resource('teacher', \App\Http\Controllers\SubAdmin\TeacherController::class);
-    Route::resource('classrooms', \App\Http\Controllers\SubAdmin\ClassRoomController::class);
-    Route::resource('students', \App\Http\Controllers\SubAdmin\StudentController::class);
-    Route::get('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'editProfile'])->name('admin.edit.profile');
-    Route::post('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'updateProfile'])->name('admin.update.profile');
+    Route::resource('teachers', \App\Http\Controllers\SubAdmin\TeacherController::class);
+    Route::resource('all-class-rooms', \App\Http\Controllers\SubAdmin\ClassRoomController::class);
+    Route::resource('all-students', \App\Http\Controllers\SubAdmin\StudentController::class);
+    Route::get('/profile', [\App\Http\Controllers\SubAdmin\HomeController::class, 'editProfile'])->name('subadmin.edit.profile');
+    Route::post('/profile', [\App\Http\Controllers\SubAdmin\HomeController::class, 'updateProfile'])->name('subadmin.update.profile');
 });
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'student'], function () {

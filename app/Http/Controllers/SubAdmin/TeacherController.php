@@ -27,7 +27,7 @@ class TeacherController extends Controller
             return view('subadmin.teacher.list', compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
+            return Redirect::back()->withErrors('Sorry Record not found');
         }
     }
 
@@ -42,7 +42,7 @@ class TeacherController extends Controller
             return view('subadmin.teacher.create');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
+            return Redirect::back()->withErrors('Sorry Record not found');
         }
     }
 
@@ -74,7 +74,7 @@ class TeacherController extends Controller
             ];
             Teacher::create($data);
             DB::commit();
-            return redirect(route('teacher.index'))->with('success', 'Teacher added successfully.');
+            return redirect(route('teachers.index'))->with('success', 'Teacher added successfully.');
 
         } catch ( \Exception $e) {
             DB::rollBack();
@@ -147,7 +147,7 @@ class TeacherController extends Controller
                 ];
                 $data->update($user_data);
                 DB::commit();
-                return redirect(route('teacher.index'))->with('success', 'Teacher updated successfully.');
+                return redirect(route('teachers.index'))->with('success', 'Teacher updated successfully.');
             } else {
                 return Redirect::back()->withErrors(['Sorry student not found.']);
             }

@@ -105,13 +105,13 @@
                 <div class="collapse" id="pagesExamples">
                     <ul class="nav">
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{route('classrooms.index')}}">
+                            <a class="nav-link" href="{{route('classroom.index')}}">
                                 <span class="sidebar-mini"> CR </span>
                                 <span class="sidebar-normal"> Class Rooms </span>
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{route('classrooms.create')}}">
+                            <a class="nav-link" href="{{route('classroom.create')}}">
                                 <span class="sidebar-mini"> ACR </span>
                                 <span class="sidebar-normal">Add Class Room </span>
                             </a>
@@ -129,14 +129,14 @@
                 <div class="collapse" id="componentsExamples">
                     <ul class="nav">
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{route('students.index')}}">
+                            <a class="nav-link" href="{{route('student.index')}}">
                                 <span class="sidebar-mini"> All </span>
                                 <span class="sidebar-normal"> All Students
                     </span>
                             </a>
 
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{route('students.create')}}">
+                            <a class="nav-link" href="{{route('student.create')}}">
                                 <span class="sidebar-mini"> Add </span>
                                 <span class="sidebar-normal">Add Student</span>
                             </a>

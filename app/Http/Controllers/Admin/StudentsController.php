@@ -28,7 +28,7 @@ class StudentsController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
+            return Redirect::back()->withErrors('Sorry Record not found');
         }
     }
 
@@ -45,7 +45,7 @@ class StudentsController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
+            return Redirect::back()->withErrors('Sorry Record not found');
         }
     }
 
@@ -77,7 +77,7 @@ class StudentsController extends Controller
             ];
             $data =  User::create($class_data);
             DB::commit();
-            return redirect(route('students.index'))->with('success', 'Student added successfully.');
+            return redirect(route('student.index'))->with('success', 'Student added successfully.');
 
         } catch ( \Exception $e) {
             DB::rollBack();
@@ -150,7 +150,7 @@ class StudentsController extends Controller
                 ];
                 $data->update($user_data);
                 DB::commit();
-                return redirect(route('students.index'))->with('success', 'Student updated successfully.');
+                return redirect(route('student.index'))->with('success', 'Student updated successfully.');
             } else {
                 return Redirect::back()->withErrors(['Sorry student not found.']);
             }

@@ -23,7 +23,7 @@
         @endif
         <div class="row">
             <div class="col-md-12">
-                <form id="LoginValidation" action="{{route('classrooms.update',$data->id)}}" method="post">
+                <form id="LoginValidation" action="{{route('classroom.update',$data->id)}}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="card ">

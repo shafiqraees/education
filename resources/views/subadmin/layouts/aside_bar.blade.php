@@ -26,7 +26,7 @@
                 <div class="collapse" id="collapseExample">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.edit.profile')}}">
+                            <a class="nav-link" href="{{route('subadmin.edit.profile')}}">
                                 <span class="sidebar-mini"> P </span>
                                 <span class="sidebar-normal"> Profile </span>
                             </a>
@@ -37,7 +37,7 @@
         </div>
         <ul class="nav">
             <li class="nav-item active ">
-                <a class="nav-link" href="{{route('admin.home')}}">
+                <a class="nav-link" href="{{route('subadmin.home')}}">
                     <i class="material-icons">dashboard</i>
                     <p> Dashboard </p>
                 </a>
@@ -52,14 +52,14 @@
                 <div class="collapse" id="teacher">
                     <ul class="nav">
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{route('teacher.index')}}">
+                            <a class="nav-link" href="{{route('teachers.index')}}">
                                 <span class="sidebar-mini"> All </span>
                                 <span class="sidebar-normal"> All Teacher
                     </span>
                             </a>
 
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{route('teacher.create')}}">
+                            <a class="nav-link" href="{{route('teachers.create')}}">
                                 <span class="sidebar-mini"> Add </span>
                                 <span class="sidebar-normal">Add Teacher</span>
                             </a>
@@ -78,7 +78,7 @@
                 <div class="collapse" id="pagesExamples">
                     <ul class="nav">
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{route('classrooms.index')}}">
+                            <a class="nav-link" href="{{route('all-class-rooms.index')}}">
                                 <span class="sidebar-mini"> CR </span>
                                 <span class="sidebar-normal"> Class Rooms </span>
                             </a>
@@ -102,7 +102,7 @@
                 <div class="collapse" id="componentsExamples">
                     <ul class="nav">
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{route('students.index')}}">
+                            <a class="nav-link" href="{{route('all-students.index')}}">
                                 <span class="sidebar-mini"> All </span>
                                 <span class="sidebar-normal"> All Students
                                 </span>

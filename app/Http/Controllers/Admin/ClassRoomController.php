@@ -23,7 +23,7 @@ class ClassRoomController extends Controller
             return view('admin.classrooms.list', compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
+            return Redirect::back()->withErrors('Sorry Record not found');
         }
     }
 
@@ -38,7 +38,7 @@ class ClassRoomController extends Controller
             return view('admin.classrooms.create');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
+            return Redirect::back()->withErrors('Sorry Record not found');
         }
     }
 
@@ -65,7 +65,7 @@ class ClassRoomController extends Controller
             ];
             ClassRoom::create($class_data);
             DB::commit();
-            return redirect(route('classrooms.index'))->with('success', 'Class Room added successfully.');
+            return redirect(route('classroom.index'))->with('success', 'Class Room added successfully.');
 
         } catch ( \Exception $e) {
             DB::rollBack();
@@ -119,7 +119,7 @@ class ClassRoomController extends Controller
                 ];
                 $data->update($cat_data);
                 DB::commit();
-                return redirect(route('classrooms.index'))->with('success', 'Class room updated successfully.');
+                return redirect(route('classroom.index'))->with('success', 'Class room updated successfully.');
                 //return Redirect::back()->with('success', 'Interest updated successfully.');
             } else {
                 return Redirect::back()->withErrors(['Sorry Record not found.']);

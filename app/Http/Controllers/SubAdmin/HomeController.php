@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\ClassRoom;
 use App\Models\LaunchQuiz;
+use App\Models\SubAdmin;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -74,8 +75,8 @@ class HomeController extends Controller
     {
 
         try {
-            $user = Auth::guard('admin')->user();
-            return view('admin.home.profile',compact('user',));
+            $user = Auth::guard('subadmin')->user();
+            return view('subadmin.home.profile',compact('user',));
         } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');
@@ -100,8 +101,8 @@ class HomeController extends Controller
             ]);
         }
         try {
-            $id = Auth::guard('admin')->user()->id;
-            $user = Admin::find($id);
+            $id = Auth::guard('subadmin')->user()->id;
+            $user = SubAdmin::find($id);
             if ($request->hasFile('profile_pic')){
                 UpdateImageAllSizes($request, 'profile/', $user->profile_photo_path);
                 $path = 'profile/'.$request->profile_pic->hashName();

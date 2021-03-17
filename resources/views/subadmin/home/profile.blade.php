@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('subadmin.layouts.main')
 @section('content')
     <div class="container-fluid">
         @if (session()->has('success'))
@@ -23,7 +23,7 @@
         @endif
         <div class="row">
             <div class="col-md-12">
-                <form id="LoginValidation" action="{{route('admin.update.profile')}}" method="post" enctype="multipart/form-data">
+                <form id="LoginValidation" action="{{route('subadmin.update.profile')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card ">
                         <div class="card-header card-header-rose card-header-icon">
