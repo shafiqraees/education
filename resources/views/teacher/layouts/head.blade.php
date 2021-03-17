@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('public/assets/img/apple-icon.png')}}">
-    <link rel="icon" type="image/png" href="{{asset('public/assets/img/favicon.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('public/assets/img/Educatioo.png')}}">
     <meta name="author" content="PIXINVENT">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'education') }}</title>
