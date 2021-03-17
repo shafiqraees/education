@@ -88,3 +88,67 @@
         </div>
     </div>
 @endsection
+<script src="{{asset('public/assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
+<script>
+    $(document).on('click','.remove',function (event) {
+        event.preventDefault();
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure you want to delete.",
+            icon: "warning",
+            showCancelButton: true,
+            buttons: {
+                cancel: {
+                    text: "Cancel",
+                    value: null,
+                    visible: true,
+                    className: "btn-dark",
+                    closeModal: false,
+                },
+                confirm: {
+                    text: "Ok",
+                    value: true,
+                    visible: true,
+                    className: "btn-dark",
+                    closeModal: false
+                }
+            }
+        }).then(isConfirm => {
+            if (isConfirm) {
+
+                $.ajaxSetup({
+
+                    headers: {
+
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+                    }
+
+                });
+                var profile_url = $(this).attr("data-url");
+                $.ajax({
+                    type:'delete',
+                    url:profile_url,
+                    success: function (results) {
+                        if (results.data) {
+                            if (results.data == true){
+                                swal("deleted!", "Class room deleted successfully.", "success");
+                            } else {
+                                swal("warning!", "Class room not deleted successfully.", "warning");
+                            }
+
+                            location.reload();
+                            //swal("Done!", results.message, "success");
+
+                        } else {
+                            swal("Error!", results.message, "error");
+                        }
+                    }
+                });
+
+            } else {
+                swal("Cancelled","Your profile is safe.");
+            }
+        });
+    });
+</script>

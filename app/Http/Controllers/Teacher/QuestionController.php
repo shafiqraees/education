@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ClassRoom;
 use App\Models\Question;
 use App\Models\QuestionOption;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -240,6 +241,19 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $ques = Question::find($id);
+            if ($ques) {
+                $option = QuestionOption::whereQuestionId($id)->delete();
+                $data = $ques->delete();
+                return $this->apiResponse(JsonResponse::HTTP_OK, 'data', $data);
+            } else {
+                return $this->apiResponse(JsonResponse::HTTP_NOT_FOUND, 'message', 'Question not found');
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
+        }
     }
 }

@@ -146,30 +146,6 @@
                 </div>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#formsExamples">
-                    <i class="material-icons">content_paste</i>
-                    <p> Question
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="formsExamples">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('question.index')}}">
-                                <span class="sidebar-mini"> All </span>
-                                <span class="sidebar-normal"> All Question </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('question.create')}}">
-                                <span class="sidebar-mini"> Add </span>
-                                <span class="sidebar-normal"> Create Question </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#quiz">
                     <i class="material-icons">not_listed_location</i>
                     <p> Quiz
