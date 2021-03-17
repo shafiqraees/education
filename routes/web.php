@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\SubAdminController;
 */
 
 Route::get('/', function () {
-    return redirect(route('login'));
+    return view('frontend.index');
 });
 
 Auth::routes();
