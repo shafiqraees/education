@@ -11,5 +11,11 @@ class SubAdmin extends Authenticatable
     use HasFactory, Notifiable;
     protected $guarded = [];
     protected $guard = 'subadmin';
+    public function rooms() {
+        return $this->hasManyThrough(ClassRoom::class,Teacher::class);
+    }
 
+    public function students() {
+        return $this->hasManyThrough(User::class,Teacher::class)->whereNull('users.deleted_at');
+    }
 }

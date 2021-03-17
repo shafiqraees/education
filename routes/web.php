@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth:subadmin'], 'prefix' => 'subadmin'], functi
     Route::get('/', [\App\Http\Controllers\SubAdmin\HomeController::class, 'index'])->name('subadmin.home');
     Route::resource('teacher', \App\Http\Controllers\SubAdmin\TeacherController::class);
     Route::resource('classrooms', \App\Http\Controllers\SubAdmin\ClassRoomController::class);
+    Route::resource('students', \App\Http\Controllers\SubAdmin\StudentController::class);
     Route::get('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'editProfile'])->name('admin.edit.profile');
     Route::post('/profile', [\App\Http\Controllers\Admin\HomeController::class, 'updateProfile'])->name('admin.update.profile');
 });

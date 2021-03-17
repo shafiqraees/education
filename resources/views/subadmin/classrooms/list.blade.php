@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('subadmin.layouts.main')
 @section('content')
     <div class="content">
         <div class="container-fluid">
@@ -67,7 +67,9 @@
                                                 <td>{{$row->status}}</td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                                 <td class="text-right">
+{{--
                                                     <a href="{{route('classrooms.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
+--}}
                                                     <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                                 </td>
                                             </tr>

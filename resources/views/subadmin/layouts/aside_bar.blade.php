@@ -83,12 +83,12 @@
                                 <span class="sidebar-normal"> Class Rooms </span>
                             </a>
                         </li>
-                        <li class="nav-item ">
+                        {{--<li class="nav-item ">
                             <a class="nav-link" href="{{route('classrooms.create')}}">
                                 <span class="sidebar-mini"> ACR </span>
                                 <span class="sidebar-normal">Add Class Room </span>
                             </a>
-                        </li>
+                        </li>--}}
                     </ul>
                 </div>
             </li>
@@ -105,15 +105,15 @@
                             <a class="nav-link" href="{{route('students.index')}}">
                                 <span class="sidebar-mini"> All </span>
                                 <span class="sidebar-normal"> All Students
-                    </span>
+                                </span>
                             </a>
-
-                        <li class="nav-item ">
+                        </li>
+                        {{--<li class="nav-item ">
                             <a class="nav-link" href="{{route('students.create')}}">
                                 <span class="sidebar-mini"> Add </span>
                                 <span class="sidebar-normal">Add Student</span>
                             </a>
-                        </li>
+                        </li>--}}
 
                     </ul>
                 </div>

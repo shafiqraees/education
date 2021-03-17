@@ -3,18 +3,12 @@
 namespace App\Http\Controllers\SubAdmin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TeacherRequest;
-use App\Models\ClassRoom;
 use App\Models\SubAdmin;
-use App\Models\Teacher;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-
-class ClassRoomController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,14 +17,17 @@ class ClassRoomController extends Controller
      */
     public function index()
     {
+
         try {
             $current_id = Auth::guard('subadmin')->user()->id;
-            $teacher_ids = Teacher::whereId($current_id)->whereIsActive('true')->whereNull('deleted_at')->pluck('id');
-            $data = ClassRoom::whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->orderBy('id','desc')->paginate(10);
-            return view('subadmin.classrooms.list', compact('data'));
+            $data = SubAdmin::whereId($current_id)->whereHas('students')->with('students',function ($query){
+                $query->select('users.id','users.name','users.email','roll_number','users.phone','users.created_at','users.gender','teacher_id','class_room_id');
+            })->orderBy('id','desc')->first();
+            return view('subadmin.students.list', compact('data'));
+
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('subadmin.home'))->withErrors('Sorry record not found.');
+            return redirect(route('home'))->withErrors('Sorry record not found.');
         }
     }
 

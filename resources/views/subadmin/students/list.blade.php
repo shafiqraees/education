@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('subadmin.layouts.main')
 @section('content')
     <div class="content">
         <div class="container-fluid">
@@ -59,7 +59,7 @@
                                     </tfoot>
                                     <tbody>
                                     @if(!empty($data))
-                                        @foreach($data as $row)
+                                        @foreach($data->students as $row)
                                             <tr>
                                                 <td>{{$row->id}} </td>
                                                 <td>{{$row->name}} </td>
@@ -67,7 +67,6 @@
                                                 <td>{{isset($row->classRoom->name) ? $row->classRoom->name : ""}} </td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                                 <td class="text-right">
-                                                    <a href="{{route('students.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
                                                     <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                                 </td>
                                             </tr>
@@ -75,7 +74,6 @@
                                     @endif
                                     </tbody>
                                 </table>
-                                <div class="mt-3" id="xyz"> {{ $data->links() }} </div>
                             </div>
                         </div>
                         <!-- end content-->

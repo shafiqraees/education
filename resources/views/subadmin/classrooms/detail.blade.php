@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('subadmin.layouts.main')
 @section('content')
     <div class="container-fluid">
         @if (session()->has('success'))
