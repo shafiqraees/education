@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">launch</i>
                             </div>
-                            <h4 class="card-title">Class Rooms</h4>
+                            <h4 class="card-title">launch Quiz</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -66,10 +66,10 @@
                                         @foreach($data as $row)
                                             <tr>
                                                 <td>{{$row->id}} </td>
-                                                <td>{{$row->className->name}} </td>
-                                                <td>{{$row->className->class_code}} </td>
-                                                <td>{{$row->questionPaper->name}} </td>
-                                                <td>{{$row->questionPaper->paper_code}} </td>
+                                                <td>{{isset($row->className->name) ? $row->className->name : ""}} </td>
+                                                <td>{{isset($row->className->class_code) ? $row->className->class_codename : ""}} </td>
+                                                <td>{{isset($row->questionPaper->name) ? $row->questionPaper->name : ""}} </td>
+                                                <td>{{isset($row->questionPaper->paper_code) ? $row->questionPaper->paper_code : ""}} </td>
                                                 @php
                                                     $fruitList = '';
                                                     foreach ($row->methodsAndSettings as $fruit)

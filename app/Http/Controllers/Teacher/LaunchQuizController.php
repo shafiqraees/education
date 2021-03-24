@@ -26,8 +26,8 @@ class LaunchQuizController extends Controller
     {
         try {
             $data = LaunchQuiz::orderBy('id','desc')->paginate(10);
-            dd($data);
-            return view('teacher.launchPaper.List', compact('data'));
+
+            return view('teacher.launchPaper.list', compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect(route('teacher.home'))->withErrors('Sorry record not found.');
