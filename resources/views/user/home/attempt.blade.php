@@ -30,7 +30,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">person</i>
                             </div>
-                            <h4 class="card-title">Edit Profile Form</h4>
+                            <h4 class="card-title">Quiz form</h4>
                         </div>
                         <div class="card-body ">
                             <div class="row">
