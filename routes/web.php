@@ -81,6 +81,9 @@ Route::group(['middleware' => ['auth:subadmin'], 'prefix' => 'subadmin'], functi
 Route::group(['middleware' => ['auth'], 'prefix' => 'student'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [HomeController::class, 'editProfile'])->name('user.edit.profile');
+    Route::get('/quizzes', [HomeController::class, 'startQuiz'])->name('start.quiz');
+    Route::post('/quiz/submit', [HomeController::class, 'attemptQuiz'])->name('quiz.save');
+    Route::get('/quizes/{id}', [HomeController::class, 'startQuizes'])->name('start.quizes');
     Route::post('/profile', [HomeController::class, 'updateProfile'])->name('user.update.profile');
 });
 

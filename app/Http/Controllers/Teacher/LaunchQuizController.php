@@ -7,6 +7,8 @@ use App\Models\ClassRoom;
 use App\Models\LaunchQuiz;
 use App\Models\MethodSetting;
 use App\Models\QuestionPaper;
+use App\Models\User;
+use App\Models\UserQuiz;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,25 +67,42 @@ class LaunchQuizController extends Controller
         ]);
 
         try {
+            $students = User::whereClassRoomId($request->class_room)->whereIsActive('true')
+                ->whereNull('deleted_at')->pluck('id');
             DB::beginTransaction();
-            $quiz_data = [
-                'class_room_id' => $request->class_room,
-                'question_paper_id' => $request->paper_id,
-                'teacher_id' => Auth::guard('teacher')->user()->id,
-            ];
-            // dd($quiz_data);
-            $quiz = LaunchQuiz::create($quiz_data);
-            if ($request->setting) {
-                foreach ($request->setting as  $quiz_option) {
-                    $option_data = [
-                        'name' => $quiz_option,
-                        'launch_quizze_id' => $quiz->id,
-                    ];
-                    MethodSetting::create($option_data);
+            if(!$students->isEmpty()) {
+                $quiz_data = [
+                    'class_room_id' => $request->class_room,
+                    'question_paper_id' => $request->paper_id,
+                    'teacher_id' => Auth::guard('teacher')->user()->id,
+                ];
+                // dd($quiz_data);
+                $quiz = LaunchQuiz::create($quiz_data);
+                if ($request->setting) {
+                    foreach ($request->setting as  $quiz_option) {
+                        $option_data = [
+                            'name' => $quiz_option,
+                            'launch_quizze_id' => $quiz->id,
+                        ];
+                        MethodSetting::create($option_data);
+                    }
                 }
+                foreach ($students as $student) {
+                    $user_data = [
+                        'teacher_id' => Auth::guard('teacher')->user()->id,
+                        'question_paper_id' => $request->paper_id,
+                        'class_room_id' => $request->class_room,
+                        'user_id' => $student,
+                        'launch_quiz_id' => $quiz->id,
+                    ];
+                    UserQuiz::create($user_data);
+                }
+                DB::commit();
+                return redirect(route('launch.index'))->with('success', 'Quiz launch successfully.');
+            } else {
+                DB::rollBack();
+                return Redirect::back()->withErrors('Please first add Students selected calss');
             }
-            DB::commit();
-            return redirect(route('launch.index'))->with('success', 'Quiz launch successfully.');
         } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');

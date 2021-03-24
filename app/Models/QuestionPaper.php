@@ -17,4 +17,7 @@ class QuestionPaper extends Model
     public function question() {
         return $this->hasMany(QuestonPapersQuestion::class);
     }
+    public function questionPaperquestion() {
+        return $this->hasMany(QuestonPapersQuestion::class);
+    }
 }

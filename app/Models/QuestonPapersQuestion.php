@@ -9,4 +9,8 @@ class QuestonPapersQuestion extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    function getQuestion() {
+        return $this->belongsTo(Question::class,'question_id');
+    }
 }

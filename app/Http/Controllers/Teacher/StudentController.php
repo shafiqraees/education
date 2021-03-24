@@ -60,8 +60,8 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
+            $path = "default.png";
             if($request->hasFile('image')){
                 SaveImageAllSizes($request, 'profile/');
                 $path = 'profile/'.$request->image->hashName();
@@ -80,7 +80,7 @@ class StudentController extends Controller
             ];
             $data =  User::create($class_data);
             DB::commit();
-            return redirect(route('students.index'))->with('success', 'Class Room added successfully.');
+            return redirect(url('/teacher/students'))->with('success', 'Student added successfully.');
 
         } catch ( \Exception $e) {
             DB::rollBack();
