@@ -62,7 +62,6 @@ class LaunchQuizController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'paper_id' => 'required',
             'class_room' => 'required',
