@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Teacher\Auth;
+namespace App\Http\Controllers\SubAdmin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Teacher;
-use App\Providers\RouteServiceProvider;
+use App\Models\SubAdmin;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +25,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    //use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -41,10 +41,10 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:teacher')->except('logout');
+        $this->middleware('guest:subadmin')->except('logout');
     }
     public function showRegisterForm(){
-        return view('teacher.auth.register');
+        return view('subadmin.auth.register');
     }
     /**
      * Get a validator for an incoming registration request.
@@ -76,21 +76,21 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function TeacherRegister(Request $request)
+    public function subAdminRegister(Request $request)
     {
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-        $data = Teacher::create([
+        $data = SubAdmin::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
         if ($data) {
-            if (Auth::guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-                return redirect()->intended('/teacher');
+            if (Auth::guard('subadmin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+                return redirect()->intended('/subadmin');
             }
             return back()->withInput($request->only('email', 'remember'));
         } else {

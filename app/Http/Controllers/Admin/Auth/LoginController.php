@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\MessageBag;
 
 class LoginController extends Controller
 {
@@ -53,7 +55,9 @@ class LoginController extends Controller
 
             return redirect()->intended('/admin');
         }
-        return back()->withInput($request->only('email', 'remember'));
+        $errors = new MessageBag(['password' => ['Email and/or password invalid.']]);
+        return Redirect::back()->withErrors($errors)->withInput($request->only('email', 'remember'));
+        //return back()->withInput($request->only('email', 'remember'));
     }
     public function logout(Request $request)
     {

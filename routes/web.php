@@ -28,6 +28,8 @@ Route::group(['prefix' => 'teacher'], function () {
     Route::get('/login', [\App\Http\Controllers\Teacher\Auth\LoginController::class, 'showLoginForm'])->name('teacher.login');
     Route::post('/login', [\App\Http\Controllers\Teacher\Auth\LoginController::class, 'TeacherLogin'])->name('teacher.login.submit');
     Route::post('/logout', [\App\Http\Controllers\Teacher\Auth\LoginController::class, 'logout'])->name('teacher.logout');
+    Route::get('/register', [\App\Http\Controllers\Teacher\Auth\RegisterController::class, 'showRegisterForm'])->name('teacher.register');
+    Route::post('/register', [\App\Http\Controllers\Teacher\Auth\RegisterController::class, 'TeacherRegister'])->name('teacher.register.store');
 });
 
 Route::group(['middleware' => ['auth:teacher'], 'prefix' => 'teacher'], function () {
@@ -67,6 +69,8 @@ Route::group(['prefix' => 'subadmin'], function () {
     Route::get('/login', [\App\Http\Controllers\SubAdmin\Auth\LoginController::class, 'showLoginForm'])->name('subadmin.login');
     Route::post('/login', [\App\Http\Controllers\SubAdmin\Auth\LoginController::class, 'subAdminLogin'])->name('subadmin.login.submit');
     Route::post('/logout', [\App\Http\Controllers\SubAdmin\Auth\LoginController::class, 'logout'])->name('subadmin.logout');
+    Route::get('/register', [\App\Http\Controllers\SubAdmin\Auth\RegisterController::class, 'showRegisterForm'])->name('subadmin.register');
+    Route::post('/register', [\App\Http\Controllers\SubAdmin\Auth\RegisterController::class, 'subAdminRegister'])->name('subadmin.register.store');
 });
 
 Route::group(['middleware' => ['auth:subadmin'], 'prefix' => 'subadmin'], function () {

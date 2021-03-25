@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Input;
 class LoginController extends Controller
 {
     /*
@@ -21,7 +24,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    //use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
@@ -46,15 +49,17 @@ class LoginController extends Controller
     public function TeacherLogin(Request $request)
     {
         $this->validate($request, [
-            'email'   => 'required|email',
-            'password' => 'required|min:6'
+            'email' => ['required'],
+            'password' => ['required'],
         ]);
-
         if (Auth::guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
             return redirect()->intended('/teacher');
         }
-        return back()->withInput($request->only('email', 'remember'));
+        //return back()->withInput($request->only('email', 'remember'));
+        $errors = new MessageBag(['password' => ['Email and/or password invalid.']]);
+        return Redirect::back()->withErrors($errors)->withInput($request->only('email', 'remember'));
+
     }
     public function logout(Request $request)
     {

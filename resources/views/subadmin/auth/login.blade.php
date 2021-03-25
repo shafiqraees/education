@@ -42,7 +42,7 @@
                                     <button class="btn btn-primary btn-round mt-4">Sign In</button>
                                 </div>
                                 <div class="form-group text-center">
-                                    <mat-label> New Here? <a href="#"> Create Acccount Now</a></mat-label>
+                                    <mat-label> New Here? <a href="{{route('subadmin.register')}}"> Create Acccount Now</a></mat-label>
                                 </div>
                             </form>
                         </div>
