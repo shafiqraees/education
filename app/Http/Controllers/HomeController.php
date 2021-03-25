@@ -11,6 +11,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserQuiz;
 use App\Models\UserQuizAttempt;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -116,7 +117,9 @@ class HomeController extends Controller
         try {
             $current_user = Auth::user();
 
-            $attempt = UserQuizAttempt::whereUserId($current_user->id)->whereHas('launchQuiz')->pluck('launch_quiz_id');
+            $attempt = UserQuizAttempt::whereUserId($current_user->id)->whereHas('launchQuiz',function ($query){
+                $query->where('datetime',Carbon::now());
+            })->pluck('launch_quiz_id');
             $UserQuiz = UserQuiz::whereUserId($current_user->id)->whereNotIn('launch_quiz_id',$attempt)
                 ->whereHas('questionPaper')->first();
             if ($UserQuiz) {

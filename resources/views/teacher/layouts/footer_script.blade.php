@@ -91,6 +91,16 @@
         table.on('click', '.like', function() {
             alert('You clicked on Like button');
         });*/
+        // initialise Datetimepicker and Sliders
+        md.initFormExtendedDatetimepickers();
+        if ($('.slider').length != 0) {
+            md.initSliders();
+        }
+        /*var dateToday = new Date();
+        $('#datetime').datepicker({
+            minDate: 0,
+            format: "yyyy/mm/dd",
+        });*/
     });
     function setFormValidation(id) {
         $(id).validate({

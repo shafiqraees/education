@@ -13,7 +13,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use App\Mail\SendQuizNotification;
 
 class LaunchQuizController extends Controller
 {
@@ -64,6 +66,7 @@ class LaunchQuizController extends Controller
         $validated = $request->validate([
             'paper_id' => 'required',
             'class_room' => 'required',
+            'datetime' => 'required',
         ]);
 
         try {
@@ -74,6 +77,7 @@ class LaunchQuizController extends Controller
                 $quiz_data = [
                     'class_room_id' => $request->class_room,
                     'question_paper_id' => $request->paper_id,
+                    'datetime' => date('Y-m-d H:i:s', strtotime($request->datetime)),
                     'teacher_id' => Auth::guard('teacher')->user()->id,
                 ];
                 // dd($quiz_data);
@@ -96,6 +100,14 @@ class LaunchQuizController extends Controller
                         'launch_quiz_id' => $quiz->id,
                     ];
                     UserQuiz::create($user_data);
+
+                    if (filter_var($student->email, FILTER_VALIDATE_EMAIL)) {
+                        $details = [
+                            'title' => 'Mail from educatio',
+                            'body' => 'This is for testing email using smtp'
+                        ];
+                        Mail::to($student->email)->send(new SendQuizNotification($details));
+                    }
                 }
                 DB::commit();
                 return redirect(route('launch.index'))->with('success', 'Quiz launch successfully.');
