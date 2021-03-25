@@ -26,24 +26,36 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        //dd(Auth::guard('admin')->user()->profile_photo_path);
+
         try {
+            $current_user = Auth::guard('subadmin')->user();
+            $teacher_ids = Teacher::whereSubAdminId($current_user->id)->pluck('id');
+            $classes_ids = ClassRoom::whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->pluck('id');
+            #-------------------- for Test----------------------------------#
+            $last_24Hours_Teacher = Teacher::whereSubAdminId($current_user->id)
+                ->where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
+            $last_7_Days_Teacher = Teacher::whereSubAdminId($current_user->id)
+                ->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->whereNull('deleted_at')->count();
+            $life_Time_Teacher = Teacher::whereSubAdminId($current_user->id)
+                ->whereNull('deleted_at')->count();
             #-------------------- for ClassRoom----------------------------------#
-            $last_24Hours_class = ClassRoom::where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
-            $last_7_Days_class = ClassRoom::where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->whereNull('deleted_at')->count();
-            $life_Time_class = ClassRoom::whereNull('deleted_at')->count();
+            $last_24Hours_class = ClassRoom::where('created_at', '>=', \Carbon\Carbon::now()->subDay())
+                ->whereIn('teacher_id',$teacher_ids)->whereNull('deleted_at')->count();
+            $last_7_Days_class = ClassRoom::where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))
+                ->whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->count();
+            $life_Time_class = ClassRoom::whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->count();
             #-------------------- for Students----------------------------------#
-            $last_24Hours_students = User::where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
-            $last_7_Days_students = User::where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->whereNull('deleted_at')->count();
-            $life_Time_students = User::whereNull('deleted_at')->count();
+            $last_24Hours_students = User::where('created_at', '>=', \Carbon\Carbon::now()->subDay())
+                ->whereNull('deleted_at')->whereIn('class_room_id',$teacher_ids)->count();
+            $last_7_Days_students = User::where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))
+                ->whereNull('deleted_at')->whereIn('class_room_id',$teacher_ids)->count();
+            $life_Time_students = User::whereNull('deleted_at')->whereIn('class_room_id',$teacher_ids)->count();
             #-------------------- for Test----------------------------------#
-            $last_24Hours_test = LaunchQuiz::where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
-            $last_7_Days_test = LaunchQuiz::where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->whereNull('deleted_at')->count();
-            $life_Time_test = LaunchQuiz::whereNull('deleted_at')->count();
-            #-------------------- for Test----------------------------------#
-            $last_24Hours_Teacher = Teacher::where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
-            $last_7_Days_Teacher = Teacher::where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->whereNull('deleted_at')->count();
-            $life_Time_Teacher = Teacher::whereNull('deleted_at')->count();
+            $last_24Hours_test = LaunchQuiz::where('created_at', '>=', \Carbon\Carbon::now()->subDay())
+                ->whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->count();
+            $last_7_Days_test = LaunchQuiz::where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))
+                ->whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->count();
+            $life_Time_test = LaunchQuiz::whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->count();
 
             return view('subadmin.dashboard',compact(
                 'last_24Hours_class',
@@ -57,7 +69,7 @@ class HomeController extends Controller
                 'life_Time_test',
                 'last_24Hours_Teacher',
                 'last_7_Days_Teacher',
-                'life_Time_Teacher',
+                'life_Time_Teacher'
             ));
         } catch (\Exception $e) {
             DB::rollBack();

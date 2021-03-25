@@ -28,7 +28,6 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        //dd(Auth::guard('admin')->user()->profile_photo_path);
         try {
             #-------------------- for ClassRoom----------------------------------#
             $last_24Hours_class = ClassRoom::where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
@@ -59,7 +58,7 @@ class HomeController extends Controller
                 'life_Time_test',
                 'last_24Hours_Teacher',
                 'last_7_Days_Teacher',
-                'life_Time_Teacher',
+                'life_Time_Teacher'
             ));
         } catch (\Exception $e) {
             DB::rollBack();
