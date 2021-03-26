@@ -43,6 +43,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Class Name</th>
+                                        <th>Teacher Name</th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
@@ -53,6 +54,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Class Name</th>
+                                        <th>Teacher Name</th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
@@ -65,6 +67,7 @@
                                                 <td>{{$row->name}} </td>
                                                 <td>{{$row->email}} </td>
                                                 <td>{{isset($row->classRoom->name) ? $row->classRoom->name : ""}} </td>
+                                                <td>{{isset($row->classRoom->teacher->name) ? $row->classRoom->teacher->name : ""}} </td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                                 <td class="text-right">
                                                     <a href="{{route('student.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
@@ -75,7 +78,6 @@
                                     @endif
                                     </tbody>
                                 </table>
-                                <div class="mt-3" id="xyz"> {{ $data->links() }} </div>
                             </div>
                         </div>
                         <!-- end content-->

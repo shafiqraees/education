@@ -42,6 +42,8 @@
 <script src="{{asset('public/assets/js/plugins/bootstrap-notify.js')}}" type="text/javascript"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{asset('public/assets/js/material-dashboard.js?v=2.2.2')}}" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script>
     $(document).ready(function() {
@@ -91,6 +93,48 @@
         table.on('click', '.like', function() {
             alert('You clicked on Like button');
         });*/
+        $('#subadminindex').DataTable({
+
+            processing: true,
+
+            serverSide: true,
+            order: [],
+            ajax: "{{ route('subadmin.index') }}",
+
+            columns: [
+
+                {data: 'id', name: 'id'},
+
+                {data: 'name', name: 'name'},
+
+                {data: 'email', name: 'email'},
+
+                {data: 'phone', name: 'phone'},
+
+                {data: 'gender', name: 'gender'},
+
+                {
+
+                    data: 'created_at',
+
+                    type: 'num',
+
+                    render: {
+
+                        _: 'display',
+
+                        sort: 'timestamp'
+
+                    }
+
+                },
+
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+
+            ]
+
+        });
+
     });
     function setFormValidation(id) {
         $(id).validate({

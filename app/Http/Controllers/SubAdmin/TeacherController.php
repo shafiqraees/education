@@ -23,7 +23,7 @@ class TeacherController extends Controller
     {
         try {
             $id = Auth::guard('subadmin')->user()->id;
-            $data = Teacher::whereSubAdminId($id)->whereHas('subAdmin')->with('subAdmin')->whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
+            $data = Teacher::whereSubAdminId($id)->whereHas('subAdmin')->with('subAdmin')->whereNull('deleted_at')->orderBy('id','desc')->get();
             return view('subadmin.teacher.list', compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();

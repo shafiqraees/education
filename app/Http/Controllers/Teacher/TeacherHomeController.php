@@ -532,9 +532,9 @@ class TeacherHomeController extends Controller
             'name' => 'required',
             'email' => 'required',
         ]);
-        if(!empty($request->Password)){
+        if(!empty($request->password)){
             $validated = $request->validate([
-                'password_confirmation' => 'required|same:Password',
+                'password_confirmation' => 'required|same:password',
             ]);
         }
 
@@ -549,7 +549,8 @@ class TeacherHomeController extends Controller
             $data = [
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => !empty($request->Password) ? bcrypt($request->Password) : $user->password,
+                'password' => !empty($request->password) ? Hash::make($request->password) : $user->password,
+                'org_password' => !empty($request->password) ? $request->password : $user->password,
                 'profile_photo_path' => !empty($path) ? $path : $user->profile_photo_path,
             ];
             $user->update($data);

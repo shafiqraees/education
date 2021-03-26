@@ -15,4 +15,7 @@ class ClassRoom extends Model
     public function rooms() {
         return $this->hasManyThrough(ClassRoom::class,Teacher::class,'sub_admin_id','teacher_id');
     }
+    public function teacher() {
+        return $this->belongsTo(Teacher::class);
+    }
 }

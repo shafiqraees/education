@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('public/assets/img/apple-icon.png')}}">
-    <link rel="icon" type="image/png" href="{{asset('public/assets/img/Educatioo.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('public/assets/img/fav.png')}}">
     <meta name="author" content="PIXINVENT">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'education') }}</title>
@@ -20,5 +20,9 @@
     <!-- CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets/css/select2.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('public/assets/css/sweetalert.css')}}">
+    <!-- CSS Yajra -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 

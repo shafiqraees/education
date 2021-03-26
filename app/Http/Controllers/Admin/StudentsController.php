@@ -23,7 +23,7 @@ class StudentsController extends Controller
     {
         try {
             $data = User::whereIsActive('true')->whereNull('deleted_at')
-                ->whereHas('classRoom')->with('classRoom')->orderBy('id','desc')->paginate(10);
+                ->whereHas('classRoom')->with('classRoom')->orderBy('id','desc')->get();
             return view('admin.students.list', compact('data'));
 
         } catch (\Exception $e) {

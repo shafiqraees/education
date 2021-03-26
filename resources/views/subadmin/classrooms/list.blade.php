@@ -42,6 +42,7 @@
                                         <th>Id</th>
                                         <th>Title</th>
                                         <th>Class Code</th>
+                                        <th>Teacher Name </th>
                                         <th>Status </th>
                                         <th>Created Date</th>
                                     </tr>
@@ -51,6 +52,7 @@
                                         <th>Id</th>
                                         <th>Title</th>
                                         <th>Class Code</th>
+                                        <th>Teacher Name </th>
                                         <th>Status </th>
                                         <th>Created Date</th>
                                     </tr>
@@ -62,6 +64,7 @@
                                                 <td>{{$row->id}} </td>
                                                 <td>{{$row->name}} </td>
                                                 <td>{{$row->class_code}} </td>
+                                                <td>{{isset($row->teacher->name) ? $row->teacher->name : ""}} </td>
                                                 <td>{{$row->status}}</td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
 
@@ -71,7 +74,6 @@
 
                                     </tbody>
                                 </table>
-                                <div class="mt-3" id="xyz"> {{ $data->links() }} </div>
                             </div>
                         </div>
                         <!-- end content-->

@@ -20,8 +20,9 @@ class ClassRoomController extends Controller
      */
     public function index()
     {
+
         try {
-            $data = ClassRoom::whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
+            $data = ClassRoom::whereNull('deleted_at')->orderBy('id','desc')->get();
             return view('admin.classrooms.list', compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();

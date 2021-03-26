@@ -44,6 +44,7 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Gender</th>
+                                        <th>Sub Admin</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
@@ -56,6 +57,7 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Gender</th>
+                                        <th>Sub Admin</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>
@@ -70,6 +72,7 @@
                                                 <td>{{$row->email}} </td>
                                                 <td>{{$row->phone}} </td>
                                                 <td>{{$row->gender}} </td>
+                                                <td>{{isset($row->subAdmin->name) ? $row->subAdmin->name : ""}} </td>
                                                 <td>
                                                     @if($row->is_active=="true")
                                                         <span class="badge badge-default badge-success">Actice</span>
@@ -87,7 +90,6 @@
                                     @endif
                                     </tbody>
                                 </table>
-                                <div class="mt-3" id="xyz"> {{ $data->links() }} </div>
                             </div>
                         </div>
                         <!-- end content-->

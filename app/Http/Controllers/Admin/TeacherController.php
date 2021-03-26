@@ -21,7 +21,7 @@ class TeacherController extends Controller
     public function index()
     {
         try {
-            $data = Teacher::whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
+            $data = Teacher::whereNull('deleted_at')->orderBy('id','desc')->get();
 
             return view('admin.teacher.list', compact('data'));
         } catch (\Exception $e) {

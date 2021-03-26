@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">assignment</i>
                             </div>
-                            <h4 class="card-title">Class Rooms</h4>
+                            <h4 class="card-title">Sub Admin</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -36,44 +36,20 @@
                                 </div>
                             @endif
                             <div class="material-datatables">
-                                <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <table id="subadminindex" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Class Code</th>
-                                        <th>Status </th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Gender</th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Class Code</th>
-                                        <th>Status </th>
-                                        <th>Created Date</th>
-                                        <th class="text-right">Actions</th>
-                                    </tr>
-                                    </tfoot>
                                     <tbody>
-                                    @if(!empty($data))
-                                        @foreach($data as $row)
-                                            <tr>
-                                                <td>{{$row->id}} </td>
-                                                <td>{{$row->name}} </td>
-                                                <td>{{$row->class_code}} </td>
-                                                <td>{{$row->status}}</td>
-                                                <td>{{ $row->created_at->diffForHumans() }}</td>
-                                                <td class="text-right">
-                                                    <a href="{{route('classroom.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
-                                                    <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('classroom.destroy',$row->id)}}"><i class="material-icons">close</i></a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
-
                                     </tbody>
                                 </table>
                             </div>

@@ -11,6 +11,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\DataTables;
 
 class SubAdminController extends Controller
 {
@@ -19,15 +21,43 @@ class SubAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $data = SubAdmin::whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
+            $data = SubAdmin::whereNull('deleted_at')->orderBy('id','desc')->get();
+            /*if ($request->ajax()) {
+                $data = SubAdmin::whereNull('deleted_at')->orderBy('id','desc')->get();
+
+                return Datatables::of($data)
+
+                    ->addIndexColumn()
+                    ->editColumn('created_at', function ($user) {
+
+                        return [
+
+                            'display' => e($user->created_at->format('m/d/Y')),
+
+                            'timestamp' => $user->created_at->timestamp
+
+                        ];
+
+                    })
+                    ->addColumn('action', function($row){
+
+                        $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                        return $actionBtn;
+                    })
+
+                    ->rawColumns(['action'])
+                    ->make(true);
+
+            }*/
 
             return view('admin.subadmin.list', compact('data'));
+            //return view('admin.subadmin.ajaxlist');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
+            return redirect(route('admin.home'))->withErrors('Sorry record not found.');
         }
     }
 

@@ -26,7 +26,7 @@ class ClassRoomController extends Controller
         try {
             $current_id = Auth::guard('subadmin')->user()->id;
             $teacher_ids = Teacher::whereId($current_id)->whereIsActive('true')->whereNull('deleted_at')->pluck('id');
-            $data = ClassRoom::whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->orderBy('id','desc')->paginate(10);
+            $data = ClassRoom::whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->orderBy('id','desc')->get();
             return view('subadmin.classrooms.list', compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();

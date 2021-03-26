@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\SubAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ClassRoom;
 use App\Models\SubAdmin;
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,15 +22,15 @@ class StudentController extends Controller
     {
 
         try {
-            $current_id = Auth::guard('subadmin')->user()->id;
-            $data = SubAdmin::whereId($current_id)->whereHas('students')->with('students',function ($query){
-                $query->select('users.id','users.name','users.email','roll_number','users.phone','users.created_at','users.gender','teacher_id','class_room_id');
-            })->orderBy('id','desc')->first();
+            $current_user = Auth::guard('subadmin')->user();
+            $teacher_ids = Teacher::whereSubAdminId($current_user->id)->pluck('id');
+            $classes_ids = ClassRoom::whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->pluck('id');
+            $data = User::whereNull('deleted_at')->whereIn('class_room_id',$teacher_ids)->get();
             return view('subadmin.students.list', compact('data'));
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
+            return redirect(route('subadmin.home'))->withErrors('Sorry record not found.');
         }
     }
 

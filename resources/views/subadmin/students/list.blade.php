@@ -43,6 +43,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Class Name</th>
+                                        <th>Teacher Name</th>
                                         <th>Created Date</th>
                                     </tr>
                                     </thead>
@@ -52,17 +53,19 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Class Name</th>
+                                        <th>Teacher Name</th>
                                         <th>Created Date</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
                                     @if(!empty($data))
-                                        @foreach($data->students as $row)
+                                        @foreach($data as $row)
                                             <tr>
                                                 <td>{{$row->id}} </td>
                                                 <td>{{$row->name}} </td>
                                                 <td>{{$row->email}} </td>
                                                 <td>{{isset($row->classRoom->name) ? $row->classRoom->name : ""}} </td>
+                                                <td>{{isset($row->classRoom->teacher->name) ? $row->classRoom->teacher->name : ""}} </td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                             </tr>
                                         @endforeach
