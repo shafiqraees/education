@@ -6,11 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\ClassRoom;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class ClassRoomController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:teacher');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +24,8 @@ class ClassRoomController extends Controller
     public function index()
     {
         try {
-            $data = ClassRoom::whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
+            $id = Auth::guard('teacher')->user()->id;
+            $data = ClassRoom::whereNull('deleted_at')->whereTeacherId($id)->orderBy('id','desc')->paginate(10);
             return view('teacher.classrooms.list', compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();
@@ -60,6 +66,7 @@ class ClassRoomController extends Controller
                 'name' => $request->name,
                 'status' => $request->status,
                 'class_code' => $request->class_code,
+                'teacher_id' => Auth::guard('teacher')->user()->id,
             ];
             // dd($quiz_data);
             ClassRoom::create($class_data);

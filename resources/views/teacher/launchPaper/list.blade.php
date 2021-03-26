@@ -66,8 +66,8 @@
                                         @foreach($data as $row)
                                             <tr>
                                                 <td>{{$row->id}} </td>
-                                                <td>{{isset($row->className->name) ? $row->className->name : ""}} </td>
-                                                <td>{{isset($row->className->class_code) ? $row->className->class_codename : ""}} </td>
+                                                <td>{{isset($row->classRoom->name) ? $row->classRoom->name : ""}} </td>
+                                                <td>{{isset($row->classRoom->class_code) ? $row->classRoom->class_code : ""}} </td>
                                                 <td>{{isset($row->questionPaper->name) ? $row->questionPaper->name : ""}} </td>
                                                 <td>{{isset($row->questionPaper->paper_code) ? $row->questionPaper->paper_code : ""}} </td>
                                                 @php

@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class PaperController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:teacher');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +31,7 @@ class PaperController extends Controller
      */
     public function index()
     {
+
         try {
             $id = Auth::guard('teacher')->user()->id;
             $data = QuestionPaper::whereTeacherId($id)->whereNull('deleted_at')->orderBy('id','desc')->paginate(10);

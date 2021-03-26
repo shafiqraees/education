@@ -31,14 +31,18 @@ class TeacherHomeController extends Controller
      */
     public function index() {
         $id = Auth::guard('teacher')->user()->id;
+        $classess = ClassRoom::whereTeacherId($id)->whereNull('deleted_at')->pluck('id');
         #-------------------- for ClassRoom----------------------------------#
         $last_24Hours_class = ClassRoom::whereTeacherId($id)->where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
         $last_7_Days_class = ClassRoom::whereTeacherId($id)->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->whereNull('deleted_at')->count();
         $life_Time_class = ClassRoom::whereTeacherId($id)->whereNull('deleted_at')->count();
         #-------------------- for Students----------------------------------#
-        $last_24Hours_students = User::whereTeacherId($id)->where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
-        $last_7_Days_students = User::whereTeacherId($id)->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->whereNull('deleted_at')->count();
-        $life_Time_students = User::whereTeacherId($id)->whereNull('deleted_at')->count();
+        $last_24Hours_students = User::where('created_at', '>=', \Carbon\Carbon::now()->subDay())
+            ->whereNull('deleted_at')->whereIn('class_room_id',$classess)->count();
+        $last_7_Days_students = User::where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))
+            ->whereNull('deleted_at')->whereIn('class_room_id',$classess)->count();
+        $life_Time_students = User::whereNull('deleted_at')
+            ->whereIn('class_room_id',$classess)->count();
         #-------------------- for Test----------------------------------#
         $last_24Hours_test = LaunchQuiz::whereTeacherId($id)->where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
         $last_7_Days_test = LaunchQuiz::whereTeacherId($id)->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->whereNull('deleted_at')->count();
@@ -53,7 +57,7 @@ class TeacherHomeController extends Controller
             'life_Time_students',
             'last_24Hours_test',
             'last_7_Days_test',
-            'life_Time_test',
+            'life_Time_test'
         ));
     }
     /**

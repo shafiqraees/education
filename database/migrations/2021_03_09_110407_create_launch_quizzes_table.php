@@ -18,7 +18,8 @@ class CreateLaunchQuizzesTable extends Migration
             $table->unsignedBigInteger('teacher_id')->nullable();
             $table->unsignedBigInteger('question_paper_id')->nullable();
             $table->unsignedBigInteger('class_room_id')->nullable();
-            $table->string('datetime')->nullable();
+            $table->string('start_datetime')->nullable();
+            $table->string('end_datetime')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');

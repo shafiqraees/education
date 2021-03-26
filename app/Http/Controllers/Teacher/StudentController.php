@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Redirect;
 
 class StudentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:teacher');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,11 +26,15 @@ class StudentController extends Controller
     public function index()
     {
 
+
         try {
-            //$data = User::whereIsActive('true')->whereNull('deleted_at')->with('classRoom')->orderBy('id','desc')->paginate(10);
-            $data = User::select('users.id','users.name','users.email','users.created_at','class_rooms.name as class_name')
-                ->leftjoin('class_rooms', 'users.class_room_id', '=', 'class_rooms.id')
-                ->where('users.is_active','true')->whereNull('users.deleted_at')->orderBy('users.id','desc')->paginate(10);
+            $id = Auth::guard('teacher')->user()->id;
+
+            $data = User::whereIsActive('true')->whereNull('deleted_at')
+                ->whereHas('classRoom',function ($query) use ($id){
+                    $query->whereTeacherId($id);
+                })->with('classRoom')->orderBy('id','desc')->paginate(10);
+
             return view('teacher.students.list', compact('data'));
 
         } catch (\Exception $e) {
@@ -43,7 +51,8 @@ class StudentController extends Controller
     public function create()
     {
         try {
-            $class = ClassRoom::whereStatus('Publish')->whereNull('deleted_at')->get();
+            $id = Auth::guard('teacher')->user()->id;
+            $class = ClassRoom::whereTeacherId($id)->whereStatus('Publish')->whereNull('deleted_at')->get();
             return view('teacher.students.create',compact('class'));
 
         } catch (\Exception $e) {

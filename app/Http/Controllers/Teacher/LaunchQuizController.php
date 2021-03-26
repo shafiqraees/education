@@ -19,6 +19,10 @@ use App\Mail\SendQuizNotification;
 
 class LaunchQuizController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:teacher');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +31,9 @@ class LaunchQuizController extends Controller
     public function index()
     {
         try {
-            $data = LaunchQuiz::orderBy('id','desc')->paginate(10);
+            $id = Auth::guard('teacher')->user()->id;
+
+            $data = LaunchQuiz::whereTeacherId($id)->orderBy('id','desc')->paginate(10);
 
             return view('teacher.launchPaper.list', compact('data'));
         } catch (\Exception $e) {
@@ -45,7 +51,7 @@ class LaunchQuizController extends Controller
     {
         try {
             $id = Auth::guard('teacher')->user()->id;
-            $data = ClassRoom::whereStatus('Publish')->whereNull('deleted_at')->orderBy('id','desc')->get();
+            $data = ClassRoom::whereStatus('Publish')->whereTeacherId($id)->whereNull('deleted_at')->orderBy('id','desc')->get();
             $papers = QuestionPaper::whereTeacherId($id)->whereStatus('Publish')->whereNull('deleted_at')->orderBy('id','desc')->get();
             return view('teacher.launchPaper.create', compact('data','papers'));
         } catch (\Exception $e) {
@@ -65,18 +71,20 @@ class LaunchQuizController extends Controller
         $validated = $request->validate([
             'paper_id' => 'required',
             'class_room' => 'required',
-            'datetime' => 'required',
+            'start_datetime' => 'required',
+            'end_datetime' => 'required',
         ]);
 
         try {
             $students = User::whereClassRoomId($request->class_room)->whereIsActive('true')
-                ->whereNull('deleted_at')->pluck('id');
+                ->whereNull('deleted_at')->select('id','email')->get();
             DB::beginTransaction();
             if(!$students->isEmpty()) {
                 $quiz_data = [
                     'class_room_id' => $request->class_room,
                     'question_paper_id' => $request->paper_id,
-                    'datetime' => date('Y-m-d H:i:s', strtotime($request->datetime)),
+                    'start_datetime' => date('Y-m-d H:i:s', strtotime($request->start_datetime)),
+                    'end_datetime' => date('Y-m-d H:i:s', strtotime($request->end_datetime)),
                     'teacher_id' => Auth::guard('teacher')->user()->id,
                 ];
                 // dd($quiz_data);
@@ -95,7 +103,7 @@ class LaunchQuizController extends Controller
                         'teacher_id' => Auth::guard('teacher')->user()->id,
                         'question_paper_id' => $request->paper_id,
                         'class_room_id' => $request->class_room,
-                        'user_id' => $student,
+                        'user_id' => $student->id,
                         'launch_quiz_id' => $quiz->id,
                     ];
                     UserQuiz::create($user_data);

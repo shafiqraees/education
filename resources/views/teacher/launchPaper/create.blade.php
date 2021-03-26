@@ -34,7 +34,7 @@
                         </div>
                         <div class="card-body ">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <select class="form-control select2" aria-invalid="false" name="class_room" required>
                                             <option value="">Select Class Room</option>
@@ -44,7 +44,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <select name="paper_id" id="question"  class="form-control">
                                             <option value="">Select Quiz</option>
@@ -54,9 +54,14 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <input type="text" name="datetime" placeholder="select date and time" class="form-control datetimepicker">
+                                        <input type="text" name="start_datetime" placeholder="start date and time" class="form-control datetimepicker">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="text" name="end_datetime" placeholder="End date and time" class="form-control datetimepicker">
                                     </div>
                                 </div>
                                 <div class="col-md-2 mt-4">

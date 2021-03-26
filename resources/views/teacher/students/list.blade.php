@@ -65,7 +65,7 @@
                                                 <td>{{$row->id}} </td>
                                                 <td>{{$row->name}} </td>
                                                 <td>{{$row->email}} </td>
-                                                <td>{{!empty($row->class_name) ? $row->class_name : ""}} </td>
+                                                <td>{{!empty($row->classRoom->name) ? $row->classRoom->name : ""}} </td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                                 <td class="text-right">
                                                     <a href="{{route('students.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
