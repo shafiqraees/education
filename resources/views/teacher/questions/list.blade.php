@@ -59,7 +59,7 @@
                                     @if(!empty($data))
                                         @foreach($data as $row)
                                             <tr>
-                                                <td>{{$row->id}} </td>
+                                                <td>{{$row->serial_id}} </td>
                                                 <td>{{$row->name}} </td>
                                                 <td>{{$row->type}}</td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
@@ -73,7 +73,6 @@
 
                                     </tbody>
                                 </table>
-                                <div class="mt-3" id="xyz"> {{ $data->links() }} </div>
                             </div>
                         </div>
                         <!-- end content-->

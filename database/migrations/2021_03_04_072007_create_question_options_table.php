@@ -16,14 +16,14 @@ class CreateQuestionOptionsTable extends Migration
         Schema::create('question_options', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('question_id')->nullable();
-            $table->unsignedBigInteger('suggested_question_id')->nullable();
+            $table->bigInteger('suggested_question_id')->nullable();
             $table->string('name')->nullable();
             $table->string('answer')->nullable();
             $table->text('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
-            $table->foreign('suggested_question_id')->references('id')->on('questions')->onDelete('cascade');
+            //$table->foreign('suggested_question_id')->references('id')->on('questions')->onDelete('cascade');
         });
     }
 

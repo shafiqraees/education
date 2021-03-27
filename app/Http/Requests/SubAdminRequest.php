@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TeacherRequest extends FormRequest
+class SubAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class TeacherRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -26,7 +26,7 @@ class TeacherRequest extends FormRequest
         return [
             'name' => 'required',
             'password' => 'required|confirmed|min:8',
-            'email' => 'unique:teachers',
+            'email' => 'unique:subadmins',
         ];
     }
 }

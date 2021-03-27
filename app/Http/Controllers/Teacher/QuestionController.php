@@ -25,12 +25,12 @@ class QuestionController extends Controller
 
         try {
             $currrent_id = Auth::guard('teacher')->user()->id;
-            $data = Question::whereTeacherId($currrent_id)->whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
+            $data = Question::whereTeacherId($currrent_id)->whereNull('deleted_at')->orderBy('id','desc')->get();
             return view('teacher.questions.list', compact('data'));
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
+            return redirect(route('teacher.home'))->withErrors('Sorry record not found.');
         }
     }
 
@@ -62,19 +62,25 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'name' => 'required',
         ]);
+
         try {
             if($request->hasFile('photo')){
                 SavePhotoAllSizes($request, 'quiz/');
                 $quiz_image = 'quiz/'.$request->photo->hashName();
             }
             DB::beginTransaction();
+            $serial = 1;
+            $que_series = Question::whereTeacherId(Auth::guard('teacher')->user()->id)->max('serial_id');
+            $que_series = $que_series + $serial;
             $quiz_data = [
                 'name' => $request->name,
                 'teacher_id' => Auth::guard('teacher')->user()->id,
                 'type' => $request->type,
+                'serial_id' => isset($que_series) ? $que_series : "",
                 'image' => !empty($quiz_image) ? $quiz_image : "",
                 'questio_code' => Hash::make($request->name.time()),
             ];

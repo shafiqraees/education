@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Teacher;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Routing\Route;
@@ -53,13 +54,21 @@ class LoginController extends Controller
             'email' => ['required'],
             'password' => ['required'],
         ]);
-
-        if (Auth::guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-            return redirect()->intended('/teacher');
+        $teacher = Teacher::whereEmail($request->email)->whereNotNull('email_verified_at')->first();
+        if ($teacher) {
+            if (Auth::guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+                return redirect()->intended('/teacher');
+            } else {
+                $errors = new MessageBag(['password' => ['Email and/or password invalid.']]);
+                return Redirect::back()->withErrors($errors)->withInput($request->only('email', 'remember'));
+            }
+        } else {
+            $errors = new MessageBag(['Verify' => ['Please check your email and verify your account.']]);
+            return Redirect::back()->withErrors($errors)->withInput($request->only('email', 'remember'));
         }
+
         //return back()->withInput($request->only('email', 'remember'));
-        $errors = new MessageBag(['password' => ['Email and/or password invalid.']]);
-        return Redirect::back()->withErrors($errors)->withInput($request->only('email', 'remember'));
+
 
     }
     public function logout(Request $request)

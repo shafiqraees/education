@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubAdminRequest;
 use App\Http\Requests\TeacherRequest;
+use App\Mail\VerifyUser;
 use App\Models\SubAdmin;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\DataTables;
@@ -82,7 +85,7 @@ class SubAdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TeacherRequest $request)
+    public function store(SubAdminRequest $request)
     {
         try {
             $path = "default.png";
@@ -91,6 +94,15 @@ class SubAdminController extends Controller
                 $path = 'profile/'.$request->image->hashName();
             }
             DB::beginTransaction();
+            if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+                $token = uniqid();
+                $details = [
+                    'title' => 'Account verification',
+                    'body' => 'This is for testing email using smtp',
+                    'link' => route('verify',["subadmin",$token])
+                ];
+                Mail::to($request->email)->send(new VerifyUser($details));
+            }
             $data = [
                 'name' => $request->name,
                 'email' => $request->email,
@@ -100,6 +112,7 @@ class SubAdminController extends Controller
                 'password' => bcrypt($request->password),
                 'org_password' => $request->password,
                 'profile_photo_path' => !empty($path) ? $path : "default.png",
+                'remember_token' => $token,
             ];
             SubAdmin::create($data);
             DB::commit();
