@@ -9,6 +9,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Input;
 class LoginController extends Controller
@@ -52,8 +53,8 @@ class LoginController extends Controller
             'email' => ['required'],
             'password' => ['required'],
         ]);
-        if (Auth::guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
+        if (Auth::guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
             return redirect()->intended('/teacher');
         }
         //return back()->withInput($request->only('email', 'remember'));

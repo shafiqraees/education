@@ -106,19 +106,11 @@ class HomeController extends Controller
      */
     public function startQuiz() {
 
-        /*UserQuiz::whereUserId($current_user->id)->whereNotIn('launch_quiz_id',$attempt)
-            ->whereHas('questionPaper.questionPaperquestion')->with('questionPaper',function ($query) {
-                $query->with('questionPaperquestion',function ($sub_query) {
-                    $sub_query->inRandomOrder()->first();
-                    $sub_query->whereHas('getQuestion')->with('getQuestion');
-                });
-            })->first();*/
-
         try {
             $current_user = Auth::user();
 
             $attempt = UserQuizAttempt::whereUserId($current_user->id)->whereHas('launchQuiz',function ($query){
-                $query->where('datetime',Carbon::now());
+                $query->where('start_datetime',Carbon::now());
             })->pluck('launch_quiz_id');
             $UserQuiz = UserQuiz::whereUserId($current_user->id)->whereNotIn('launch_quiz_id',$attempt)
                 ->whereHas('questionPaper')->first();

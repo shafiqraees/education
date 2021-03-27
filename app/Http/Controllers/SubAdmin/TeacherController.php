@@ -4,11 +4,15 @@ namespace App\Http\Controllers\SubAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
+use App\Mail\SendQuizNotification;
+use App\Mail\VerifyUser;
 use App\Models\SubAdmin;
 use App\Models\Teacher;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,12 +59,23 @@ class TeacherController extends Controller
     public function store(TeacherRequest $request)
     {
         try {
+            DB::beginTransaction();
+
             $path = "default.png";
             if($request->hasFile('image')){
                 SaveImageAllSizes($request, 'profile/');
                 $path = 'profile/'.$request->image->hashName();
             }
-            DB::beginTransaction();
+
+            if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+                $token = uniqid();
+                $details = [
+                    'title' => 'Account verification',
+                    'body' => 'This is for testing email using smtp',
+                    'link' => route('verify',["teacher",$token])
+                ];
+                Mail::to($request->email)->send(new VerifyUser($details));
+            }
             $data = [
                 'name' => $request->name,
                 'email' => $request->email,
@@ -71,8 +86,10 @@ class TeacherController extends Controller
                 'org_password' => $request->password,
                 'profile_photo_path' => !empty($path) ? $path : "",
                 'sub_admin_id' => $id = Auth::guard('subadmin')->user()->id,
+                'remember_token' => $token,
             ];
             Teacher::create($data);
+
             DB::commit();
             return redirect(route('teachers.index'))->with('success', 'Teacher added successfully.');
 

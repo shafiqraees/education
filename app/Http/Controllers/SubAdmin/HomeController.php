@@ -28,6 +28,7 @@ class HomeController extends Controller
     public function index() {
 
         try {
+
             $current_user = Auth::guard('subadmin')->user();
             $teacher_ids = Teacher::whereSubAdminId($current_user->id)->pluck('id');
             $classes_ids = ClassRoom::whereNull('deleted_at')->whereIn('teacher_id',$teacher_ids)->pluck('id');

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\SubAdmin;
+use App\Models\Teacher;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -69,5 +72,24 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function verifyUser($user, $token)
+    {
+        $data = ['email_verified_at' => Carbon::now()];
+        if ($user === "teacher") {
+            $model = Teacher::whereRememberToken($token)->first();
+            $model->update($data);
+            return redirect(route('teacher.login'))->with('success', 'successfully verified.');
+        } elseif ($user === "subadmin") {
+            $model = SubAdmin::whereRememberToken($token)->first();
+            $model->update($data);
+            return redirect(route('subadmin.login'))->with('success', 'successfully verified.');
+        } elseif ($user === "student") {
+            $model = User::whereRememberToken($token)->first();
+            $model->update($data);
+            return redirect(route('login'))->with('success', 'successfully verified.');
+        }
+
     }
 }

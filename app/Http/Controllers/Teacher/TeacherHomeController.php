@@ -17,14 +17,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
+
 class TeacherHomeController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:teacher');
+        //dd(Auth::guard('teacher')->user());
     }
     /**
+     * dd(Auth::guard('teacher')->user());
+    if ((Auth::guard('teacher')->user()->email_verified_at == "") || (Auth::guard('teacher')->user()->email_verified_at == null)){
+    return redirect(route('teacher.login'))->withErrors('Please verify your account.');
+    }
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable

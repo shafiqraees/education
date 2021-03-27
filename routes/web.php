@@ -21,7 +21,7 @@ use App\Http\Controllers\Admin\SubAdminController;
 Route::get('/', function () {
     return view('frontend.index');
 });
-
+Route::get('/verify/{user}/{token}', [\App\Http\Controllers\Auth\RegisterController::class, 'verifyUser'])->name('verify');
 Auth::routes();
 
 Route::group(['prefix' => 'teacher'], function () {
@@ -71,6 +71,7 @@ Route::group(['prefix' => 'subadmin'], function () {
     Route::post('/logout', [\App\Http\Controllers\SubAdmin\Auth\LoginController::class, 'logout'])->name('subadmin.logout');
     Route::get('/register', [\App\Http\Controllers\SubAdmin\Auth\RegisterController::class, 'showRegisterForm'])->name('subadmin.register');
     Route::post('/register', [\App\Http\Controllers\SubAdmin\Auth\RegisterController::class, 'subAdminRegister'])->name('subadmin.register.store');
+    Route::post('/verify', [\App\Http\Controllers\SubAdmin\Auth\RegisterController::class, 'subAdminRegister'])->name('subadmin.register.store');
 });
 
 Route::group(['middleware' => ['auth:subadmin'], 'prefix' => 'subadmin'], function () {

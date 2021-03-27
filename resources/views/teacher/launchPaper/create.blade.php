@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input type="text" name="end_datetime" placeholder="End date and time" class="form-control datetimepicker">
+                                        <input type="text" name="end_datetime" placeholder="Expire date and time" class="form-control datetimepicker">
                                     </div>
                                 </div>
                                 <div class="col-md-2 mt-4">
@@ -92,6 +92,12 @@
                                     <div class="form-group">
                                         <label for="exampleEmails" class="bmd-label-floating"> Show Final Score </label>
                                         <input type="checkbox" name="setting[]" class="form-control " value="Show Final Score">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mt-4">
+                                    <div class="form-group">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Re Attempt </label>
+                                        <input type="checkbox" name="setting[]" class="form-control " value="Re Attempt">
                                     </div>
                                 </div>
                             </div>
