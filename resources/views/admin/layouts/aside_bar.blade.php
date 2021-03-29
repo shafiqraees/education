@@ -55,14 +55,14 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('subadmin.index')}}">
                                 <span class="sidebar-mini"> All </span>
-                                <span class="sidebar-normal"> All Sub Admib
+                                <span class="sidebar-normal"> All Sub Admin
                     </span>
                             </a>
 
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('subadmin.create')}}">
                                 <span class="sidebar-mini"> Add </span>
-                                <span class="sidebar-normal">Add Sub Admib</span>
+                                <span class="sidebar-normal">Add Sub Admin</span>
                             </a>
                         </li>
 

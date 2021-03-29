@@ -93,7 +93,7 @@ class SubAdminController extends Controller
             'password' => 'required|confirmed|min:8',
             //'email' => 'unique:subadmins',
         ]);
-        //try {
+        try {
             $find = SubAdmin::whereEmail($request->email)->first();
             if ($find) {
                 $errors = new MessageBag(['password' => ['Email already exist.']]);
@@ -129,10 +129,10 @@ class SubAdminController extends Controller
             DB::commit();
             return redirect(route('subadmin.index'))->with('success', 'Sub Admin added successfully.');
 
-        /*} catch ( \Exception $e) {
+        } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');
-        }*/
+        }
     }
 
     /**
