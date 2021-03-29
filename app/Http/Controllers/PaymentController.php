@@ -114,7 +114,7 @@ class PaymentController extends Controller
         $execution = new PaymentExecution();
         $execution->setPayerId($request->input('PayerID'));
         $result = $payment->execute($execution, $this->_api_context);
-
+        dd($result);
         if ($result->getState() == 'approved') {
             dd('asda');
             \Session::put('success','Payment success !!');

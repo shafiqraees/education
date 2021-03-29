@@ -20,11 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->truncateTables();
         $this->call(ClassRoomSeeder::class);
-        $this->call(SubAdminSeeder::class);
-        $this->call(TeacherSeeder::class);
         $this->call(AdminSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(QuestionSeeder::class);
     }
 
     public function truncateTables()
