@@ -87,11 +87,11 @@ class SubAdminController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        /*$this->validate($request, [
             'name' => 'required',
             'password' => 'required|confirmed|min:8',
             'email' => 'unique:subadmins',
-        ]);
+        ]);*/
         try {
             $path = "default.png";
             if($request->hasFile('image')){
