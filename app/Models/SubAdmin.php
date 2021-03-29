@@ -34,7 +34,7 @@ class SubAdmin extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-    ]; 
+    ];
 
     protected $guard = 'subadmin';
     public function rooms() {

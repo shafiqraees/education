@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\MessageBag;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\DataTables;
 
@@ -90,9 +91,14 @@ class SubAdminController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'password' => 'required|confirmed|min:8',
-            'email' => 'unique:subadmins',
+            //'email' => 'unique:subadmins',
         ]);
         try {
+            $find = SubAdmin::whereEmail($request->email)->first();
+            if ($find) {
+                $errors = new MessageBag(['password' => ['Email already exist.']]);
+                return Redirect::back()->withErrors($errors)->withInput($request->only('email', 'remember'));
+            }
             $path = "default.png";
             if($request->hasFile('image')){
                 SaveImageAllSizes($request, 'profile/');
