@@ -51,7 +51,7 @@
                                         <select name="quiz_id[]" id="question" class="form-control select2 quiz">
                                             <option value="">Select first Question</option>
                                             @foreach($data as $room)
-                                                <option value="{{$room->id}}">{{$room->name}}</option>
+                                                <option value="{{$room->serial_id}}">{{$room->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -70,6 +70,7 @@
         </div>
     </div>
     <input type="hidden" id="ajaxurl" name="url" value="{{route('getoption')}}">
+    <input type="hidden" id="teacher_id" name="teacher_id" value="{{Auth::guard('teacher')->user()->id}}">
 @endsection
 <script src="{{asset('public/assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
 <script>
@@ -78,28 +79,27 @@
         e.preventDefault();
         var id = $(this).val();
         var url = $('#ajaxurl').val();
+        var teacher_id = $('#teacher_id').val();
         var _token =  $('meta[name="csrf-token"]').attr('content');
-        alert(id);
-        alert(url);
-        alert(_token);
-        ajaxOnChangeRequest(id,url,_token);
+        ajaxOnChangeRequest(id,url,_token, teacher_id);
     });
     $(document).on('click','.nxtbtn',function(e){
         e.preventDefault();
         //var id = $(this).val();
         var dataid = $(this).attr('data-id');
         var url = $('#ajaxurl').val();
+        var teacher_id = $('#teacher_id').val();
         var _token =  $('meta[name="csrf-token"]').attr('content');
-
-        ajaxOnChangeRequest(dataid,url,_token);
+        ajaxOnChangeRequest(dataid,url,_token,teacher_id);
     });
-    function ajaxOnChangeRequest(id,url,_token) {
+    function ajaxOnChangeRequest(id,url,_token, teacher_id) {
         var str = '';
         $.ajax({
             url:url,
             type:"get",
             data:{
                 id:id,
+                teacher_id:teacher_id,
                 _token: _token
             },
             success:function(response){

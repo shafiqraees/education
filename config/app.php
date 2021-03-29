@@ -162,7 +162,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         /*
          * Package Service Providers...

@@ -20,7 +20,17 @@ use App\Http\Controllers\Admin\SubAdminController;
 
 Route::get('/', function () {
     return view('frontend.index');
+    //return view('welcome');
 });
+
+Route::get('paywithpaypal', [\App\Http\Controllers\PaymentController::class,'payWithPaypal'])->name('paywithpaypal');
+Route::post('paypal', [\App\Http\Controllers\PaymentController::class,'postPaymentWithpaypal'])->name('paypal');
+Route::get('paypal', [\App\Http\Controllers\PaymentController::class,'getPaymentStatus'])->name('status');
+
+/*Route::get('payment', [\App\Http\Controllers\PayPalController::class,'payment'])->name('payment');
+Route::get('cancel',  [\App\Http\Controllers\PayPalController::class,'cancel'])->name('payment.cancel');
+Route::get('payment/success', [\App\Http\Controllers\PayPalController::class,'success'])->name('payment.success');*/
+
 Route::get('/verify/{user}/{token}', [\App\Http\Controllers\Auth\RegisterController::class, 'verifyUser'])->name('verify');
 Auth::routes();
 

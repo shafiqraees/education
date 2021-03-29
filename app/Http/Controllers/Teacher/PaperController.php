@@ -153,10 +153,11 @@ class PaperController extends Controller
      */
     public function getQuestionOptions(Request $request)
     {
+
         try {
-            $ques= Question::find($request->id);
+            $ques= Question::whereTeacherId($request->teacher_id)->whereSerialId($request->id)->first();
             if ($ques) {
-                $data = Question::whereId($request->id)->whereHas('option')->with(['option'])->first();
+                $data = Question::whereTeacherId($request->teacher_id)->whereSerialId($request->id)->whereHas('option')->with(['option'])->first();
                 $transformed_data = Transformer::transformOption($data);
                 return $this->apiResponse(JsonResponse::HTTP_OK, 'data', $transformed_data);
             } else {
