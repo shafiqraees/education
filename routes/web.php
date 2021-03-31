@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('paywithpaypal', [\App\Http\Controllers\PaymentController::class,'payWithPaypal'])->name('paywithpaypal');
-Route::post('paypal', [\App\Http\Controllers\PaymentController::class,'payWithpaypal'])->name('paypal');
+Route::post('paypal', [\App\Http\Controllers\PaymentController::class,'postPaymentWithpaypal'])->name('paypal');
 Route::get('paypal', [\App\Http\Controllers\PaymentController::class,'getPaymentStatus'])->name('status');
 
 /*Route::get('payment', [\App\Http\Controllers\PayPalController::class,'payment'])->name('payment');

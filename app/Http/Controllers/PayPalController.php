@@ -1,127 +1,51 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use Srmklive\PayPal\Services\ExpressCheckout;
 
 class PayPalController extends Controller
-
 {
-
-    /**
-
-     * Responds with a welcome message with instructions
-
-     *
-
-     * @return \Illuminate\Http\Response
-
-     */
-
-    public function payment()
-
+    public function handlePayment()
     {
-
-        $data = [];
-
-        $data['items'] = [
-
+        $product = [];
+        $product['items'] = [
             [
-
-                'name' => 'ItSolutionStuff.com',
-
-                'price' => 100,
-
-                'desc'  => 'Description for ItSolutionStuff.com',
-
-                'qty' => 1
-
+                'name' => 'Nike Joyride 2',
+                'price' => 112,
+                'desc'  => 'Running shoes for Men',
+                'qty' => 2
             ]
-
         ];
 
+        $product['invoice_id'] = 1;
+        $product['invoice_description'] = "Order #{$product['invoice_id']} Bill";
+        $product['return_url'] = route('success.payment');
+        $product['cancel_url'] = route('cancel.payment');
+        $product['total'] = 224;
 
+        $paypalModule = new ExpressCheckout;
 
-        $data['invoice_id'] = 1;
+        $res = $paypalModule->setExpressCheckout($product);
+        $res = $paypalModule->setExpressCheckout($product, true);
 
-        $data['invoice_description'] = "Order #{$data['invoice_id']} Invoice";
-
-        $data['return_url'] = route('payment.success');
-
-        $data['cancel_url'] = route('payment.cancel');
-
-        $data['total'] = 100;
-
-
-
-        $provider = new ExpressCheckout;
-
-
-
-        $response = $provider->setExpressCheckout($data);
-
-
-
-        $response = $provider->setExpressCheckout($data, true);
-
-
-
-        return redirect($response['paypal_link']);
-
+        return redirect($res['paypal_link']);
     }
 
-
-
-    /**
-
-     * Responds with a welcome message with instructions
-
-     *
-
-     * @return \Illuminate\Http\Response
-
-     */
-
-    public function cancel()
-
+    public function paymentCancel()
     {
-
-        dd('Your payment is canceled. You can create cancel page here.');
-
+        dd('Your payment has been declend. The payment cancelation page goes here!');
     }
 
-
-
-    /**
-
-     * Responds with a welcome message with instructions
-
-     *
-
-     * @return \Illuminate\Http\Response
-
-     */
-
-    public function success(Request $request)
-
+    public function paymentSuccess(Request $request)
     {
-
-        $response = $provider->getExpressCheckoutDetails($request->token);
-
-
+        $paypalModule = new ExpressCheckout;
+        $response = $paypalModule->getExpressCheckoutDetails($request->token);
 
         if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
-
-            dd('Your payment was successfully. You can create success page here.');
-
+            dd('Payment was successfull. The payment success page goes here!');
         }
 
-
-
-        dd('Something is wrong.');
-
+        dd('Error occured!');
     }
-
 }

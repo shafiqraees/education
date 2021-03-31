@@ -50,7 +50,7 @@
                             <div class="p-4 px-lg-5">
                                 <div class="el-content uk-panel uk-margin-top"><p><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Discount&nbsp;prices<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Payment yearly<br><span style="color: #ff6600;"><strong>√&nbsp;&nbsp;</strong><span style="color: #000000;">From 6 users</span></span><br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>14 day Free Trial<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Unlimited&nbsp;courses<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>100 students</p>
                                     <p><span style="color: #ff6600;"><strong>√&nbsp;</strong></span>&nbsp;Full product use</p></div>
-                                <input id="amount" type="hidden" class="form-control" name="amount" value="1" autofocus>
+                                <input id="amount" type="hidden" class="form-control" name="amount" value="1.0" autofocus>
                             </div>
                                 <button type="submit" class="btn btn-primary btn-outline-primary d-block px-2 py-3">
                                     Get Started
