@@ -33,8 +33,8 @@ return [
         'id' => env('PAYPAL_CLIENT_ID'),
         'secret' => env('PAYPAL_SECRET'),
         'url' => [
-            'redirect' => 'http://localhost/educatioo/execute-payment',
-            'cancel'=>'http://localhost/educatioo/cancel',
+            'redirect' => 'http://educatioo.esquall.com/execute-payment',
+            'cancel'=>'http://educatioo.esquall.comcancel',
             'executeAgreement' => [
                 'success'=>'http://localhost/educatioo/execute-agreement/true',
                 'failure'=>'http://localhost/educatioo/execute-agreement/false'
