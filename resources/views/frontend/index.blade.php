@@ -14,44 +14,19 @@
     <section class="ftco-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                     <div class="block-7">
                         <div class="text-center">
+                            <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{!! URL::route('create-payment') !!}" >
+                                {{ csrf_field() }}
                             <span class="excerpt d-block">Basic Plan</span>
-                            <span class="price"><sup>$</sup> <span class="number">49K</span></span>
+                            <span class="price"><sup>$</sup> <span class="number">72</span></span>
                             <div class="p-4 px-lg-5">
                                 <div class="el-content uk-panel uk-margin-top"><p><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>Price per month<br><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>$ 59 yearly<br><span style="color: #ff6600;"><strong>√&nbsp;&nbsp;</strong></span>1 user<br><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>14 day Free Trial<br><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>5 courses<br><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>10 students</p>
                                     <p><span style="color: #ff6600;"><strong>√</strong></span>&nbsp; Full product use</p></div>
                             </div>
-                            <a href="#" class="btn btn-primary btn-outline-primary d-block px-2 py-3">Get Started</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    <div class="block-7">
-                        <div class="text-center">
-                            <span class="excerpt d-block">Beginner Plan</span>
-                            <span class="price"><sup>$</sup> <span class="number">79K</span></span>
-                            <div class="p-4 px-lg-5">
-                                <div class="el-content uk-panel uk-margin-top"><p><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>Price per month<br><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>$ 97 yearly<br><span style="color: #ff6600;"><strong>√&nbsp;&nbsp;</strong></span>1 user<br><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>14 day Free Trial<br><strong><span style="color: #ff6600;">√</span>&nbsp; </strong>Unlimited<strong>&nbsp;</strong>courses<br><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>100 students</p>
-                                    <p><span style="color: #ff6600;"><strong>√</strong></span>&nbsp; Full product use</p></div>
-                            </div>
-                            <a href="#" class="btn btn-primary btn-outline-primary d-block px-2 py-3">Get Started</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <div class="block-7">
-                        <div class="text-center">
-                            <form class="form-horizontal" method="POST" id="payment-form" role="form" action="{!! URL::route('paypal') !!}" >
-                                {{ csrf_field() }}
-                            <span class="excerpt d-block">Premium Plan</span>
-                            <span class="price"><sup>$</sup> <span class="number">109K</span></span>
-                            <div class="p-4 px-lg-5">
-                                <div class="el-content uk-panel uk-margin-top"><p><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Discount&nbsp;prices<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Payment yearly<br><span style="color: #ff6600;"><strong>√&nbsp;&nbsp;</strong><span style="color: #000000;">From 6 users</span></span><br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>14 day Free Trial<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Unlimited&nbsp;courses<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>100 students</p>
-                                    <p><span style="color: #ff6600;"><strong>√&nbsp;</strong></span>&nbsp;Full product use</p></div>
-                                <input id="amount" type="hidden" class="form-control" name="amount" value="1.0" autofocus>
-                            </div>
+                                <input id="amount" type="hidden" class="form-control" name="amount" value="72.0" autofocus>
+                                <input id="name" type="hidden" class="form-control" name="name" value="Basic Plan" autofocus>
                                 <button type="submit" class="btn btn-primary btn-outline-primary d-block px-2 py-3">
                                     Get Started
                                 </button>
@@ -59,15 +34,38 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                     <div class="block-7">
                         <div class="text-center">
-                            <span class="excerpt d-block">Ultimate Plan</span>
-                            <span class="price"><sup>$</sup> <span class="number">149K</span></span>
+                            <form class="form-horizontal" method="POST" id="paymen-form" role="form" action="{!! URL::route('create-payment') !!}" >
+                                {{ csrf_field() }}
+                            <span class="excerpt d-block">Premium</span>
+                            <span class="price"><sup>$</sup> <span class="number">120</span></span>
                             <div class="p-4 px-lg-5">
-                                <div class="el-content uk-panel uk-margin-top"><p><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Discount&nbsp;prices<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Payment yearly<br><span style="color: #ff6600;"><strong>√&nbsp;&nbsp;</strong><span style="color: #000000;">From 6 users</span></span><br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>14 day Free Trial<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Unlimited&nbsp;courses<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>1000 students</p>
-                                    <p><span style="color: #ff6600;"><strong>√&nbsp;</strong></span>&nbsp;Full product use</p></div>                            </div>
-                            <a href="#" class="btn btn-primary btn-outline-primary d-block px-2 py-3">Get Started</a>
+                                <div class="el-content uk-panel uk-margin-top"><p><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>Price per month<br><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>$ 97 yearly<br><span style="color: #ff6600;"><strong>√&nbsp;&nbsp;</strong></span>1 user<br><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>14 day Free Trial<br><strong><span style="color: #ff6600;">√</span>&nbsp; </strong>Unlimited<strong>&nbsp;</strong>courses<br><strong><span style="color: #ff6600;">√</span>&nbsp;&nbsp;</strong>100 students</p>
+                                    <p><span style="color: #ff6600;"><strong>√</strong></span>&nbsp; Full product use</p></div>
+                            </div>
+                                <input id="amount" type="hidden" class="form-control" name="amount" value="120.0" autofocus>
+                                <input id="name" type="hidden" class="form-control" name="name" value="Premium package" autofocus>
+                            <button type="submit" class="btn btn-primary btn-outline-primary d-block px-2 py-3">
+                                Get Started
+                            </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                    <div class="block-7">
+                        <div class="text-center">
+                            <span class="excerpt d-block">School or Company</span>
+                            <span class="price"><sup></sup> <span class="number">Call us</span></span>
+                            <div class="p-4 px-lg-5">
+                                <div class="el-content uk-panel uk-margin-top"><p><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Discount&nbsp;prices<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Payment yearly<br><span style="color: #ff6600;"><strong>√&nbsp;&nbsp;</strong><span style="color: #000000;">From 6 users</span></span><br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>14 day Free Trial<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>Unlimited&nbsp;courses<br><strong><span style="color: #ff6600;">√&nbsp;</span>&nbsp;</strong>100 students</p>
+                                    <p><span style="color: #ff6600;"><strong>√&nbsp;</strong></span>&nbsp;Full product use</p></div>
+                            </div>
+                                <button type="submit" class="btn btn-primary btn-outline-primary d-block px-2 py-3">
+                                    Get Started
+                                </button>
                         </div>
                     </div>
                 </div>

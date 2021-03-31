@@ -43,14 +43,16 @@ class QuestionController extends Controller
     {
         try {
             $id = Auth::guard('teacher')->user()->id;
+
             $quiz = Question::whereTeacherId($id)->whereStatus('Publish')->whereNull('deleted_at')->get();
-            $number = Question::orderBy('id', 'desc')->first()->id;
-            $quiz_number = $number + 1;
+            $number = Question::orderBy('id', 'desc')->first();
+
+            $quiz_number = isset($number->id) ? $number->id : 0 + 1;
             return view('teacher.questions.create',compact('quiz','quiz_number'));
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect(route('home'))->withErrors('Sorry record not found.');
+            return redirect(route('teacher.home'))->withErrors('Sorry record not found.');
         }
     }
 

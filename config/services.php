@@ -29,5 +29,16 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    'paypal' => [
+        'id' => env('PAYPAL_CLIENT_ID'),
+        'secret' => env('PAYPAL_SECRET'),
+        'url' => [
+            'redirect' => 'http://localhost/educatioo/execute-payment',
+            'cancel'=>'http://localhost/educatioo/cancel',
+            'executeAgreement' => [
+                'success'=>'http://localhost/educatioo/execute-agreement/true',
+                'failure'=>'http://localhost/educatioo/execute-agreement/false'
+            ]
+        ]
+    ],
 ];

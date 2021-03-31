@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">launch</i>
                             </div>
-                            <h4 class="card-title">launch Quiz</h4>
+                            <h4 class="card-title">Attmpt Students</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -40,57 +40,33 @@
                                     <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Class Name</th>
-                                        <th>Class Code</th>
-                                        <th>Paper Name</th>
-                                        <th>Paper Code</th>
-                                        <th>Method And Settings</th>
+                                        <th>Student Name</th>
+                                        <th>Student email</th>
                                         <th>Created Date</th>
-                                        <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Class Name</th>
-                                        <th>Class Code</th>
-                                        <th>Paper Name</th>
-                                        <th>Paper Code</th>
-                                        <th>Method And Settings</th>
+                                        <th>Student Name</th>
+                                        <th>Student email</th>
                                         <th>Created Date</th>
-                                        <th class="text-right">Actions</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
                                     @if(!empty($data))
                                         @foreach($data as $row)
                                             <tr>
-                                                <td>{{$row->id}} </td>
-                                                <td>{{isset($row->classRoom->name) ? $row->classRoom->name : ""}} </td>
-                                                <td>{{isset($row->classRoom->class_code) ? $row->classRoom->class_code : ""}} </td>
-                                                <td>{{isset($row->questionPaper->name) ? $row->questionPaper->name : ""}} </td>
-                                                <td>{{isset($row->questionPaper->paper_code) ? $row->questionPaper->paper_code : ""}} </td>
-                                                @php
-                                                    $fruitList = '';
-                                                    foreach ($row->methodsAndSettings as $fruit)
-                                                    {
-                                                        $fruitList .= $fruit->name. ",";
-                                                        $newarraynama = rtrim($fruitList, ", ");
-                                                    }
-                                                @endphp
-                                                <td> {{!empty($newarraynama) ? $newarraynama : ""}}</td>
+                                                <td>{{$row->user->id}} </td>
+                                                <td>{{isset($row->user->name) ? $row->user->name : ""}} </td>
+                                                <td>{{isset($row->user->email) ? $row->user->email : ""}} </td>
                                                 <td>{{!empty($row->created_at->diffForHumans()) ? $row->created_at->diffForHumans() : ""}}</td>
-                                                <td class="text-right">
-                                                    <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('launch.destroy',$row->id)}}"><i class="material-icons">close</i></a>
-                                                    <a href="{{route('quizattempt',$row->id)}}" class="btn btn-link btn-danger btn-just-icon"><i class="material-icons">preview</i></a>
-                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif
 
                                     </tbody>
                                 </table>
-                                <div class="mt-3" id="xyz"> {{ $data->links() }} </div>
                             </div>
                         </div>
                         <!-- end content-->

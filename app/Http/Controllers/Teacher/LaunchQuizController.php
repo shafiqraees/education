@@ -9,6 +9,7 @@ use App\Models\MethodSetting;
 use App\Models\QuestionPaper;
 use App\Models\User;
 use App\Models\UserQuiz;
+use App\Models\UserQuizAttempt;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -182,6 +183,25 @@ class LaunchQuizController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function attemptQuiz($id)
+    {
+
+        try {
+            $data = UserQuizAttempt::whereLaunchQuizId($id)->groupBy('user_id')
+                ->whereHas('user')->with('user')->get();
+            //dd($data);
+            return view('teacher.launchPaper.attempt',compact('data'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('teacher.home'))->withErrors('Sorry record not found.');
         }
     }
 }

@@ -9,12 +9,14 @@ use App\Models\ClassRoom;
 use App\Models\LaunchQuiz;
 use App\Models\Question;
 use App\Models\Teacher;
+use App\Models\Transanction;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -96,9 +98,14 @@ class HomeController extends Controller
             'name' => 'required',
             'email' => 'required',
         ]);
-        if(!empty($request->Password)){
+        if(!empty($request->password)){
             $validated = $request->validate([
-                'password_confirmation' => 'required|same:Password',
+                'password_confirmation' => 'required|same:password',
+            ]);
+        }
+        if(!empty($request->password_confirmation)){
+            $validated = $request->validate([
+                'password' => 'required',
             ]);
         }
         try {
@@ -111,12 +118,30 @@ class HomeController extends Controller
             $data = [
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => !empty($request->Password) ? bcrypt($request->Password) : $user->password,
+                'password' => !empty($request->password) ? Hash::make($request->password): $user->password,
                 'profile_photo_path' => !empty($path) ? $path : $user->profile_photo_path,
             ];
             $user->update($data);
             //return redirect(route('profile.edit', $user))->with('success', 'Profile updated successfully.');
             return Redirect::back()->with('success','Profile updated successfully');
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors('Sorry Record not found');
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function transaction()
+    {
+
+        try {
+            $data = Transanction::all();
+            return view('admin.transaction.list',compact('data'));
         } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');

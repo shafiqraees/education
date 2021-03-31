@@ -16,6 +16,17 @@
                                     </ul>
                                 </div>
                             @endif
+                                @if (session()->has('success'))
+                                    <div class="alert alert-success"> @if(is_array(session('success')))
+                                            <ul>
+                                                @foreach (session('success') as $message)
+                                                    <li>{{ $message }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            {{ session('success') }}
+                                        @endif </div>
+                                @endif
                             <div class="social text-center"> EDUCATIOO </div>
                             <form id="LoginValidation" method="post" action="{{ route('teacher.login') }}" class="form">
                                 @csrf

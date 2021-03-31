@@ -22,11 +22,21 @@ Route::get('/', function () {
     return view('frontend.index');
     //return view('welcome');
 });
-
-Route::get('paywithpaypal', [\App\Http\Controllers\PaymentController::class,'payWithPaypal'])->name('paywithpaypal');
+/*Route::get('paywithpaypal', [\App\Http\Controllers\PaymentController::class,'payWithPaypal'])->name('paywithpaypal');
 Route::post('paypal', [\App\Http\Controllers\PaymentController::class,'postPaymentWithpaypal'])->name('paypal');
-Route::get('paypal', [\App\Http\Controllers\PaymentController::class,'getPaymentStatus'])->name('status');
+Route::get('paypal', [\App\Http\Controllers\PaymentController::class,'getPaymentStatus'])->name('status');*/
+/*==================paypal route===============*/
+Route::get('/execute-payment', [\App\Http\Controllers\PaymentController::class,'execute']);
+Route::post('/create-payment',[ \App\Http\Controllers\PaymentController::class,'create'])->name('create-payment');
 
+Route::get('plan/create',[\App\Http\Controllers\SubscriptionController::class,'createPlan']);
+Route::get('plan/list',[\App\Http\Controllers\SubscriptionController::class,'listPlan']);
+Route::get('plan/{id}',[\App\Http\Controllers\SubscriptionController::class,'showPlan']);
+Route::get('plan/{id}/activate',[\App\Http\Controllers\SubscriptionController::class,'activatePlan']);
+
+Route::post('plan/{id}/agreement/create',[\App\Http\Controllers\SubscriptionController::class,'createAgreement'])->name('create-agreement');
+Route::get('execute-agreement/{success}',[\App\Http\Controllers\SubscriptionController::class,'executeAgreement']);
+/*==================paypal route===============*/
 /*Route::get('payment', [\App\Http\Controllers\PayPalController::class,'payment'])->name('payment');
 Route::get('cancel',  [\App\Http\Controllers\PayPalController::class,'cancel'])->name('payment.cancel');
 Route::get('payment/success', [\App\Http\Controllers\PayPalController::class,'success'])->name('payment.success');*/
@@ -50,6 +60,7 @@ Route::group(['middleware' => ['auth:teacher'], 'prefix' => 'teacher'], function
     Route::resource('quiz', PaperController::class);
     Route::get('get/options', [PaperController::class, 'getQuestionOptions'])->name('getoption');
     Route::resource('launch', LaunchQuizController::class);
+    Route::get('/quiz/attempt/{id}', [LaunchQuizController::class, 'attemptQuiz'])->name('quizattempt');
     Route::get('/profile', [TeacherHomeController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/edit', [TeacherHomeController::class, 'profileUpdate'])->name('profile.update');
 });
@@ -71,6 +82,7 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin'], function () 
     Route::resource('classroom', \App\Http\Controllers\Admin\ClassRoomController::class);
     // for Students
     Route::get('/quiz', [\App\Http\Controllers\Admin\StudentController::class, 'papers'])->name('quiz.all');
+    Route::get('/transaction', [\App\Http\Controllers\Admin\HomeController::class, 'transaction'])->name('transaction');
     Route::get('/launch/quiz', [\App\Http\Controllers\Admin\StudentController::class, 'launchPapers'])->name('admin.launch.quiz');
     Route::delete('/delete/paper', [\App\Http\Controllers\Admin\StudentController::class, 'deletePaper'])->name('admin.paper.destroy');
 });

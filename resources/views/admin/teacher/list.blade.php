@@ -44,7 +44,8 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Gender</th>
-                                        <th>Sub Admin</th>
+                                        <th>Students</th>
+                                        <th>Launch Quiz</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
@@ -57,7 +58,8 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Gender</th>
-                                        <th>Sub Admin</th>
+                                        <th>Students</th>
+                                        <th>Launch Quiz</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>
@@ -72,7 +74,8 @@
                                                 <td>{{$row->email}} </td>
                                                 <td>{{$row->phone}} </td>
                                                 <td>{{$row->gender}} </td>
-                                                <td>{{isset($row->subAdmin->name) ? $row->subAdmin->name : ""}} </td>
+                                                <td>{{isset($row->students_count) ? $row->students_count : 0}} </td>
+                                                <td>{{isset($row->quiz_count) ? $row->quiz_count : 0}} </td>
                                                 <td>
                                                     @if($row->is_active=="true")
                                                         <span class="badge badge-default badge-success">Actice</span>

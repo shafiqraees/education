@@ -169,6 +169,24 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#transaction">
+                    <i class="material-icons">receipt_long</i>
+                    <p> Transactions
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="transaction">
+                    <ul class="nav">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{route('transaction')}}">
+                                <span class="sidebar-mini"> All </span>
+                                <span class="sidebar-normal"> All Transaction </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.logout') }}"
                    onclick="event.preventDefault();

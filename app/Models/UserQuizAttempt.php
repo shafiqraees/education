@@ -16,4 +16,7 @@ class UserQuizAttempt extends Model
     function launchQuiz() {
         return $this->belongsTo(LaunchQuiz::class);
     }
+    function user() {
+        return $this->belongsTo(User::class);
+    }
 }

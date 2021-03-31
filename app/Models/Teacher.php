@@ -16,4 +16,12 @@ class Teacher extends Authenticatable
     public function subAdmin() {
         return $this->belongsTo(SubAdmin::class);
     }
+
+    public function students() {
+        return $this->hasMany(User::class);
+    }
+
+    public function quiz() {
+        return $this->hasMany(LaunchQuiz::class);
+    }
 }

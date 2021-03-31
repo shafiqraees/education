@@ -2,125 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use Illuminate\Http\Request;
-use Validator;
-use URL;
-use Session;
-use Redirect;
-use Input;
-use PayPal\Rest\ApiContext;
-use PayPal\Auth\OAuthTokenCredential;
-use PayPal\Api\Amount;
-use PayPal\Api\Details;
-use PayPal\Api\Item;
-use PayPal\Api\ItemList;
-use PayPal\Api\Payer;
+use App\Mail\VerifyUser;
+use App\Models\Teacher;
+use App\Models\Transanction;
+use App\Paypal\CreatePayment;
+use App\Paypal\ExecutePayment;
+use Carbon\Carbon;
 use PayPal\Api\Payment;
-use PayPal\Api\RedirectUrls;
-use PayPal\Api\ExecutePayment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Payer;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\RedirectUrls;
+use Illuminate\Http\Request;
+use App\Mail\Credentials;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
-    private $_api_context;
-
-    public function __construct()
+    public function create(Request $request)
     {
-
-        $paypal_configuration = \Config::get('paypal');
-        $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_configuration['client_id'], $paypal_configuration['secret']));
-        $this->_api_context->setConfig($paypal_configuration['settings']);
+        $payment = new CreatePayment;
+        return $payment->create($request);
     }
 
-    public function payWithPaypal()
+    public function execute()
     {
-        return view('paywithpaypal');
-    }
-
-    public function postPaymentWithpaypal(Request $request)
-    {
-        $payer = new Payer();
-        $payer->setPaymentMethod('paypal');
-
-        $item_1 = new Item();
-
-        $item_1->setName('Product 1')
-            ->setCurrency('USD')
-            ->setQuantity(1)
-            ->setPrice($request->get('amount'));
-
-        $item_list = new ItemList();
-        $item_list->setItems(array($item_1));
-
-        $amount = new Amount();
-        $amount->setCurrency('USD')
-            ->setTotal($request->get('amount'));
-
-        $transaction = new Transaction();
-        $transaction->setAmount($amount)
-            ->setItemList($item_list)
-            ->setDescription('Enter Your transaction description');
-
-        $redirect_urls = new RedirectUrls();
-        $redirect_urls->setReturnUrl(URL::route('status'))
-            ->setCancelUrl(URL::route('status'));
-
-        $payment = new Payment();
-        $payment->setIntent('Sale')
-            ->setPayer($payer)
-            ->setRedirectUrls($redirect_urls)
-            ->setTransactions(array($transaction));
-        try {
-            $payment->create($this->_api_context);
-        } catch (\PayPal\Exception\PPConnectionException $ex) {
-            if (\Config::get('app.debug')) {
-                \Session::put('error','Connection timeout');
-                return Redirect::route('paywithpaypal');
+        $payment = new ExecutePayment;
+        $payment =  $payment->execute();
+        //dd($payment->transactions[0]->amount);
+        if ($payment) {
+            $trancsaction_data = [
+                'transaction_id' => $payment->id,
+                'state' => $payment->payer->state,
+                'status' => $payment->payer->payer_info->payer_id,
+                'payer_id' => $payment->payer->payer_info->payer_id,
+                'invoice_number' => $payment->payer->payer_info->payer_id,
+                'package_name' => "Basic Plan",
+                'name' =>  $payment->payer->payer_info->first_name . " ".$payment->payer->payer_info->last_name,
+                'email' => $payment->payer->payer_info->email,
+                'amount' => 72,
+            ];
+            Transanction::create($trancsaction_data);
+            $teacher = Teacher::whereEmail($payment->payer->payer_info->email)->first();
+            if ($teacher) {
+                return redirect()->route('teacher.login')->with('success','package successfully purchased');
             } else {
-                \Session::put('error','Some error occur, sorry for inconvenient');
-                return Redirect::route('paywithpaypal');
+                $details = [
+                    'title' => 'Account Credentials',
+                    'body' => $payment->payer->payer_info->email,
+                    'link' => "12345678"
+                ];
+                Mail::to($payment->payer->payer_info->email)->send(new Credentials($details));
+
+                $data = [
+                    'name' => $payment->payer->payer_info->first_name,
+                    'email' => $payment->payer->payer_info->email,
+                    'password' => Hash::make(12345678),
+                    'org_password' => '12345678',
+                    'profile_photo_path' => "defalut",
+                    'email_verified_at' => Carbon::now(),
+                ];
+                Teacher::create($data);
             }
-        }
-
-        foreach($payment->getLinks() as $link) {
-            if($link->getRel() == 'approval_url') {
-                $redirect_url = $link->getHref();
-                break;
+            return redirect()->route('teacher.login')->with('success','package successfully purchased');
             }
-        }
-
-        Session::put('paypal_payment_id', $payment->getId());
-
-        if(isset($redirect_url)) {
-            return Redirect::away($redirect_url);
-        }
-
-        \Session::put('error','Unknown error occurred');
-        return Redirect::route('paywithpaypal');
-    }
-
-    public function getPaymentStatus(Request $request)
-    {
-        $payment_id = Session::get('paypal_payment_id');
-
-        Session::forget('paypal_payment_id');
-        if (empty($request->input('PayerID')) || empty($request->input('token'))) {
-            \Session::put('error','Payment failed');
-            return Redirect::route('paywithpaypal');
-        }
-        $payment = Payment::get($payment_id, $this->_api_context);
-        $execution = new PaymentExecution();
-        $execution->setPayerId($request->input('PayerID'));
-        $result = $payment->execute($execution, $this->_api_context);
-
-        if ($result->getState() == 'approved') {
-            \Session::put('success','Payment success !!');
-            return Redirect::route('paywithpaypal');
-        }
-
-        \Session::put('error','Payment failed !!');
-        return Redirect::route('paywithpaypal');
     }
 }

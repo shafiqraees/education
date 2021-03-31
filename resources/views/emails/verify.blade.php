@@ -13,7 +13,7 @@
 <h1>{{ $details['title'] }}</h1>
 
 <p>{{ $details['body'] }}</p>
-<p>{{ $details['link'] }}</p>
+<p>{{ isset($details['link']) ? $details['link'] : ""}}</p>
 
 
 
