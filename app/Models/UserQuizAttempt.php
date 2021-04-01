@@ -19,4 +19,11 @@ class UserQuizAttempt extends Model
     function user() {
         return $this->belongsTo(User::class);
     }
+    function quizPaper() {
+        return $this->belongsTo(QuestionPaper::class,'question_paper_id');
+    }
+
+    function answerOption() {
+        return $this->belongsTo(QuestionOption::class,'question_option_id');
+    }
 }

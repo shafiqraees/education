@@ -42,6 +42,7 @@
                                         <th>Id</th>
                                         <th>Student Name</th>
                                         <th>Student email</th>
+                                        <th>Student Result</th>
                                         <th>Created Date</th>
                                     </tr>
                                     </thead>
@@ -50,16 +51,35 @@
                                         <th>Id</th>
                                         <th>Student Name</th>
                                         <th>Student email</th>
+                                        <th>Student Result</th>
                                         <th>Created Date</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
                                     @if(!empty($data))
+                                        @php
+                                            $result = 0;
+                                        @endphp
                                         @foreach($data as $row)
+                                            @foreach($row->userAttemptQuiz as $attempt)
+                                                @php
+                                                    $count_attemt = $attempt->quizPaper->question_paperquestion_count;
+
+                                                    $option = $attempt->answerOption->answer;
+
+                                                    //dd($option)
+                                                @endphp
+                                            @endforeach
                                             <tr>
-                                                <td>{{$row->user->id}} </td>
-                                                <td>{{isset($row->user->name) ? $row->user->name : ""}} </td>
-                                                <td>{{isset($row->user->email) ? $row->user->email : ""}} </td>
+                                                <td>{{$row->id}} </td>
+                                                <td>{{isset($row->name) ? $row->name : ""}} </td>
+                                                <td>{{isset($row->email) ? $row->email : ""}} </td>
+                                                <td>
+                                                    @php
+                                                        $result =  (int)$option/(int)$count_attemt*100;
+                                                    @endphp
+                                                    {{isset($result) ? $result ."%" : ""}}
+                                                </td>
                                                 <td>{{!empty($row->created_at->diffForHumans()) ? $row->created_at->diffForHumans() : ""}}</td>
                                             </tr>
                                         @endforeach

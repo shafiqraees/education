@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <select name="quiz_id[]" id="question" class="form-control select2 quiz">
+                                        <select name="quizselect" id="question" class="form-control select2 quiz">
                                             <option value="">Select first Question</option>
                                             @foreach($data as $room)
                                                 <option value="{{$room->serial_id}}">{{$room->name}}</option>

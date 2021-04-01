@@ -4,6 +4,26 @@
         <div class="content-wrapper">
             <div class="content-header row"> </div>
             <div class="content-body">
+                @if (session()->has('success'))
+                    <div class="alert alert-success"> @if(is_array(session('success')))
+                            <ul>
+                                @foreach (session('success') as $message)
+                                    <li>{{ $message }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            {{ session('success') }}
+                        @endif </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-xl-4 col-lg-4 col-12">
                         <div class="card pull-up">

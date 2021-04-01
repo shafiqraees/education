@@ -20,4 +20,7 @@ class LaunchQuiz extends Model
     public function methodsAndSettings(){
         return $this->hasMany(MethodSetting::class,'launch_quizze_id');
     }
+    public function userQuiz(){
+        return $this->hasMany(UserQuiz::class);
+    }
 }

@@ -72,7 +72,6 @@ class PaperController extends Controller
             'paper_name' => 'required',
             'paper_code' => 'required|unique:question_papers',
         ]);
-
         try {
             DB::beginTransaction();
             $quiz_data = [

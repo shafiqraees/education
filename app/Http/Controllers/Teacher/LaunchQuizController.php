@@ -75,7 +75,7 @@ class LaunchQuizController extends Controller
             'start_datetime' => 'required',
             'end_datetime' => 'required',
         ]);
-
+        //dd($request);
         try {
             $students = User::whereClassRoomId($request->class_room)->whereIsActive('true')
                 ->whereNull('deleted_at')->select('id','email')->get();
@@ -193,11 +193,16 @@ class LaunchQuizController extends Controller
      */
     public function attemptQuiz($id)
     {
-
         try {
-            $data = UserQuizAttempt::whereLaunchQuizId($id)->groupBy('user_id')
-                ->whereHas('user')->with('user')->get();
-            //dd($data);
+            $data = User::whereHas('userAttemptQuiz',function ($query) use ($id) {
+                $query->where('launch_quiz_id',$id);
+            })->with('userAttemptQuiz',function ($query){
+                $query->with('quizPaper',function ($query){
+                    $query->withCount('questionPaperquestion');
+                });
+            })->get();
+           // dd($data);
+
             return view('teacher.launchPaper.attempt',compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();

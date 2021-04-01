@@ -44,4 +44,8 @@ class User extends Authenticatable
     public function classRoom() {
         return $this->belongsTo(ClassRoom::class,'class_room_id');
     }
+
+    public function userAttemptQuiz() {
+        return $this->hasMany(UserQuizAttempt::class);
+    }
 }
