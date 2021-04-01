@@ -68,7 +68,7 @@ class QuestionController extends Controller
         $validated = $request->validate([
             'name' => 'required',
         ]);
-
+        //dd($request);
         try {
             if($request->hasFile('photo')){
                 SavePhotoAllSizes($request, 'quiz/');
@@ -99,6 +99,7 @@ class QuestionController extends Controller
             if ($request->type === "Multiple Choice") {
                 $question_ids = $request->question_id;
                 foreach ($request->option as  $key => $quiz_option) {
+                    $answer = "";
                     if ($request->answer == $key) {
                         $answer = $request->answer;
                     }

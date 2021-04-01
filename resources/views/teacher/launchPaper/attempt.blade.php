@@ -61,13 +61,17 @@
                                             $result = 0;
                                         @endphp
                                         @foreach($data as $row)
+
                                             @foreach($row->userAttemptQuiz as $attempt)
                                                 @php
+
                                                     $count_attemt = $attempt->quizPaper->question_paperquestion_count;
-
                                                     $option = $attempt->answerOption->answer;
+                                                    if (!empty($option)) {
+                                                       $result ++;
+                                                    }
 
-                                                    //dd($option)
+                                                        //dd($option)
                                                 @endphp
                                             @endforeach
                                             <tr>
@@ -76,12 +80,17 @@
                                                 <td>{{isset($row->email) ? $row->email : ""}} </td>
                                                 <td>
                                                     @php
-                                                        $result =  (int)$option/(int)$count_attemt*100;
+                                                    //dd($count_attemt);
+                                                        $result =  $result/$count_attemt*100;
                                                     @endphp
                                                     {{isset($result) ? $result ."%" : ""}}
                                                 </td>
                                                 <td>{{!empty($row->created_at->diffForHumans()) ? $row->created_at->diffForHumans() : ""}}</td>
                                             </tr>
+                                            @php
+                                                $result = 0;
+                                                $count_attemt = 0;
+                                            @endphp
                                         @endforeach
                                     @endif
 

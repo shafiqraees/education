@@ -39,10 +39,11 @@ class SubscriptionPlan extends Paypal
     protected function Plan(): Plan
     {
         $plan = new Plan();
-        $plan->setName('T-Shirt of the Month Club Plan')
-            ->setDescription('Template creation.')
+        $plan->setName('Basi Plan')
+            ->setDescription('Educatioo basic plan.')
             ->setType('fixed');
         return $plan;
+         //dd($plan);
     }
 
     /**
@@ -56,7 +57,7 @@ class SubscriptionPlan extends Paypal
             ->setFrequency('Month')
             ->setFrequencyInterval("2")
             ->setCycles("12")
-            ->setAmount(new Currency(array('value' => 100, 'currency' => 'USD')));
+            ->setAmount(new Currency(array('value' => 72, 'currency' => 'USD')));
         return $paymentDefinition;
     }
 
@@ -67,7 +68,7 @@ class SubscriptionPlan extends Paypal
     {
         $chargeModel = new ChargeModel();
         $chargeModel->setType('SHIPPING')
-            ->setAmount(new Currency(array('value' => 10, 'currency' => 'USD')));
+            ->setAmount(new Currency(array('value' => 1, 'currency' => 'USD')));
         return $chargeModel;
     }
 
