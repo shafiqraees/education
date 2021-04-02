@@ -34,7 +34,7 @@ return [
         'secret' => env('PAYPAL_SECRET'),
         'url' => [
             'redirect' => 'http://educatioo.esquall.com/execute-payment',
-            'cancel'=>'http://educatioo.esquall.comcancel',
+            'cancel'=>'http://educatioo.esquall.com',
             'executeAgreement' => [
                 'success'=>'http://localhost/educatioo/execute-agreement/true',
                 'failure'=>'http://localhost/educatioo/execute-agreement/false'

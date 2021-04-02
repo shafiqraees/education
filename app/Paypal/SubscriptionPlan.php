@@ -92,7 +92,7 @@ class SubscriptionPlan extends Paypal
      */
     public function listPlan()
     {
-        $params = array('page_size' => '10');
+        $params = array('page_size' => '2');
         $planList = Plan::all($params, $this->apiContext);
         return $planList;
     }
@@ -119,7 +119,7 @@ class SubscriptionPlan extends Paypal
 
         $createdPlan->update($patchRequest, $this->apiContext);
 
-        $plan = Plan::get($createdPlan->getId(), $this->apiContext);
+        $plan = Plan::get($createdPlan->getId(), $this->apiContext);;
         return $plan;
     }
 }

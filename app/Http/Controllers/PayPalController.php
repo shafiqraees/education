@@ -1,51 +1,61 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use Srmklive\PayPal\Services\ExpressCheckout;
+use Illuminate\Support\Facades\URL;
+use PayPal\Api\ChargeModel;
+use PayPal\Api\Currency;
+use PayPal\Api\MerchantPreferences;
+use PayPal\Api\PaymentDefinition;
+use PayPal\Api\Plan;
 
 class PayPalController extends Controller
 {
-    public function handlePayment()
+    /**
+     *
+     */
+    public function createPlan()
     {
-        $product = [];
-        $product['items'] = [
-            [
-                'name' => 'Nike Joyride 2',
-                'price' => 112,
-                'desc'  => 'Running shoes for Men',
-                'qty' => 2
-            ]
-        ];
+        $plan = new Plan();
+        $plan->setName('T-Shirt of the Month Club Plan')
+        ->setDescription('Template creation.')
+        ->setType('fixed');
+        $paymentDefinition = new PaymentDefinition();
 
-        $product['invoice_id'] = 1;
-        $product['invoice_description'] = "Order #{$product['invoice_id']} Bill";
-        $product['return_url'] = route('success.payment');
-        $product['cancel_url'] = route('cancel.payment');
-        $product['total'] = 224;
+        $paymentDefinition->setName('Regular Payments')
+            ->setType('REGULAR')
+            ->setFrequency('Month')
+            ->setFrequencyInterval("2")
+            ->setCycles("12")
+            ->setAmount(new Currency(array('value' => 100, 'currency' => 'USD')));
 
-        $paypalModule = new ExpressCheckout;
+        $chargeModel = new ChargeModel();
+        $chargeModel->setType('SHIPPING')
+            ->setAmount(new Currency(array('value' => 10, 'currency' => 'USD')));
 
-        $res = $paypalModule->setExpressCheckout($product);
-        $res = $paypalModule->setExpressCheckout($product, true);
+        $paymentDefinition->setChargeModels(array($chargeModel));
 
-        return redirect($res['paypal_link']);
-    }
+        $merchantPreferences = new MerchantPreferences();
+        $baseUrl = URL::to('/');
 
-    public function paymentCancel()
-    {
-        dd('Your payment has been declend. The payment cancelation page goes here!');
-    }
+        $merchantPreferences->setReturnUrl("$baseUrl/ExecuteAgreement.php?success=true")
+            ->setCancelUrl("$baseUrl/ExecuteAgreement.php?success=false")
+            ->setAutoBillAmount("yes")
+            ->setInitialFailAmountAction("CONTINUE")
+            ->setMaxFailAttempts("0")
+            ->setSetupFee(new Currency(array('value' => 1, 'currency' => 'USD')));
 
-    public function paymentSuccess(Request $request)
-    {
-        $paypalModule = new ExpressCheckout;
-        $response = $paypalModule->getExpressCheckoutDetails($request->token);
+        $plan->setPaymentDefinitions(array($paymentDefinition));
+        $plan->setMerchantPreferences($merchantPreferences);
 
-        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
-            dd('Payment was successfull. The payment success page goes here!');
+        $request = clone $plan;
+
+        try {
+            $output = $plan->create($this->apiContext);
+        } catch (Exception $ex) {
+            ResultPrinter::printError("Created Plan", "Plan", null, $request, $ex);
+            exit(1);
         }
-
-        dd('Error occured!');
+        ResultPrinter::printResult("Created Plan", "Plan", $output->getId(), $request, $output);
+        return $output;
     }
 }

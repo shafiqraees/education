@@ -32,6 +32,12 @@
                                 <span class="sidebar-normal"> Profile </span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('subs.plan')}}">
+                                <span class="sidebar-mini"> S </span>
+                                <span class="sidebar-normal"> Subscription Plan </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

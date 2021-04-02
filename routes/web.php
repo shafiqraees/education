@@ -30,6 +30,7 @@ Route::get('/execute-payment', [\App\Http\Controllers\PaymentController::class,'
 Route::post('/create-payment',[ \App\Http\Controllers\PaymentController::class,'create'])->name('create-payment');
 
 Route::get('plan/create',[\App\Http\Controllers\SubscriptionController::class,'createPlan']);
+
 Route::get('plan/list',[\App\Http\Controllers\SubscriptionController::class,'listPlan']);
 Route::get('plan/{id}',[\App\Http\Controllers\SubscriptionController::class,'showPlan']);
 Route::get('plan/{id}/activate',[\App\Http\Controllers\SubscriptionController::class,'activatePlan']);
@@ -37,6 +38,7 @@ Route::get('plan/{id}/activate',[\App\Http\Controllers\SubscriptionController::c
 Route::post('plan/{id}/agreement/create',[\App\Http\Controllers\SubscriptionController::class,'createAgreement'])->name('create-agreement');
 Route::get('execute-agreement/{success}',[\App\Http\Controllers\SubscriptionController::class,'executeAgreement']);
 /*==================paypal route===============*/
+
 /*Route::get('payment', [\App\Http\Controllers\PayPalController::class,'payment'])->name('payment');
 Route::get('cancel',  [\App\Http\Controllers\PayPalController::class,'cancel'])->name('payment.cancel');
 Route::get('payment/success', [\App\Http\Controllers\PayPalController::class,'success'])->name('payment.success');*/
@@ -63,6 +65,7 @@ Route::group(['middleware' => ['auth:teacher'], 'prefix' => 'teacher'], function
     Route::get('/quiz/attempt/{id}', [LaunchQuizController::class, 'attemptQuiz'])->name('quizattempt');
     Route::get('/profile', [TeacherHomeController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/edit', [TeacherHomeController::class, 'profileUpdate'])->name('profile.update');
+    Route::get('/subscription/plan', [TeacherHomeController::class, 'subscriptionPlan'])->name('subs.plan');
 });
 
 Route::group(['prefix' => 'admin'], function () {
