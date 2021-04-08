@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="examplePasswords" class="bmd-label-floating"> Calss Code *</label>
+                                        <label for="examplePasswords" class="bmd-label-floating"> Class Code *</label>
                                         <input type="text" class="form-control" id="class_code" required="true" name="class_code">
                                     </div>
                                 </div>

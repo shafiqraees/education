@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">launch</i>
                             </div>
-                            <h4 class="card-title">Attmpt Students</h4>
+                            <h4 class="card-title">Attempted Students</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">

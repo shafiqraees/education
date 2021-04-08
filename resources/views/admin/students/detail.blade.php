@@ -31,7 +31,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">contacts</i>
                             </div>
-                            <h4 class="card-title">Edit Stdent Form</h4>
+                            <h4 class="card-title">Edit Student Form</h4>
                         </div>
                         <div class="card-body ">
                             <div class="row">

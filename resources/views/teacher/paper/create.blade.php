@@ -151,7 +151,7 @@
                 }
             },
             error     : function (result){
-                alert('sorry reord not found')
+                alert('sorry record not found')
             }
         });
     }

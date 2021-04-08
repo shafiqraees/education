@@ -38,7 +38,17 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            return view('user.dashboard');
+            $id =  $user = Auth::user()->id;
+            #-------------------- for Test----------------------------------#
+            $last_24Hours_test = UserQuizAttempt::whereUserId($id)->where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
+            $last_7_Days_test = UserQuizAttempt::whereUserId($id)->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->whereNull('deleted_at')->count();
+            $life_Time_test = UserQuizAttempt::whereUserId($id)->whereNull('deleted_at')->count();
+
+            return view('user.dashboard',compact(
+                'last_24Hours_test',
+                'last_7_Days_test',
+                'life_Time_test'
+            ));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect(route('home'))->withErrors('Sorry record not found.');

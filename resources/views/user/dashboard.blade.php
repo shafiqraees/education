@@ -31,8 +31,8 @@
                                 <div class="card-body">
                                     <div class="media d-flex">
                                         <div class="media-body text-left">
-                                            <h3 class="amber">1</h3>
-                                            <h6>Paper attempt</h6>
+                                            <h3 class="amber">{{ isset($last_24Hours_test) ? $last_24Hours_test : 0}}</h3>
+                                            <h6>Quizzes attempt</h6>
                                         </div>
                                         <div>
                                             <h5 class="amber">24 Hours</h5>
@@ -52,8 +52,8 @@
                                 <div class="card-body">
                                     <div class="media d-flex">
                                         <div class="media-body text-left">
-                                            <h3 class="red">3</h3>
-                                            <h6>Paper attempt</h6>
+                                            <h3 class="red">{{ isset($last_7_Days_test) ? $last_7_Days_test : 0}}</h3>
+                                            <h6>Quizzes attempt</h6>
                                         </div>
                                         <div>
                                             <h5 class="red">7 Days</h5>
@@ -73,8 +73,8 @@
                                 <div class="card-body">
                                     <div class="media d-flex">
                                         <div class="media-body text-left">
-                                            <h3 class="success">12</h3>
-                                            <h6>Paper attempt</h6>
+                                            <h3 class="success">{{ isset($life_Time_test) ? $life_Time_test : 0}}</h3>
+                                            <h6>Quizzes attempt</h6>
                                         </div>
                                         <div>
                                             <h5 class="success">Lifetime</h5>

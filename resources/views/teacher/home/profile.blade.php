@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="examplePasswords" class="bmd-label-floating"> Password Conformation *</label>
+                                        <label for="examplePasswords" class="bmd-label-floating"> Password Confirmation *</label>
                                         <input type="password" name="password_confirmation" class="form-control" id="class_code">
                                     </div>
                                 </div>
