@@ -3,7 +3,7 @@
 @include('user.layouts.head')
 <body class="">
 <div class="wrapper ">
-    @include('user.layouts.aside_bar')
+    {{--@include('user.layouts.aside_bar')--}}
     <div class="main-panel">
         @include('user.layouts.header')
         <div class="content">
@@ -12,7 +12,7 @@
     </div>
 </div>
 @show
-@include('user.layouts.footer')
+{{--@include('user.layouts.footer')--}}
 @include('user.layouts.footer_script')
 </body>
 </html>

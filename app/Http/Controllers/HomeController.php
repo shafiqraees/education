@@ -220,4 +220,6 @@ class HomeController extends Controller
             return Redirect::back()->withErrors('Sorry Record not found');
         }
     }
+
+
 }

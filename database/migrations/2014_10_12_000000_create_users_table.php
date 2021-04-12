@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('pincode')->unique();
             $table->string('roll_number')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

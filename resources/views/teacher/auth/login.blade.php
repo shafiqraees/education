@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-10 ml-auto mr-auto">
             <div class="card card-signup" style="margin-top: 1vh;">
-                <h2 class="card-title text-center">Log In</h2>
+                <h2 class="card-title text-center">Log In Trainer</h2>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-5 ml-auto mr-auto">

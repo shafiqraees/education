@@ -7,6 +7,7 @@ use App\Http\Controllers\Teacher\PaperController;
 use App\Http\Controllers\Teacher\StudentController;
 use App\Http\Controllers\Teacher\LaunchQuizController;
 use App\Http\Controllers\Admin\SubAdminController;
+use App\Http\Controllers\TraineeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,7 +47,7 @@ Route::get('payment/success', [\App\Http\Controllers\PayPalController::class,'su
 Route::get('/verify/{user}/{token}', [\App\Http\Controllers\Auth\RegisterController::class, 'verifyUser'])->name('verify');
 Auth::routes();
 
-Route::group(['prefix' => 'teacher'], function () {
+Route::group(['prefix' => 'trainer'], function () {
     Route::get('/login', [\App\Http\Controllers\Teacher\Auth\LoginController::class, 'showLoginForm'])->name('teacher.login');
     Route::post('/login', [\App\Http\Controllers\Teacher\Auth\LoginController::class, 'TeacherLogin'])->name('teacher.login.submit');
     Route::post('/logout', [\App\Http\Controllers\Teacher\Auth\LoginController::class, 'logout'])->name('teacher.logout');
@@ -54,7 +55,7 @@ Route::group(['prefix' => 'teacher'], function () {
     Route::post('/register', [\App\Http\Controllers\Teacher\Auth\RegisterController::class, 'TeacherRegister'])->name('teacher.register.store');
 });
 
-Route::group(['middleware' => ['auth:teacher'], 'prefix' => 'teacher'], function () {
+Route::group(['middleware' => ['auth:teacher'], 'prefix' => 'trainer'], function () {
     Route::get('/', [TeacherHomeController::class, 'index'])->name('teacher.home');
     Route::resource('question', \App\Http\Controllers\Teacher\QuestionController::class);
     Route::resource('classrooms', \App\Http\Controllers\Teacher\ClassRoomController::class);
@@ -108,7 +109,13 @@ Route::group(['middleware' => ['auth:subadmin'], 'prefix' => 'subadmin'], functi
     Route::post('/profile', [\App\Http\Controllers\SubAdmin\HomeController::class, 'updateProfile'])->name('subadmin.update.profile');
 });
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'student'], function () {
+Route::group(['prefix' => 'trainee'], function () {
+    Route::post('/courseid', [TraineeController::class, 'courseId'])->name('courseid');
+    Route::get('/traineeid/{id}', [TraineeController::class, 'getTraineeId'])->name('trainee.id');
+    Route::post('/traineekey', [TraineeController::class, 'getTraineeKey'])->name('trainee.key');
+    Route::post('/trainee/login', [TraineeController::class, 'TraineeLogin'])->name('trainee.login');
+});
+Route::group(['middleware' => ['auth'], 'prefix' => 'trainee'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [HomeController::class, 'editProfile'])->name('user.edit.profile');
     Route::get('/quizzes', [HomeController::class, 'startQuiz'])->name('start.quiz');

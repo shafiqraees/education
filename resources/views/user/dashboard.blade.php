@@ -24,7 +24,7 @@
                         </ul>
                     </div>
                 @endif
-                <div class="row">
+                {{--<div class="row">
                     <div class="col-xl-4 col-lg-4 col-12">
                         <div class="card pull-up">
                             <div class="card-content">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
     </div>
