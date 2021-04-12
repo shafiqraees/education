@@ -1,28 +1,29 @@
 @extends('user.layouts.main')
 @section('content')
     <div class="container-fluid">
-        @if (session()->has('success'))
-            <div class="alert alert-success"> @if(is_array(session('success')))
-                    <ul>
-                        @foreach (session('success') as $message)
-                            <li>{{ $message }}</li>
-                        @endforeach
-                    </ul>
-                @else
-                    {{ session('success') }}
-                @endif </div>
-        @endif
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
+                @if (session()->has('success'))
+                    <div class="alert alert-success"> @if(is_array(session('success')))
+                            <ul>
+                                @foreach (session('success') as $message)
+                                    <li>{{ $message }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            {{ session('success') }}
+                        @endif </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form id="LoginValidation" action="{{route('quiz.save')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card ">

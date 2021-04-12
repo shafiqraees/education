@@ -117,7 +117,7 @@ Route::group(['prefix' => 'trainee'], function () {
     Route::post('/trainee/login', [TraineeController::class, 'TraineeLogin'])->name('trainee.login');
 });
 Route::group(['middleware' => ['auth'], 'prefix' => 'trainee'], function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/', [HomeController::class, 'startQuiz'])->name('home');
     Route::get('/profile', [HomeController::class, 'editProfile'])->name('user.edit.profile');
     Route::get('/quizzes', [HomeController::class, 'startQuiz'])->name('start.quiz');
     Route::post('/quiz/submit', [HomeController::class, 'attemptQuiz'])->name('quiz.save');
