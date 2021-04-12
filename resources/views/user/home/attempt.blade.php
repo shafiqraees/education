@@ -91,7 +91,15 @@
 <script>
 
 
-    /*$(document).on('click','.nextbutton',function(e){
+    /*
+    html: '<select class="form-control select2" aria-invalid="false" name="class_room" required>'+"\n" +
+                    '<option value="">Select Class Room</option>'+"\n" +
+        '@foreach($data as $room)'+"\n" +
+        '<option value="{{$room->id}}">{{$room->name}}</option>'+"\n" +
+        '@endforeach'+"\n" +
+    '</select>',
+
+    $(document).on('click','.nextbutton',function(e){
         e.preventDefault();
         var pin_code = $('#pin_code').val();
         var check = $('.selectedbutton:checked').val();
@@ -200,29 +208,15 @@
                 icon: "success",
                 showCancelButton: true,
                 buttons: {
-                    cancel: {
-                        text: "Cancel",
-                        value: null,
-                        visible: true,
-                        className: "btn-dark",
-                        closeModal: false,
-                    },
                     confirm: {
                         text: "Ok",
                         value: true,
                         visible: true,
                         className: "btn-dark",
-                        closeModal: false
+                        closeModal: true
                     }
                 }
-            }).then(isConfirm => {
-
-                if (isConfirm) {
-                    swal("Ok","Attempt next question.");
-                } else {
-                    swal("Ok","Attempt next question.");
-                }
-            });
+            })
         }
         if (result) {
             swal({

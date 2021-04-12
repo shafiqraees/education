@@ -49,11 +49,58 @@
                     <p> Dashboard </p>
                 </a>
             </li>
-
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#launch">
+                    <i class="material-icons">launch</i>
+                    <p>Launch Courses
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="launch">
+                    <ul class="nav">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{route('launch.index')}}">
+                                <span class="sidebar-mini"> All </span>
+                                <span class="sidebar-normal"> All Launch Courses </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{route('launch.create')}}">
+                                <span class="sidebar-mini"> Add </span>
+                                <span class="sidebar-normal"> Start Course </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#quiz">
+                    <i class="material-icons">launch</i>
+                    <p> Courses
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="quiz">
+                    <ul class="nav">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{route('quiz.index')}}">
+                                <span class="sidebar-mini"> All </span>
+                                <span class="sidebar-normal"> All Courses </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{route('quiz.create')}}">
+                                <span class="sidebar-mini"> Add </span>
+                                <span class="sidebar-normal">New Course </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
                     <i class="material-icons">image</i>
-                    <p> Class Room
+                    <p> Trainee Groups
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -62,13 +109,13 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('classrooms.index')}}">
                                 <span class="sidebar-mini"> CR </span>
-                                <span class="sidebar-normal"> Class Rooms </span>
+                                <span class="sidebar-normal"> Trainee Groups </span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('classrooms.create')}}">
                                 <span class="sidebar-mini"> ACR </span>
-                                <span class="sidebar-normal">Add Class Room </span>
+                                <span class="sidebar-normal">Create New Group </span>
                             </a>
                         </li>
                     </ul>
@@ -77,7 +124,7 @@
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
                     <i class="material-icons">people_alt</i>
-                    <p> Students
+                    <p> Trainee
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -86,14 +133,14 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('students.index')}}">
                                 <span class="sidebar-mini"> All </span>
-                                <span class="sidebar-normal"> All Students
+                                <span class="sidebar-normal"> All Trainee
                     </span>
                             </a>
 
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('students.create')}}">
                                 <span class="sidebar-mini"> Add </span>
-                                <span class="sidebar-normal">Add Student</span>
+                                <span class="sidebar-normal">Create New Trainee</span>
                             </a>
                         </li>
 
@@ -103,7 +150,7 @@
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#formsExamples">
                     <i class="material-icons">content_paste</i>
-                    <p> Question
+                    <p> MCQs
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -112,61 +159,13 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('question.index')}}">
                                 <span class="sidebar-mini"> All </span>
-                                <span class="sidebar-normal"> All Question </span>
+                                <span class="sidebar-normal"> All MCQs </span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('question.create')}}">
                                 <span class="sidebar-mini"> Add </span>
-                                <span class="sidebar-normal"> Create Question </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#quiz">
-                    <i class="material-icons">not_listed_location</i>
-                    <p> Quiz
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="quiz">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('quiz.index')}}">
-                                <span class="sidebar-mini"> All </span>
-                                <span class="sidebar-normal"> All Quiz </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('quiz.create')}}">
-                                <span class="sidebar-mini"> Add </span>
-                                <span class="sidebar-normal"> Create Quiz </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" data-toggle="collapse" href="#launch">
-                    <i class="material-icons">launch</i>
-                    <p> Launch Quiz
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse" id="launch">
-                    <ul class="nav">
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('launch.index')}}">
-                                <span class="sidebar-mini"> All </span>
-                                <span class="sidebar-normal"> All Launch Quiz </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="{{route('launch.create')}}">
-                                <span class="sidebar-mini"> Add </span>
-                                <span class="sidebar-normal"> Create Launch Quiz </span>
+                                <span class="sidebar-normal"> Create New MCQ </span>
                             </a>
                         </li>
                     </ul>

@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth:teacher'], 'prefix' => 'trainer'], function
     Route::get('/profile', [TeacherHomeController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/edit', [TeacherHomeController::class, 'profileUpdate'])->name('profile.update');
     Route::get('/subscription/plan', [TeacherHomeController::class, 'subscriptionPlan'])->name('subs.plan');
+    Route::get('get/trainee', [PaperController::class, 'getTrainee'])->name('get.traine');
 });
 
 Route::group(['prefix' => 'admin'], function () {

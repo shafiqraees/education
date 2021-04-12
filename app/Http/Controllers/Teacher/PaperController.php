@@ -10,6 +10,7 @@ use App\Models\Question;
 use App\Models\QuestionOption;
 use App\Models\QuestionPaper;
 use App\Models\QuestonPapersQuestion;
+use App\Models\User;
 use App\Traits\Transformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -192,5 +193,26 @@ class PaperController extends Controller
             return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
         }
     }
+    /**
+     * delete the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getTrainee(Request $request)
+    {
+        try {
+            $ques= User::whereClassRoomId($request->ClassRoom)->whereIsActive('true')->whereNull('deleted_at')->get();
+            if ($ques) {
+                return $this->apiResponse(JsonResponse::HTTP_OK, 'data', $ques);
+            } else {
+                return $this->apiResponse(JsonResponse::HTTP_NOT_FOUND, 'message', 'Trainee not found');
+            }
 
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', "something went wrong");
+        }
+    }
 }

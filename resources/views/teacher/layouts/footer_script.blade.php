@@ -7,9 +7,9 @@
 <!-- Plugin for the momentJs  -->
 <script src="{{asset('public/assets/js/plugins/moment.min.js')}}" type="text/javascript"></script>
 <!--  Plugin for Sweet Alert -->
-{{--<script src="{{asset('public/assets/js/plugins/sweetalert2.js')}}" type="text/javascript"></script>--}}
-<script src="{{asset('public/assets/js/sweetalert.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('public/assets/js/plugins/sweet-alerts.js')}}" type="text/javascript"></script>
+<script src="{{asset('public/assets/js/plugins/sweetalert2.js')}}" type="text/javascript"></script>
+{{--<script src="{{asset('public/assets/js/sweetalert.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('public/assets/js/plugins/sweet-alerts.js')}}" type="text/javascript"></script>--}}
 <!-- Forms Validations Plugin -->
 <script src="{{asset('public/assets/js/plugins/jquery.validate.min.js')}}" type="text/javascript"></script>
 <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
@@ -42,6 +42,7 @@
 <script src="{{asset('public/assets/js/plugins/bootstrap-notify.js')}}" type="text/javascript"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{asset('public/assets/js/material-dashboard.js?v=2.2.2')}}" type="text/javascript"></script>
+
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script>
     $(document).ready(function() {
