@@ -55,7 +55,6 @@
 @endsection
 <script src="{{asset('public/assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
 <script>
-    var count = 1;
 
     $(document).on('click','.ajax',function(e){
         e.preventDefault();

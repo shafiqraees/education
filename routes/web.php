@@ -45,6 +45,7 @@ Route::get('cancel',  [\App\Http\Controllers\PayPalController::class,'cancel'])-
 Route::get('payment/success', [\App\Http\Controllers\PayPalController::class,'success'])->name('payment.success');*/
 
 Route::get('/verify/{user}/{token}', [\App\Http\Controllers\Auth\RegisterController::class, 'verifyUser'])->name('verify');
+Route::post('user/logout', [HomeController::class, 'logOutUser'])->name('logout.user');
 Auth::routes();
 
 Route::group(['prefix' => 'trainer'], function () {
@@ -120,7 +121,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'trainee'], function () {
     Route::get('/profile', [HomeController::class, 'editProfile'])->name('user.edit.profile');
     Route::get('/quizzes', [HomeController::class, 'startQuiz'])->name('start.quiz');
     Route::post('/quiz/submit', [HomeController::class, 'attemptQuiz'])->name('quiz.save');
-    Route::get('/quizes/{id}', [HomeController::class, 'startQuizes'])->name('start.quizes');
+    Route::get('/question/answer', [HomeController::class, 'quizAnswer'])->name('quiz.answer');
+    Route::get('/quizes', [HomeController::class, 'startQuizes'])->name('start.quizes');
     Route::post('/profile', [HomeController::class, 'updateProfile'])->name('user.update.profile');
 });
 

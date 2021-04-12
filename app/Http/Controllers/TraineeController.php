@@ -112,4 +112,35 @@ class TraineeController extends Controller
             return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', 'Something went wrong');
         }
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function quizAnswer(Request $request) {
+
+        try {
+            $user = User::find($request->id);
+
+            if ($user) {
+                $credentials = [
+                    'email' => $user->email, 'password' => $user->org_password,
+                    'is_active' => 'true'
+                ];
+                if (auth()->attempt($credentials)) {
+                    return $this->apiResponse(JsonResponse::HTTP_OK, 'data', $user);
+
+                } else {
+                    return $this->apiResponse(JsonResponse::HTTP_NOT_FOUND, 'message', 'Your Pin is incorrect');
+                }
+            } else {
+                return $this->apiResponse(JsonResponse::HTTP_NOT_FOUND, 'message', 'Trainee not found');
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', 'Something went wrong');
+        }
+    }
 }

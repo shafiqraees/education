@@ -34,7 +34,7 @@ class LoginController extends Controller
      * @var string
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
-    protected $redirectTo = '/teacher';
+    protected $redirectTo = '/trainer';
     /**
      * Create a new controller instance.
      *
@@ -57,7 +57,7 @@ class LoginController extends Controller
         $teacher = Teacher::whereEmail($request->email)->whereNotNull('email_verified_at')->first();
         if ($teacher) {
             if (Auth::guard('teacher')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-                return redirect()->intended('/teacher');
+                return redirect()->intended('/trainer');
             } else {
                 $errors = new MessageBag(['password' => ['Email and/or password invalid.']]);
                 return Redirect::back()->withErrors($errors)->withInput($request->only('email', 'remember'));
