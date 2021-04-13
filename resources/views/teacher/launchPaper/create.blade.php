@@ -31,36 +31,20 @@
                             <div class="card-icon">
                                 <i class="material-icons">contacts</i>
                             </div>
-                            <h4 class="card-title">Create Quiz Form</h4>
+                            <h4 class="card-title">Course specifics</h4>
                         </div>
                         <div class="card-body ">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <select class="form-control ClassRoom" aria-invalid="false" name="class_room" required>
-                                            <option value="">Select Class Room</option>
-                                            @foreach($data as $room)
-                                                <option value="{{$room->id}}">{{$room->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <select name="paper_id" id="question"  class="form-control">
-                                            <option value="">Select Quiz</option>
-                                            @foreach($papers as $paper)
-                                                <option value="{{$paper->id}}">{{$paper->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
+
+                                <input type="hidden" name="class_room" value="" id="trianee_group_name">
+                                <input type="hidden" name="paper_id" value="" id="paper_id">
+
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="text" name="start_datetime" placeholder="start date and time" class="form-control datetimepicker">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <input type="text" name="end_datetime" placeholder="Expire date and time" class="form-control datetimepicker">
                                     </div>
@@ -114,8 +98,8 @@
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary exampleModal" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
+    <button type="button" class="btn btn-primary exampleModal" data-toggle="modal" data-target="#exampleModal" style="display: none">
+        Trainee Group
     </button>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -130,7 +114,7 @@
                 <div class="modal-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <select class="form-control ClassRoom" id="class_room_id" aria-invalid="false" name="class_room">
+                            <select class="form-control ClassRoom" id="class_room_id" aria-invalid="false" name="class_room_id">
                                 @foreach($data as $room)
                                     <option value="{{$room->id}}">{{$room->name}}</option>
                                 @endforeach
@@ -139,19 +123,17 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary nextbutton">Save changes</button>
+                    <button type="button" class="btn btn-primary nextbutton" data-dismiss="modal">Ok</button>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary traineeModel" data-toggle="modal" data-target="#traineeModel">
-        Launch demo modal
+    <button type="button" class="btn btn-primary traineeModel" data-toggle="modal" data-target="#courses" style="display: none">
+        Course
     </button>
     <!-- Modal -->
-    <div class="modal fade" id="traineeModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="courses" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -163,15 +145,16 @@
                 <div class="modal-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <select class="form-control ClassRoom" id="trianee_users" aria-invalid="false" name="trainee_user">
-
+                            <select class="form-control ClassRoom" id="courses" aria-invalid="false" name="courses">
+                                @foreach($papers as $paper)
+                                    <option value="{{$paper->id}}">{{$paper->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary nextbutton">Save changes</button>
+                    <button type="button" class="btn btn-primary coursebutton" data-dismiss="modal">Ok</button>
                 </div>
             </div>
         </div>
@@ -181,36 +164,24 @@
 <script src="{{asset('public/assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
 <script>
+    $(document).ready(function(){
+        $('#exampleModal').modal('show');
+    });
     $(document).on('click','.nextbutton',function(e){
         e.preventDefault();
-        var classroomurl = $('#classroomurl').val();
-        var ClassRoom =  $( "#class_room_id option:selected" ).val();
-        var _token =  $('meta[name="csrf-token"]').attr('content');
-        console.log(classroomurl);
-        console.log(ClassRoom);
-        console.log(_token);
-        if (ClassRoom) {
-            $.ajax({
-                url:classroomurl,
-                type:"get",
-                data:{
-                    ClassRoom:ClassRoom,
-                    _token: _token
-                },
-                success:function(response){
-                    toastr.error(' Record found!')
-                    console.log(response);
-
-                },
-                error     : function (result){
-                    toastr.error('Sorry Record not foud!')
-                }
-            });
+        var class_room_id =  $( "#class_room_id option:selected" ).val();
+        var trianee_group_name =  $( "#trianee_group_name" ).val(class_room_id);
+        if (trianee_group_name) {
+            $('#courses').modal('show');
         } else {
             toastr.warning('Please select Trainee group!')
         }
-
-    })
+    });
+    $(document).on('click','.coursebutton',function(e){
+        e.preventDefault();
+        var courses_id =  $( "#courses option:selected" ).val();
+        var paper_id =  $( "#paper_id" ).val(courses_id);
+    });
 </script>
 
 

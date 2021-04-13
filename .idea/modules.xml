@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/educatioo.iml" filepath="$PROJECT_DIR$/.idea/educatioo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../admin theme/material-dashboard-pro-html-v2.2.2/.idea/material-dashboard-pro-html-v2.2.2.iml" filepath="$PROJECT_DIR$/../admin theme/material-dashboard-pro-html-v2.2.2/.idea/material-dashboard-pro-html-v2.2.2.iml" />
     </modules>
   </component>
 </project>
