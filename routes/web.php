@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth:teacher'], 'prefix' => 'trainer'], function
     Route::resource('question', \App\Http\Controllers\Teacher\QuestionController::class);
     Route::resource('classrooms', \App\Http\Controllers\Teacher\ClassRoomController::class);
     Route::resource('students', StudentController::class);
+    Route::delete('/delete/trainee', [StudentController::class, 'destroy'])->name('trainer.trainee.destroy');
     Route::resource('quiz', PaperController::class);
     Route::get('get/options', [PaperController::class, 'getQuestionOptions'])->name('getoption');
     Route::resource('launch', LaunchQuizController::class);

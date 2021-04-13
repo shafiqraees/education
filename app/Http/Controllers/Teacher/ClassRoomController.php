@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher;
 use App\Http\Controllers\Controller;
 use App\Models\ClassRoom;
 use App\Models\LaunchQuiz;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -88,7 +89,14 @@ class ClassRoomController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $data = User::whereClassRoomId($id)->whereIsActive('true')->whereNull('deleted_at')->orderBy('id','desc')->get();
+            return view('teacher.classrooms.trainee', compact('data'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('home'))->withErrors('Sorry record not found.');
+        }
+
     }
 
     /**

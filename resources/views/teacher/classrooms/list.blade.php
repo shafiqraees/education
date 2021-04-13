@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">assignment</i>
                             </div>
-                            <h4 class="card-title">Class Rooms</h4>
+                            <h4 class="card-title">Trainee Groups</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -67,6 +67,7 @@
                                                 <td>{{$row->status}}</td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                                 <td class="text-right">
+                                                    <a href="{{route('classrooms.show',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">visibility</i></a>
                                                     <a href="{{route('classrooms.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
                                                     <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('classrooms.destroy',$row->id)}}"><i class="material-icons">close</i></a>
                                                 </td>

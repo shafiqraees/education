@@ -30,7 +30,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">contacts</i>
                             </div>
-                            <h4 class="card-title">Create Student Form</h4>
+                            <h4 class="card-title">Enter new trainee</h4>
                         </div>
                         <div class="card-body ">
                             <div class="row">
@@ -54,20 +54,14 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="examplePasswords" class="bmd-label-floating"> Password Conformation *</label>
+                                        <label for="examplePasswords" class="bmd-label-floating"> Password Confirmation *</label>
                                         <input type="password" name="password_confirmation" class="form-control" id="class_code" required="true">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleEmails" class="bmd-label-floating"> Roll Number *</label>
-                                        <input type="text" class="form-control" id="roll_number" required="true" name="roll_number">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <select name="class_room" id="class_room" class="form-control" required="true">
-                                            <option value="">Select Calss Room</option>
+                                            <option value="">Select Trainee Group</option>
                                             @if(!empty($class))
                                                 @foreach($class as $name)
                                                     <option value="{{  $name->id }}">{{  $name->name }}</option>
@@ -85,6 +79,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                <br>
                                 <div class="col-md-6 col-sm-4">
                                     <h4 class="title">Profile Image</h4>
                                     <div class="fileinput fileinput-new text-center" data-provides="fileinput" style="display: block !important;">

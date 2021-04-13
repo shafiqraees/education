@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d84d469-84d8-4d18-93b1-1619248783cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/educatioo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/educatioo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/teacher/launchPaper/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/launchPaper/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Teacher/ClassRoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Teacher/ClassRoomController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Teacher/StudentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Teacher/StudentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/teacher/classrooms/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/classrooms/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/teacher/classrooms/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/classrooms/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/teacher/questions/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/questions/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/teacher/questions/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/questions/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/teacher/students/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/students/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/teacher/students/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/students/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +184,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1618299761602</updated>
-      <workItem from="1618299816756" duration="4373000" />
+      <workItem from="1618299816756" duration="9337000" />
     </task>
     <servers />
   </component>

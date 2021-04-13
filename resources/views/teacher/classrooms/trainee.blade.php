@@ -1,4 +1,3 @@
-
 @extends('teacher.layouts.main')
 @section('content')
     <div class="content">
@@ -13,11 +12,6 @@
                             <h4 class="card-title">Trainee</h4>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-xl-3 col-md-6">
-                                    <div class="form-actions"> <a href="{{ route('students.create')}}" class="btn btn-primary"> <span class="la la-plus font-medium-3"></span> Add New Trainee</a> </div>
-                                </div>
-                            </div>
                             <div class="toolbar">
                                 <!--        Here you can write extra buttons/actions for the toolbar              -->
                             </div>
@@ -46,9 +40,9 @@
                                     <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Class Name</th>
+                                        <th>Title</th>
+                                        <th>Class Code</th>
+                                        <th>Status </th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
@@ -58,7 +52,7 @@
                                         <th>Id</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Class Name</th>
+                                        <th>Status </th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
@@ -69,19 +63,18 @@
                                             <tr>
                                                 <td>{{$row->id}} </td>
                                                 <td>{{$row->name}} </td>
-                                                <td>{{$row->email}} </td>
-                                                <td>{{!empty($row->classRoom->name) ? $row->classRoom->name : ""}} </td>
+                                                <td>{{$row->class_code}} </td>
+                                                <td>{{$row->status}}</td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                                 <td class="text-right">
-                                                    <a href="{{route('students.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
-                                                    <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('students.destroy',$row->id)}}"><i class="material-icons">close</i></a>
+                                                    <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('trainer.trainee.destroy',$row->id)}}"><i class="material-icons">close</i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     @endif
+
                                     </tbody>
                                 </table>
-                                <div class="mt-3" id="xyz"> {{ $data->links() }} </div>
                             </div>
                         </div>
                         <!-- end content-->

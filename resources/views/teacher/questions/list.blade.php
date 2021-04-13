@@ -9,9 +9,14 @@
                             <div class="card-icon">
                                 <i class="material-icons">assignment</i>
                             </div>
-                            <h4 class="card-title">Questions</h4>
+                            <h4 class="card-title">Question</h4>
                         </div>
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="form-actions"> <a href="{{ route('question.create')}}" class="btn btn-primary"> <span class="la la-plus font-medium-3"></span> Add New Question</a> </div>
+                                </div>
+                            </div>
                             <div class="toolbar">
                                 <!--        Here you can write extra buttons/actions for the toolbar              -->
                             </div>

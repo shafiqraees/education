@@ -30,7 +30,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">contacts</i>
                             </div>
-                            <h4 class="card-title">Class Room Form</h4>
+                            <h4 class="card-title">Trainee Group</h4>
                         </div>
                         <div class="card-body ">
                             <div class="row">

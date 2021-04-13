@@ -30,7 +30,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">contacts</i>
                             </div>
-                            <h4 class="card-title">Create Question Form</h4>
+                            <h4 class="card-title">Create new question</h4>
                         </div>
                         <div class="card-body ">
                             <div class="row">

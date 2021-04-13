@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\ClassRoom;
 use App\Models\Question;
 use App\Models\User;
@@ -10,7 +11,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rules\Unique;
 
 class StudentController extends Controller
 {
@@ -25,8 +28,6 @@ class StudentController extends Controller
      */
     public function index()
     {
-
-
         try {
             $id = Auth::guard('teacher')->user()->id;
 
@@ -67,7 +68,7 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         try {
             $path = "default.png";
@@ -80,16 +81,16 @@ class StudentController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'class_room_id' => $request->class_room,
-                'roll_number' => $request->roll_number,
                 'is_active' => $request->status,
-                'password' => bcrypt($request->password),
+                'password' => Hash::make($request->password),
                 'org_password' => $request->password,
+                'pincode' => rand(11111111, 99999999),
                 'profile_photo_path' => !empty($path) ? $path : "",
                 'teacher_id' => Auth::guard('teacher')->user()->id,
             ];
             $data =  User::create($class_data);
             DB::commit();
-            return redirect(url('/teacher/students'))->with('success', 'Student added successfully.');
+            return redirect(url('/trainer/students'))->with('success', 'Trainee added successfully.');
 
         } catch ( \Exception $e) {
             DB::rollBack();
@@ -161,7 +162,7 @@ class StudentController extends Controller
                 ];
                 $data->update($user_data);
                 DB::commit();
-                return redirect(route('students.index'))->with('success', 'Class room updated successfully.');
+                return redirect(route('students.index'))->with('success', 'Trainee Group updated successfully.');
             } else {
                 return Redirect::back()->withErrors(['Sorry student not found.']);
             }
