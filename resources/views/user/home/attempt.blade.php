@@ -94,9 +94,9 @@
     /*
     html: '<select class="form-control select2" aria-invalid="false" name="class_room" required>'+"\n" +
                     '<option value="">Select Class Room</option>'+"\n" +
-        '@foreach($data as $room)'+"\n" +
-        '<option value="{{$room->id}}">{{$room->name}}</option>'+"\n" +
-        '@endforeach'+"\n" +
+        '{{--@foreach($data as $room)--}}'+"\n" +
+        '<option value="{{--{{$room->id}}">{{$room->name}}--}}</option>'+"\n" +
+        '{{--@endforeach--}}'+"\n" +
     '</select>',
 
     $(document).on('click','.nextbutton',function(e){

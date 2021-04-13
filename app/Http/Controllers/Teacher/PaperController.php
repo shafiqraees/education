@@ -93,7 +93,7 @@ class PaperController extends Controller
                 }
             }
             DB::commit();
-            return redirect(route('quiz.index'))->with('success', 'Question added successfully.');
+            return redirect(route('quiz.index'))->with('success', 'Course created successfully.');
         } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');

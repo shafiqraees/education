@@ -9,9 +9,14 @@
                             <div class="card-icon">
                                 <i class="material-icons">assignment</i>
                             </div>
-                            <h4 class="card-title">Class Rooms</h4>
+                            <h4 class="card-title">Courses</h4>
                         </div>
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="form-actions"> <a href="{{ route('quiz.create')}}" class="btn btn-primary"> <span class="la la-plus font-medium-3"></span> Add New Course</a> </div>
+                                </div>
+                            </div>
                             <div class="toolbar">
                                 <!--        Here you can write extra buttons/actions for the toolbar              -->
                             </div>
@@ -41,7 +46,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
-                                        <th>Paper Code</th>
+                                        <th>Course Code</th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
@@ -50,7 +55,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
-                                        <th>Paper Code</th>
+                                        <th>Course Code</th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
@@ -64,7 +69,7 @@
                                                 <td>{{$row->paper_code}} </td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                                 <td class="text-right">
-                                                    <a href="{{route('classrooms.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
+                                                    <a href="{{route('quiz.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
                                                     <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>
                                                 </td>
                                             </tr>

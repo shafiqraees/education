@@ -30,7 +30,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">contacts</i>
                             </div>
-                            <h4 class="card-title">Create Quiz Form</h4>
+                            <h4 class="card-title">Create New Course</h4>
                         </div>
                         <div class="card-body ">
                             <div class="row">
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="exampleEmails" class="bmd-label-floating"> Paper Code *</label>
+                                        <label for="exampleEmails" class="bmd-label-floating"> Course Code *</label>
                                         <input type="text" class="form-control" id="name" required="true" name="paper_code">
                                     </div>
                                 </div>
