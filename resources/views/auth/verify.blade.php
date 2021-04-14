@@ -54,6 +54,7 @@
     </div>
 @endsection
 <script src="{{asset('public/assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
 <script>
 
     $(document).on('click','.ajax',function(e){
@@ -129,12 +130,8 @@
                     data:{id:response.data['id']},
                     success: function (results) {
                         console.log(results);
-                        if (results.data) {
-                            toastr.success('Login Successfully!')
-                            window.location = home;
-                        } else {
-                            swal("Error!", results.message, "error");
-                        }
+                        toastr.success('Login Successfully!')
+                        window.location = home;
                     }
                 });
 

@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d84d469-84d8-4d18-93b1-1619248783cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/educatioo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/educatioo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Teacher/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Teacher/Auth/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Teacher/LaunchQuizController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Teacher/LaunchQuizController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/TeacherRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/TeacherRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_10_000002_create_teachers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_10_000002_create_teachers_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/authentication/layout/footer_script.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/authentication/layout/footer_script.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/emails/quiz_session.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/quiz_session.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/teacher/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/teacher/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/auth/register.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/teacher/classrooms/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/classrooms/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/teacher/classrooms/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/classrooms/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/teacher/classrooms/trainee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/classrooms/trainee.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/teacher/paper/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/paper/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TraineeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TraineeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/verify.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/verify.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../j-auto/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../j-auto/app/Http/Controllers/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../j-auto/app/Http/Controllers/admin/main/mainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../j-auto/app/Http/Controllers/admin/main/mainController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../j-auto/app/mymodels/ProductVarient.php" beforeDir="false" afterPath="$PROJECT_DIR$/../j-auto/app/mymodels/ProductVarient.php" afterDir="false" />
@@ -10240,7 +10229,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1618299761602</updated>
-      <workItem from="1618299816756" duration="30956000" />
+      <workItem from="1618299816756" duration="31750000" />
     </task>
     <servers />
   </component>

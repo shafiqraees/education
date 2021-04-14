@@ -133,6 +133,8 @@ class HomeController extends Controller
             //$currenttime = date("H:i");
             $current_user = Auth::user();
             $mytime = Carbon::now()->toDateString();
+            $data = "";
+            $UserQuiz = "";
             //dd($mytime);
             $launchqiz = LaunchQuiz::whereHas('userQuiz',function ($query) use ($current_user){
                 $query->whereUserId($current_user->id);
@@ -158,7 +160,8 @@ class HomeController extends Controller
                 }*/
 
             } else {
-                return Redirect::back()->withErrors('No quiz avialable');
+                //return Redirect::back()->withErrors('No quiz avialable');
+                return view('user.home.attempt',compact('data','UserQuiz'))->withErrors('No session avialable.');
             }
 
 

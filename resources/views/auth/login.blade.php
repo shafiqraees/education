@@ -1,4 +1,6 @@
 @extends('authentication.layout.layout')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 @section('content')
     <div class="row">
         <div class="col-md-10 ml-auto mr-auto">

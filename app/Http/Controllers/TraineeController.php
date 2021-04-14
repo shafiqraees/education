@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\QuestionPaper;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Admin;
@@ -28,7 +29,7 @@ class TraineeController extends Controller
         ]);
 
         try {
-            $room = ClassRoom::whereClassCode($request->course_coude)->whereStatus('publish')->whereNull('deleted_at')->first();
+            $room = QuestionPaper::wherePaperCode($request->course_coude)->whereStatus('publish')->whereNull('deleted_at')->first();
             if ($room){
                 return redirect(route('trainee.id', $room->id))->with('success', 'Profile updated successfully.');
                 //return Redirect::back()->with('success','Profile updated successfully');
@@ -47,7 +48,7 @@ class TraineeController extends Controller
      */
     public function getTraineeId($id) {
         try {
-            $room = ClassRoom::find($id);
+            $room = QuestionPaper::find($id);
            // dd($room);
             return view('auth.verify',compact('room'));
         } catch ( \Exception $e) {
