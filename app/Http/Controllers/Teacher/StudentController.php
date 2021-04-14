@@ -34,7 +34,7 @@ class StudentController extends Controller
             $data = User::whereIsActive('true')->whereNull('deleted_at')
                 ->whereHas('classRoom',function ($query) use ($id){
                     $query->whereTeacherId($id);
-                })->with('classRoom')->orderBy('id','desc')->paginate(10);
+                })->with('classRoom')->orderBy('id','desc')->get();
 
             return view('teacher.students.list', compact('data'));
 
@@ -120,7 +120,8 @@ class StudentController extends Controller
         try {
             $data = User::find($id);
             if ($data) {
-                $class = ClassRoom::whereStatus('Publish')->whereNull('deleted_at')->get();
+                $id = Auth::guard('teacher')->user()->id;
+                $class = ClassRoom::whereTeacherId($id)->whereStatus('Publish')->whereNull('deleted_at')->get();
                 return view('teacher.students.detail',compact('data','class'));
             } else {
                 return Redirect::back()->withErrors('Sorry user not found');

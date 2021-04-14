@@ -98,18 +98,21 @@ class QuestionController extends Controller
             $quiz = Question::create($quiz_data);
             if ($request->type === "Multiple Choice") {
                 $question_ids = $request->question_id;
+
                 foreach ($request->option as  $key => $quiz_option) {
                     $answer = "";
                     if ($request->answer == $key) {
                         $answer = $request->answer;
                     }
+                    //dd($answer);
                     $option_data = [
                         'question_id' => $quiz->id,
                         'suggested_question_id' => $question_ids[$key],
-                        'answer' => !empty($answer) ? $answer : "",
+                        'answer' => $answer,
                         'name' => $quiz_option,
                         'image' => !empty($path[$key]) ? $path[$key] : "",
                     ];
+
                     QuestionOption::create($option_data);
                 }
             }

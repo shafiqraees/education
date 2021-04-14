@@ -61,12 +61,6 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleEmails" class="bmd-label-floating"> Roll Number *</label>
-                                        <input type="text" class="form-control" id="name" required="true" name="roll_number" value="{{$data->roll_number}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <select name="class_room" id="class_room" class="form-control" required="true">
                                             <option value="">Select Calss Room</option>
                                             @foreach($class as $name)

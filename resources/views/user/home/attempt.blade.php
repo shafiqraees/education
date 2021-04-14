@@ -198,8 +198,10 @@
         var attempted_option = $('#attempted_option').val();
         var logout_url = $('#logout_url').val();
         var status = "Incorrect";
+        var statusText = "Ok";
         if (option_data === quizanswer){
             status = "Correct"
+            statusText = "Cancel"
         }
         if (question_data) {
             swal({
@@ -209,7 +211,7 @@
                 showCancelButton: true,
                 buttons: {
                     confirm: {
-                        text: "Ok",
+                        text: statusText,
                         value: true,
                         visible: true,
                         className: "btn-dark",
