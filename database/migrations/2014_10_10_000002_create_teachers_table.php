@@ -31,6 +31,11 @@ class CreateTeachersTable extends Migration
             $table->text('about')->nullable();
             $table->text('org_password')->nullable();
             $table->string('device_token')->nullable();
+            $table->string('country')->nullable();
+            $table->string('terms_and_conditions')->nullable();
+            $table->string('organization_type')->nullable();
+            $table->string('organization_name')->nullable();
+            $table->string('organization_role')->nullable();
             $table->enum('is_active', ['true', 'false'])->default('true');
             $table->enum('notification_status', ['true', 'false'])->default('true');
             $table->timestamps();

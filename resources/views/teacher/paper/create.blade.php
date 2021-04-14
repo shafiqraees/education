@@ -74,8 +74,9 @@
 @endsection
 <script src="{{asset('public/assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
 <script>
+    $(document).ready(function() {
     var count = 1;
-    $(document).on('change','.quiz',function(e){
+    $(document).on('change','.select2',function(e){
         e.preventDefault();
         var id = $(this).val();
         var url = $('#ajaxurl').val();
@@ -155,4 +156,7 @@
             }
         });
     }
+
+        $('.select2').select2();
+    });
 </script>

@@ -12,6 +12,11 @@
                             <h4 class="card-title">Trainee</h4>
                         </div>
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="form-actions"> <a href="{{ route('students.create')}}" class="btn btn-primary"> <span class="la la-plus font-medium-3"></span> Add New Trainee</a> </div>
+                                </div>
+                            </div>
                             <div class="toolbar">
                                 <!--        Here you can write extra buttons/actions for the toolbar              -->
                             </div>
@@ -40,8 +45,9 @@
                                     <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Class Code</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Pin Code</th>
                                         <th>Status </th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
@@ -52,6 +58,7 @@
                                         <th>Id</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Pin Code</th>
                                         <th>Status </th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>
@@ -63,6 +70,7 @@
                                             <tr>
                                                 <td>{{$row->id}} </td>
                                                 <td>{{$row->name}} </td>
+                                                <td>{{$row->email}} </td>
                                                 <td>{{$row->class_code}} </td>
                                                 <td>{{$row->status}}</td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>

@@ -12,6 +12,11 @@
                             <h4 class="card-title">Trainee Groups</h4>
                         </div>
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="form-actions"> <a href="{{ route('classrooms.create')}}" class="btn btn-primary"> <span class="la la-plus font-medium-3"></span> Add New Trainee Group</a> </div>
+                                </div>
+                            </div>
                             <div class="toolbar">
                                 <!--        Here you can write extra buttons/actions for the toolbar              -->
                             </div>
@@ -41,7 +46,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Title</th>
-                                        <th>Class Code</th>
+                                        <th>Trainee Group Code</th>
                                         <th>Status </th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
@@ -51,7 +56,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Title</th>
-                                        <th>Class Code</th>
+                                        <th>Trainee Group Code</th>
                                         <th>Status </th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>

@@ -79,6 +79,7 @@ class LaunchQuizController extends Controller
         try {
             $students = User::whereClassRoomId($request->class_room)->whereIsActive('true')
                 ->whereNull('deleted_at')->select('id','email')->get();
+            $class_room = QuestionPaper::find($request->paper_id);
             DB::beginTransaction();
             if(!$students->isEmpty()) {
                 $quiz_data = [
@@ -112,7 +113,9 @@ class LaunchQuizController extends Controller
                     if (filter_var($student->email, FILTER_VALIDATE_EMAIL)) {
                         $details = [
                             'title' => 'Mail from educatio',
-                            'body' => 'This is for testing email using smtp'
+                            'body' => 'This is for testing email using smtp',
+                            'Course_Code' => $class_room->paper_code,
+                            'Pin' => $student->pincode,
                         ];
                         Mail::to($student->email)->send(new SendQuizNotification($details));
                     }

@@ -24,7 +24,8 @@ class TeacherRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
             'password' => 'required|confirmed|min:8',
             'email' => 'unique:teachers',
         ];
