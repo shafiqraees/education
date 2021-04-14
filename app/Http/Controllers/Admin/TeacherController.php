@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
+use App\Http\Requests\TrainerRequest;
 use App\Models\SubAdmin;
 use App\Models\Teacher;
 use Illuminate\Http\JsonResponse;
@@ -51,7 +52,7 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TeacherRequest $request)
+    public function store(TrainerRequest $request)
     {
         try {
             $path = "default.png";
