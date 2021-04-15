@@ -45,6 +45,7 @@ Route::get('cancel',  [\App\Http\Controllers\PayPalController::class,'cancel'])-
 Route::get('payment/success', [\App\Http\Controllers\PayPalController::class,'success'])->name('payment.success');*/
 
 Route::get('/verify/{user}/{token}', [\App\Http\Controllers\Auth\RegisterController::class, 'verifyUser'])->name('verify');
+Route::get('trianer/dashboard', [\App\Http\Controllers\Auth\RegisterController::class, 'trainerDashboard'])->name('trianer.dashboard');
 Route::post('user/logout', [HomeController::class, 'logOutUser'])->name('logout.user');
 Auth::routes();
 
@@ -63,9 +64,11 @@ Route::group([/*'middleware' => ['auth:teacher'],*/ 'prefix' => 'trainer'], func
     Route::resource('students', StudentController::class);
     Route::delete('/delete/trainee', [StudentController::class, 'destroy'])->name('trainer.trainee.destroy');
     Route::resource('quiz', PaperController::class);
+    Route::get('/result', [PaperController::class, 'result'])->name('result.quiz');
     Route::get('get/options', [PaperController::class, 'getQuestionOptions'])->name('getoption');
     Route::resource('launch', LaunchQuizController::class);
     Route::get('/quiz/attempt/{id}', [LaunchQuizController::class, 'attemptQuiz'])->name('quizattempt');
+    Route::get('/trianee/result/{id}', [LaunchQuizController::class, 'trineeResult'])->name('trainee.result');
     Route::get('/profile', [TeacherHomeController::class, 'editProfile'])->name('profile.edit');
     Route::post('/profile/edit', [TeacherHomeController::class, 'profileUpdate'])->name('profile.update');
     Route::get('/subscription/plan', [TeacherHomeController::class, 'subscriptionPlan'])->name('subs.plan');

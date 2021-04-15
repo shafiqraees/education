@@ -8,6 +8,7 @@ use App\Models\Teacher;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Fir\Libraries\Session;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -93,11 +94,26 @@ class RegisterController extends Controller
         }
 
     }
-
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    protected function trainerDashboard(Request  $rquest)
+    {
+        dd($rquest);
+        $data = ['email_verified_at' => Carbon::now()];
+        if ($rquest->teacher_id){
+            $teacher = Teacher::find($rquest->teacher_id);
+            if ($teacher) {
+                $teacher->update($data);
+                return redirect(route('teacher.login'))->with('success', 'successfully verified.');
+            }
+        } else {
+            return redirect(url('/'))->withErrors('payment not successfully done');
+        }
+    }
+
+
 
 }

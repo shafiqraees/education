@@ -171,6 +171,30 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" data-toggle="collapse" href="#Results">
+                    <i class="material-icons">launch</i>
+                    <p> Results
+                        <b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="Results">
+                    <ul class="nav">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{route('result.quiz')}}">
+                                <span class="sidebar-mini"> All </span>
+                                <span class="sidebar-normal"> Results </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{route('result.quiz')}}">
+                                <span class="sidebar-mini"> A </span>
+                                <span class="sidebar-normal">Archive </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('teacher.logout') }}"
                    onclick="event.preventDefault();

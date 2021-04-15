@@ -215,4 +215,22 @@ class PaperController extends Controller
             return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', "something went wrong");
         }
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function result()
+    {
+
+        try {
+            $id = Auth::guard('teacher')->user()->id;
+            $data = LaunchQuiz::whereTeacherId($id)->orderBy('id','desc')->get();
+            return view('teacher.paper.result', compact('data'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('home'))->withErrors('Sorry record not found.');
+        }
+    }
 }

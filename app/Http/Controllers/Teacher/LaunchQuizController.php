@@ -212,4 +212,27 @@ class LaunchQuizController extends Controller
             return redirect(route('teacher.home'))->withErrors('Sorry record not found.');
         }
     }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trineeResult($id)
+    {
+        try {
+            $data = User::whereHas('userAttemptQuiz',function ($query) use ($id) {
+                $query->where('launch_quiz_id',$id);
+            })->with('userAttemptQuiz',function ($query){
+                $query->with('quizPaper',function ($query){
+                    $query->withCount('questionPaperquestion');
+                });
+            })->get();
+           // dd($data);
+
+            return view('teacher.launchPaper.trainee_result',compact('data'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('teacher.home'))->withErrors('Sorry record not found.');
+        }
+    }
 }
