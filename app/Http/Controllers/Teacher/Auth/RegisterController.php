@@ -7,6 +7,7 @@ use App\Http\Requests\TeacherRequest;
 use App\Models\Teacher;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -118,6 +119,7 @@ class RegisterController extends Controller
                         'organization_type' => $request->organization_type,
                         'organization_name' => $request->organization_name,
                         'organization_role' => $request->organization_role,
+                        'email_verified_at' =>  Carbon::now(),
                     ];
                     $data->update($update_data);
                 }

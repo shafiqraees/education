@@ -101,7 +101,7 @@ class RegisterController extends Controller
      */
     protected function trainerDashboard(Request  $rquest)
     {
-        dd($rquest);
+
         $data = ['email_verified_at' => Carbon::now()];
         if ($rquest->teacher_id){
             $teacher = Teacher::find($rquest->teacher_id);
@@ -110,7 +110,8 @@ class RegisterController extends Controller
                 return redirect(route('teacher.login'))->with('success', 'successfully verified.');
             }
         } else {
-            return redirect(url('/'))->withErrors('payment not successfully done');
+            dd($rquest);
+            return redirect(route('teacher.login'))->with('success', 'successfully verified.');
         }
     }
 
