@@ -238,11 +238,12 @@
                                                     </div>
                                                     <input id="amount" type="hidden" class="form-control" name="amount" value="120.0" autofocus>
                                                     <input id="name" type="hidden" class="form-control" name="name" value="Premium package" autofocus>
+
                                                     <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                                         <input type="hidden" name="cmd" value="_s-xclick">
                                                         <input type="hidden" name="hosted_button_id" value="6VVYMDGAY94J2">
                                                         <table>
-                                                            <tr style="display: none"><td><input type="hidden" name="on0" value="teacher_id"style="display: none">teacher_id</td></tr><tr><td><input type="text" name="os0" maxlength="200" style="display: none"></td></tr>
+                                                            <tr style="display: none"><td><input type="hidden" name="on0" value="teacher_id">teacher_id</td></tr><tr><td><input type="text" name="os0" maxlength="200" style="display: none"></td></tr>
                                                         </table>
                                                         <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                                                         <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
