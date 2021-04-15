@@ -119,7 +119,7 @@ class RegisterController extends Controller
                         'organization_type' => $request->organization_type,
                         'organization_name' => $request->organization_name,
                         'organization_role' => $request->organization_role,
-                       // 'email_verified_at' =>  Carbon::now(),
+                        'email_verified_at' =>  Carbon::now(),
                     ];
                     $data->update($update_data);
                 }

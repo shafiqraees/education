@@ -110,7 +110,7 @@ class RegisterController extends Controller
                 return redirect(route('teacher.login'))->with('success', 'successfully verified.');
             }
         } else {
-            dd($rquest);
+            //dd($rquest);
             return redirect(route('teacher.login'))->with('success', 'successfully verified.');
         }
     }
