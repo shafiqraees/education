@@ -221,11 +221,14 @@
                                                     <input id="name" type="hidden" class="form-control" name="name" value="Basic Plan" autofocus>
                                                     <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                                         <input type="hidden" name="cmd" value="_s-xclick">
-                                                        <input type="hidden"class="teacher_id" name="id" value="">
-                                                        <input type="hidden" name="hosted_button_id" value="9FMVMHKBNJUVY">
+                                                        <input type="hidden" name="hosted_button_id" value="EJGPP2YQR4T2N">
+                                                        <table>
+                                                            <tr style="display: none"><td><input type="hidden" name="on0" value="teacher_id">teacher_id</td></tr><tr><td><input type="text" name="os0" maxlength="200" style="display: none"></td></tr>
+                                                        </table>
                                                         <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                                                         <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
                                                     </form>
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
@@ -241,14 +244,13 @@
 
                                                     <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                                         <input type="hidden" name="cmd" value="_s-xclick">
-                                                        <input type="hidden" name="hosted_button_id" value="6VVYMDGAY94J2">
+                                                        <input type="hidden" name="hosted_button_id" value="2J6Y6F4S8Z49S">
                                                         <table>
-                                                            <tr style="display: none"><td><input type="hidden" name="on0" value="teacher_id">teacher_id</td></tr><tr><td><input type="text" value="1" name="os0" maxlength="200" style="display: none"></td></tr>
+                                                            <tr style="display: none"><td><input type="hidden" name="on0" value="teacher_id">teacher_id</td></tr><tr><td><input type="text" name="os0" maxlength="200" style="display: none"></td></tr>
                                                         </table>
                                                         <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                                                         <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
                                                     </form>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -303,6 +305,7 @@
                     //location.reload();
                     console.log(result);
                     $('.teacher_id').val(result.data['id'])
+                    $('input[name="os0"]').val(result.data['id'])
                 },
                 error: function(data)
                 {
