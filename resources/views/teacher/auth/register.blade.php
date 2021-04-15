@@ -219,9 +219,9 @@
                                                     </div>
                                                     <input id="amount" type="hidden" class="form-control" name="amount" value="72.0" autofocus>
                                                     <input id="name" type="hidden" class="form-control" name="name" value="Basic Plan" autofocus>
-                                                    
-                                                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                                                        <input type="hidden" name="cmd" value="_s-xclick">
+
+                                                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+
                                                         <input type="hidden" name="hosted_button_id" value="EJGPP2YQR4T2N">
                                                         <input type="hidden" name="business" value="seller@designerfotos.com">
                                                         <input type="hidden" name="item_name" value="hat">
@@ -239,9 +239,10 @@
                                                         <input type="hidden" name="night_phone_c" value="1234">
 
                                                         <input type="hidden" name="email" value="jdoe@zyzzyu.com">
-                                                        <input type="image" name="submit"
-                                                               src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
-                                                               alt="PayPal - The safer, easier way to pay online">
+                                                        
+                                                        <input type="hidden" name="cmd" value="_s-xclick">
+                                                        <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribe_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                                                        <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
                                                     </form>
 
                                                 </div>
