@@ -222,7 +222,7 @@
                                                     <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                                         <input type="hidden" name="cmd" value="_s-xclick">
                                                         <input type="hidden" name="hosted_button_id" value="EJGPP2YQR4T2N">
-                                                        <input type="hidden" name="teacher_id" value="1">
+                                                        <input type="hidden" name="item_number" value="1">
                                                         <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                                                         <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
                                                     </form>
@@ -303,7 +303,7 @@
                     console.log(result);
                     $('.teacher_id').val(result.data['id'])
                     $('input[name="os0"]').val(result.data['id'])
-                    $('input[name="teacher_id"]').val(result.data['id'])
+                    $('input[name="item_number"]').val(result.data['id'])
                 },
                 error: function(data)
                 {
