@@ -27,12 +27,12 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#account" data-toggle="tab" role="tab">
-                                            Demographic
+                                            Where You from
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#address" data-toggle="tab" role="tab">
-                                            Demographic
+                                            Packages
                                         </a>
                                     </li>
                                 </ul>
