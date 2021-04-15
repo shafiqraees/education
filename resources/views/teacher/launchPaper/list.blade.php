@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">launch</i>
                             </div>
-                            <h4 class="card-title">launch Quiz</h4>
+                            <h4 class="card-title">launch Courses</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -40,10 +40,10 @@
                                     <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Class Name</th>
-                                        <th>Class Code</th>
-                                        <th>Paper Name</th>
-                                        <th>Paper Code</th>
+                                        <th>Trainee Group Name</th>
+                                        <th>Trainee Group Code</th>
+                                        <th>Course Name</th>
+                                        <th>Course Code</th>
                                         <th>Method And Settings</th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
@@ -52,10 +52,10 @@
                                     <tfoot>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Class Name</th>
-                                        <th>Class Code</th>
-                                        <th>Paper Name</th>
-                                        <th>Paper Code</th>
+                                        <th>Trainee Group Name</th>
+                                        <th>Trainee Group Code</th>
+                                        <th>Course Name</th>
+                                        <th>Course Code</th>
                                         <th>Method And Settings</th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>

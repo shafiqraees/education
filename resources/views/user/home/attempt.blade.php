@@ -23,66 +23,67 @@
                             @endforeach
                         </ul>
                     </div>
-                @endif
-                <form id="LoginValidation" action="{{route('quiz.save')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="card ">
-                        <div class="card-header card-header-rose card-header-icon">
-                            <div class="card-icon">
-                                <i class="material-icons">person</i>
+                @else
+                    <form id="LoginValidation" action="{{route('quiz.save')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card ">
+                            <div class="card-header card-header-rose card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">person</i>
+                                </div>
+                                <h4 class="card-title">Quiz form</h4>
                             </div>
-                            <h4 class="card-title">Quiz form</h4>
-                        </div>
-                        <div class="card-body ">
-                            <div class="row">
-                                @php
-                                    $x = 'A';
-                                @endphp
-                                @if(!empty($data))
-                                    @if(isset($data->getQuestion))
-                                        <h4>1. {{$data->getQuestion->name}}?</h4>
-                                        @if(!empty($data->getQuestion->image))
-                                            <img src="{{Storage::disk('public')->exists('md/'.$data->getQuestion->image) ? Storage::disk('public')->url('md/'.$data->getQuestion->image) : Storage::disk('public')->url('default.png')}}" alt="option" style="height: 30px;width: 30px;">
-                                        @endif
-                                        @if(isset($data->getQuestion->option))
-                                            @foreach($data->getQuestion->option as $key => $option)
-                                                <div class="col-sm-12 checkbox-radios">
-                                                    <div class="form-check">
-                                                        <label class="form-check-label">{{$x}} </label>
-                                                        <label class="form-check-label">
-                                                            <input class="form-check-input selectedbutton" type="radio" name="question_option_id" value="{{$option->id}}"> {{$option->name}}
-                                                            <span class="circle">
+                            <div class="card-body ">
+                                <div class="row">
+                                    @php
+                                        $x = 'A';
+                                    @endphp
+                                    @if(!empty($data))
+                                        @if(isset($data->getQuestion))
+                                            <h4>1. {{$data->getQuestion->name}}?</h4>
+                                            @if(!empty($data->getQuestion->image))
+                                                <img src="{{Storage::disk('public')->exists('md/'.$data->getQuestion->image) ? Storage::disk('public')->url('md/'.$data->getQuestion->image) : Storage::disk('public')->url('default.png')}}" alt="option" style="height: 30px;width: 30px;">
+                                            @endif
+                                            @if(isset($data->getQuestion->option))
+                                                @foreach($data->getQuestion->option as $key => $option)
+                                                    <div class="col-sm-12 checkbox-radios">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">{{$x}} </label>
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input selectedbutton" type="radio" name="question_option_id" value="{{$option->id}}"> {{$option->name}}
+                                                                <span class="circle">
                                                                 <span class="check"></span>
                                                                 </span>
-                                                        </label>
-                                                        <input type="hidden" name="user_quiz_id" value="{{$UserQuiz->id}}">
-                                                        <input type="hidden" name="launch_quiz_id" value="{{$UserQuiz->launch_quiz_id}}">
-                                                        <input type="hidden" name="question_id" value="{{$data->getQuestion->id}}">
-                                                        <input type="hidden" name="question_paper_id" value="{{$UserQuiz->question_paper_id}}">
+                                                            </label>
+                                                            <input type="hidden" name="user_quiz_id" value="{{$UserQuiz->id}}">
+                                                            <input type="hidden" name="launch_quiz_id" value="{{$UserQuiz->launch_quiz_id}}">
+                                                            <input type="hidden" name="question_id" value="{{$data->getQuestion->id}}">
+                                                            <input type="hidden" name="question_paper_id" value="{{$UserQuiz->question_paper_id}}">
 
-                                                        @if(!empty($option->image))
-                                                            <img src="{{Storage::disk('public')->exists('md/'.$option->image) ? Storage::disk('public')->url('md/'.$option->image) : Storage::disk('public')->url('default.png')}}" alt="option" style="height: 30px;width: 30px;">
-                                                        @endif                                                    </div>
-                                                </div>
-                                                @php   $x++; @endphp
-                                            @endforeach
+                                                            @if(!empty($option->image))
+                                                                <img src="{{Storage::disk('public')->exists('md/'.$option->image) ? Storage::disk('public')->url('md/'.$option->image) : Storage::disk('public')->url('default.png')}}" alt="option" style="height: 30px;width: 30px;">
+                                                            @endif                                                    </div>
+                                                    </div>
+                                                    @php   $x++; @endphp
+                                                @endforeach
+                                            @endif
                                         @endif
                                     @endif
-                                @endif
+                                </div>
+                            </div>
+                            <input type="hidden" id="quizanswer" name="quizanswer" value="{{isset($answer_data->name) ? $answer_data->name : "" }}">
+                            <input type="hidden" id="question_data" name="Question" value="{{isset($question_data->name) ? $question_data->name : "" }}">
+                            <input type="hidden" id="option_data" name="option_data" value="{{isset($option_data->name) ? $option_data->name : "" }}">
+                            <input type="hidden" id="attempt_data" name="attempt_data" value="{{isset($attempt->question_count) ? $attempt->question_count : "" }}">
+                            <input type="hidden" id="result" name="result" value="{{isset($result) ? $result : "" }}">
+                            <input type="hidden" id="attempted_option" name="attempted_option" value="{{isset($attempted_option) ? $attempted_option : "" }}">
+                            <input type="hidden" id="logout_url" name="logout_url" value="{{route('logout.user') }}">
+                            <div class="card-footer ml-auto  col-xs-offset-2 pull-right">
+                                <button type="submit" class="btn btn-rose nextbutton">Next</button>
                             </div>
                         </div>
-                        <input type="hidden" id="quizanswer" name="quizanswer" value="{{isset($answer_data->name) ? $answer_data->name : "" }}">
-                        <input type="hidden" id="question_data" name="Question" value="{{isset($question_data->name) ? $question_data->name : "" }}">
-                        <input type="hidden" id="option_data" name="option_data" value="{{isset($option_data->name) ? $option_data->name : "" }}">
-                        <input type="hidden" id="attempt_data" name="attempt_data" value="{{isset($attempt->question_count) ? $attempt->question_count : "" }}">
-                        <input type="hidden" id="result" name="result" value="{{isset($result) ? $result : "" }}">
-                        <input type="hidden" id="attempted_option" name="attempted_option" value="{{isset($attempted_option) ? $attempted_option : "" }}">
-                        <input type="hidden" id="logout_url" name="logout_url" value="{{route('logout.user') }}">
-                        <div class="card-footer ml-auto  col-xs-offset-2 pull-right">
-                            <button type="submit" class="btn btn-rose nextbutton">Next</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

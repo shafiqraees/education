@@ -40,18 +40,20 @@
                                     <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Student Name</th>
-                                        <th>Student email</th>
-                                        <th>Student Result</th>
+                                        <th>Trainee Name</th>
+                                        <th>Trainee email</th>
+                                        <th>Trainee Result Score</th>
+                                        <th>Trainee Result Percentage</th>
                                         <th>Created Date</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Student Name</th>
-                                        <th>Student email</th>
-                                        <th>Student Result</th>
+                                        <th>Trainee Name</th>
+                                        <th>Trainee email</th>
+                                        <th>Trainee Result Score</th>
+                                        <th>Trainee Result Percentage</th>
                                         <th>Created Date</th>
                                     </tr>
                                     </tfoot>
@@ -67,24 +69,24 @@
 
                                                     $count_attemt = $attempt->quizPaper->question_paperquestion_count;
                                                     $option = $attempt->answerOption->answer;
-                                                    if (!empty($option)) {
+                                                    if (($option != "") || ($option != null)) {
                                                        $result ++;
                                                     }
 
-                                                        //dd($option)
                                                 @endphp
                                             @endforeach
+                                            @php
+                                                $score =  $result. '/'.$count_attemt;
+                                            @endphp
                                             <tr>
+                                                @php
+                                                    $result =  $result/$count_attemt*100;
+                                                @endphp
                                                 <td>{{$row->id}} </td>
                                                 <td>{{isset($row->name) ? $row->name : ""}} </td>
                                                 <td>{{isset($row->email) ? $row->email : ""}} </td>
-                                                <td>
-                                                    @php
-                                                    //dd($count_attemt);
-                                                        $result =  $result/$count_attemt*100;
-                                                    @endphp
-                                                    {{isset($result) ? $result ."%" : ""}}
-                                                </td>
+                                                <td>{{isset($score) ? $score : ""}} </td>
+                                                <td>{{isset($result) ? $result ."%" : ""}}</td>
                                                 <td>{{!empty($row->created_at->diffForHumans()) ? $row->created_at->diffForHumans() : ""}}</td>
                                             </tr>
                                             @php
