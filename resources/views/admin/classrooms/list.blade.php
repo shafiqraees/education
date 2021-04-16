@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">assignment</i>
                             </div>
-                            <h4 class="card-title">Class Rooms</h4>
+                            <h4 class="card-title">Trainee Groups</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -41,7 +41,8 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Title</th>
-                                        <th>Class Code</th>
+                                        <th>Trainer Name</th>
+                                        <th>Trainee Group Code</th>
                                         <th>Status </th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
@@ -51,7 +52,8 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Title</th>
-                                        <th>Class Code</th>
+                                        <th>Trainer Name</th>
+                                        <th>Trainee Group Code</th>
                                         <th>Status </th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>
@@ -63,6 +65,7 @@
                                             <tr>
                                                 <td>{{$row->id}} </td>
                                                 <td>{{$row->name}} </td>
+                                                <td>{{isset($row->teacher->name) ? $row->teacher->name : ""}} </td>
                                                 <td>{{$row->class_code}} </td>
                                                 <td>{{$row->status}}</td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>

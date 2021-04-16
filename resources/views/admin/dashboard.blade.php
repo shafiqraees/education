@@ -3,6 +3,17 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="card card-stats">
+                        <img src="{{asset('public/assets/img/Educatioo.png')}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--<div class="content">
+        <div class="container-fluid">
+            <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="card card-stats">
                         <div class="card-header card-header-warning card-header-icon">
@@ -203,5 +214,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 @endsection

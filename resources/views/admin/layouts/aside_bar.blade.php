@@ -43,7 +43,7 @@
                 </a>
             </li>
 
-            <li class="nav-item ">
+            {{--<li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#subadmin">
                     <i class="material-icons">people_alt</i>
                     <p> Sub Admins
@@ -68,11 +68,11 @@
 
                     </ul>
                 </div>
-            </li>
+            </li>--}}
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#teacher">
                     <i class="material-icons">people_alt</i>
-                    <p> Teacher
+                    <p> Trainer
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -81,16 +81,16 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('teacher.index')}}">
                                 <span class="sidebar-mini"> All </span>
-                                <span class="sidebar-normal"> All Teacher
+                                <span class="sidebar-normal"> All Trainer
                     </span>
                             </a>
 
-                        <li class="nav-item ">
+                        {{--<li class="nav-item ">
                             <a class="nav-link" href="{{route('teacher.create')}}">
                                 <span class="sidebar-mini"> Add </span>
                                 <span class="sidebar-normal">Add Teacher</span>
                             </a>
-                        </li>
+                        </li>--}}
 
                     </ul>
                 </div>
@@ -98,7 +98,7 @@
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
                     <i class="material-icons">image</i>
-                    <p> Class Room
+                    <p> Trianee Group
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -107,22 +107,22 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('classroom.index')}}">
                                 <span class="sidebar-mini"> CR </span>
-                                <span class="sidebar-normal"> Class Rooms </span>
+                                <span class="sidebar-normal"> Trianee Group </span>
                             </a>
                         </li>
-                        <li class="nav-item ">
+                        {{--<li class="nav-item ">
                             <a class="nav-link" href="{{route('classroom.create')}}">
                                 <span class="sidebar-mini"> ACR </span>
                                 <span class="sidebar-normal">Add Class Room </span>
                             </a>
-                        </li>
+                        </li>--}}
                     </ul>
                 </div>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
                     <i class="material-icons">people_alt</i>
-                    <p> Students
+                    <p> Trainee
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -131,16 +131,16 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('student.index')}}">
                                 <span class="sidebar-mini"> All </span>
-                                <span class="sidebar-normal"> All Students
+                                <span class="sidebar-normal"> All Trainee
                     </span>
                             </a>
 
-                        <li class="nav-item ">
+                        {{--<li class="nav-item ">
                             <a class="nav-link" href="{{route('student.create')}}">
                                 <span class="sidebar-mini"> Add </span>
-                                <span class="sidebar-normal">Add Student</span>
+                                <span class="sidebar-normal">Add Trainee</span>
                             </a>
-                        </li>
+                        </li>--}}
 
                     </ul>
                 </div>
@@ -148,7 +148,7 @@
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#quiz">
                     <i class="material-icons">not_listed_location</i>
-                    <p> Quiz
+                    <p> Courses
                         <b class="caret"></b>
                     </p>
                 </a>
@@ -157,19 +157,19 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('quiz.all')}}">
                                 <span class="sidebar-mini"> All </span>
-                                <span class="sidebar-normal"> All Quiz </span>
+                                <span class="sidebar-normal"> All Courses </span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="{{route('admin.launch.quiz')}}">
                                 <span class="sidebar-mini"> l </span>
-                                <span class="sidebar-normal"> Launched Quiz </span>
+                                <span class="sidebar-normal"> Launched Courses </span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
-            <li class="nav-item ">
+            {{--<li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#transaction">
                     <i class="material-icons">receipt_long</i>
                     <p> Transactions
@@ -186,7 +186,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li>--}}
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.logout') }}"
                    onclick="event.preventDefault();

@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">assignment</i>
                             </div>
-                            <h4 class="card-title">Launched Quiz</h4>
+                            <h4 class="card-title">Launched Courses</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -40,10 +40,10 @@
                                     <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Class Name</th>
-                                        <th>Class Code</th>
-                                        <th>Paper Name</th>
-                                        <th>Paper Code</th>
+                                        <th>Trainee Group Name</th>
+                                        <th>Trainee Group Code</th>
+                                        <th>Course Name</th>
+                                        <th>Course Code</th>
                                         <th>Created By</th>
                                         <th>No of questions</th>
                                         <th>Created Date</th>
@@ -53,12 +53,13 @@
                                     <tfoot>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Class Name</th>
-                                        <th>Class Code</th>
-                                        <th>Paper Name</th>
-                                        <th>Paper Code</th>
+                                        <th>Trainee Group Name</th>
+                                        <th>Trainee Group Code</th>
+                                        <th>Course Name</th>
+                                        <th>Course Code</th>
                                         <th>Created By</th>
                                         <th>No of questions</th>
+                                        <th>Created Date</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
                                     </tfoot>
@@ -67,8 +68,8 @@
                                         @foreach($data as $row)
                                             <tr>
                                                 <td>{{$row->id}} </td>
-                                                <td>{{isset($row->className->name) ? $row->className->name : ""}} </td>
-                                                <td>{{isset($row->className->class_code) ? $row->className->class_code : ""}} </td>
+                                                <td>{{isset($row->classRoom->name) ? $row->classRoom->name : ""}} </td>
+                                                <td>{{isset($row->classRoom->class_code) ? $row->classRoom->class_code : ""}} </td>
                                                 <td>{{isset($row->questionPaper->name) ? $row->questionPaper->name : "" }} </td>
                                                 <td>{{isset($row->questionPaper->paper_code) ? $row->questionPaper->paper_code : "" }} </td>
                                                 <td>{{isset($row->questionPaper->teacher) ? $row->questionPaper->teacher->name : "" }} </td>

@@ -40,7 +40,7 @@ class StudentController extends Controller
     public function papers()
     {
         try {
-            $data = QuestionPaper::whereStatus('Publish')->whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
+            $data = QuestionPaper::whereStatus('Publish')->whereNull('deleted_at')->orderBy('id','desc')->get();
             return view('admin.paper.list', compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();

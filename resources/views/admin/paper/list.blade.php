@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">assignment</i>
                             </div>
-                            <h4 class="card-title">Quiz</h4>
+                            <h4 class="card-title">Courses</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -41,7 +41,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
-                                        <th>Paper Code</th>
+                                        <th>Course Code</th>
                                         <th>Created By</th>
                                         <th>No of questions</th>
                                         <th>Created Date</th>
@@ -52,7 +52,7 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
-                                        <th>Paper Code</th>
+                                        <th>Course Code</th>
                                         <th>Created By</th>
                                         <th>No of questions</th>
                                         <th>Created Date</th>
@@ -78,7 +78,6 @@
 
                                     </tbody>
                                 </table>
-                                <div class="mt-3" id="xyz"> {{ $data->links() }} </div>
                             </div>
                         </div>
                         <!-- end content-->

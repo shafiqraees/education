@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">assignment</i>
                             </div>
-                            <h4 class="card-title">Students</h4>
+                            <h4 class="card-title">Trainee</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -42,8 +42,8 @@
                                         <th>Id</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Class Name</th>
-                                        <th>Teacher Name</th>
+                                        <th>Trainee Group Name</th>
+                                        <th>Trainer Name</th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
@@ -53,8 +53,8 @@
                                         <th>Id</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Class Name</th>
-                                        <th>Teacher Name</th>
+                                        <th>Trainee Group Name</th>
+                                        <th>Trainer Name</th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>
                                     </tr>

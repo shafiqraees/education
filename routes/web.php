@@ -57,7 +57,7 @@ Route::group(['prefix' => 'trainer'], function () {
     Route::post('/register', [\App\Http\Controllers\Teacher\Auth\RegisterController::class, 'TeacherRegister'])->name('teacher.register.store');
 });
 
-Route::group([/*'middleware' => ['auth:teacher'],*/ 'prefix' => 'trainer'], function () {
+Route::group(['middleware' => ['auth:teacher'],'prefix' => 'trainer'], function () {
     Route::get('/', [TeacherHomeController::class, 'index'])->name('teacher.home');
     Route::resource('question', \App\Http\Controllers\Teacher\QuestionController::class);
     Route::resource('classrooms', \App\Http\Controllers\Teacher\ClassRoomController::class);

@@ -9,7 +9,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">assignment</i>
                             </div>
-                            <h4 class="card-title">Teacher</h4>
+                            <h4 class="card-title">Trainer</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -44,8 +44,9 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Gender</th>
-                                        <th>Students</th>
-                                        <th>Launch Quiz</th>
+                                        <th>Trainee Groups</th>
+                                        <th>Trainee</th>
+                                        <th>Launch Courses</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
@@ -58,8 +59,9 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Gender</th>
-                                        <th>Students</th>
-                                        <th>Launch Quiz</th>
+                                        <th>Trainee Groups</th>
+                                        <th>Trainee</th>
+                                        <th>Launch Courses</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>
@@ -74,6 +76,7 @@
                                                 <td>{{$row->email}} </td>
                                                 <td>{{$row->phone}} </td>
                                                 <td>{{$row->gender}} </td>
+                                                <td>{{$row->trainee_groups_count}} </td>
                                                 <td>{{isset($row->students_count) ? $row->students_count : 0}} </td>
                                                 <td>{{isset($row->quiz_count) ? $row->quiz_count : 0}} </td>
                                                 <td>

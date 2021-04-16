@@ -24,4 +24,7 @@ class Teacher extends Authenticatable
     public function quiz() {
         return $this->hasMany(LaunchQuiz::class);
     }
+    public function traineeGroups() {
+        return $this->hasMany(ClassRoom::class);
+    }
 }

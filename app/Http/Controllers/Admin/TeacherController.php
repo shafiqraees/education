@@ -22,7 +22,7 @@ class TeacherController extends Controller
     public function index()
     {
         try {
-            $data = Teacher::whereNull('deleted_at')->withCount('students')->withCount('quiz')
+            $data = Teacher::whereNull('deleted_at')->withCount('traineeGroups')->withCount('students')->withCount('quiz')
                 ->orderBy('id','desc')->get();
             return view('admin.teacher.list', compact('data'));
         } catch (\Exception $e) {
@@ -73,7 +73,7 @@ class TeacherController extends Controller
             ];
             Teacher::create($data);
             DB::commit();
-            return redirect(route('teacher.index'))->with('success', 'Teacher added successfully.');
+            return redirect(route('teacher.index'))->with('success', 'Trainer added successfully.');
 
         } catch ( \Exception $e) {
             DB::rollBack();
@@ -105,7 +105,7 @@ class TeacherController extends Controller
             if ($data) {
                 return view('admin.teacher.detail',compact('data'));
             } else {
-                return Redirect::back()->withErrors('Sorry teacher not found');
+                return Redirect::back()->withErrors('Sorry Trainer not found');
             }
         } catch ( \Exception $e) {
             DB::rollBack();
@@ -146,7 +146,7 @@ class TeacherController extends Controller
                 ];
                 $data->update($user_data);
                 DB::commit();
-                return redirect(route('teacher.index'))->with('success', 'Teacher updated successfully.');
+                return redirect(route('teacher.index'))->with('success', 'Trainer updated successfully.');
             } else {
                 return Redirect::back()->withErrors(['Sorry student not found.']);
             }
