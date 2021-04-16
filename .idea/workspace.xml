@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8d84d469-84d8-4d18-93b1-1619248783cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/classrooms/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/classrooms/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Teacher/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Teacher/Auth/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/teacher/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/teacher/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../j-auto/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../j-auto/app/Http/Controllers/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../j-auto/app/Http/Controllers/admin/main/mainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../j-auto/app/Http/Controllers/admin/main/mainController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../j-auto/app/mymodels/ProductVarient.php" beforeDir="false" afterPath="$PROJECT_DIR$/../j-auto/app/mymodels/ProductVarient.php" afterDir="false" />
@@ -10233,7 +10235,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618299761602</updated>
       <workItem from="1618299816756" duration="36233000" />
-      <workItem from="1618460025917" duration="20057000" />
+      <workItem from="1618460025917" duration="31890000" />
     </task>
     <servers />
   </component>

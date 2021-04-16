@@ -8,6 +8,7 @@ use App\Http\Controllers\Teacher\StudentController;
 use App\Http\Controllers\Teacher\LaunchQuizController;
 use App\Http\Controllers\Admin\SubAdminController;
 use App\Http\Controllers\TraineeController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

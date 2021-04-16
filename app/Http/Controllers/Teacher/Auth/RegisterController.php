@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Teacher\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
+use App\Http\Requests\TrainerRequest;
+use App\Mail\VerifyUser;
 use App\Models\Teacher;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -13,6 +15,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -87,7 +91,7 @@ class RegisterController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function TeacherRegister(Request $request)
+    public function TeacherRegister1(Request $request)
     {
         if (empty($request->teacher_id)) {
             $RegisterRequest = New TeacherRequest();
@@ -119,7 +123,7 @@ class RegisterController extends Controller
                         'organization_type' => $request->organization_type,
                         'organization_name' => $request->organization_name,
                         'organization_role' => $request->organization_role,
-                        'email_verified_at' =>  Carbon::now(),
+                        //'email_verified_at' =>  Carbon::now(),
                     ];
                     $data->update($update_data);
                 }
@@ -145,6 +149,54 @@ class RegisterController extends Controller
         } catch ( \Exception $e) {
             DB::rollBack();
             return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
+        }
+    }
+    /**
+     * delete the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function TeacherRegister(TeacherRequest $request)
+    {
+        //dd($request);
+        try {
+            DB::beginTransaction();
+            $path = "";
+            if($request->hasFile('image')){
+                SaveImageAllSizes($request, 'profile/');
+                $path = 'profile/'.$request->image->hashName();
+            }
+            $token = uniqid();
+            if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+                $details = [
+                    'title' => 'Account verification',
+                    'body' => 'This is for testing email using smtp',
+                    'link' => route('verify',["teacher",$token])
+                ];
+                Mail::to($request->email)->send(new VerifyUser($details));
+            }
+                $class_data = [
+                    'name' => $request->firstname . " ". $request->lastname,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'org_password' => $request->password,
+                    'profile_photo_path' => !empty($path) ? $path : "default.png",
+                    'country' => $request->country,
+                    'terms_and_conditions' => $request->terms_and_conditions,
+                    'organization_type' => $request->organization_type,
+                    'organization_name' => $request->organization_name,
+                    'organization_role' => $request->organization_role,
+                    'remember_token' => $token,
+                ];
+                $data =  Teacher::create($class_data);
+            DB::commit();
+            return redirect(route('teacher.login'))->with('success', 'Siginup successfully please login.');
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors(['Sorry something went wrong.']);
         }
     }
 }
