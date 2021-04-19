@@ -43,12 +43,12 @@
             </div>
         </div>
         <ul class="nav">
-            <li class="nav-item active ">
+            {{--<li class="nav-item active ">
                 <a class="nav-link" href="{{route('teacher.home')}}">
                     <i class="material-icons">dashboard</i>
                     <p> Dashboard </p>
                 </a>
-            </li>
+            </li>--}}
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#launch">
                     <i class="material-icons">launch</i>
@@ -121,7 +121,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item ">
+            {{--<li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
                     <i class="material-icons">people_alt</i>
                     <p> Trainee
@@ -146,7 +146,7 @@
 
                     </ul>
                 </div>
-            </li>
+            </li>--}}
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#formsExamples">
                     <i class="material-icons">content_paste</i>
