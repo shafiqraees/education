@@ -27,4 +27,7 @@ class Teacher extends Authenticatable
     public function traineeGroups() {
         return $this->hasMany(ClassRoom::class);
     }
+    public function transactions() {
+        return $this->hasMany(Transanction::class,'payer_id');
+    }
 }

@@ -9,6 +9,7 @@ use App\Models\LaunchQuiz;
 use App\Models\Question;
 use App\Models\QuestionOption;
 use App\Models\Teacher;
+use App\Models\Transanction;
 use App\Models\User;
 use App\Traits\Transformer;
 use Illuminate\Http\JsonResponse;
@@ -25,7 +26,7 @@ class TeacherHomeController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('auth:teacher');
+        $this->middleware('auth:teacher');
         //dd(Auth::guard('teacher')->user());
     }
     /**
@@ -38,9 +39,12 @@ class TeacherHomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        //$id = Auth::guard('teacher')->user()->id;
-        $id = 2;
+        $id = Auth::guard('teacher')->user()->id;
+
+        //$id = 2;
         $classess = ClassRoom::whereTeacherId($id)->whereNull('deleted_at')->pluck('id');
+        $transaction = Transanction::wherePayerId($id)->whereNull('deleted_at')->count();
+
         #-------------------- for ClassRoom----------------------------------#
         $last_24Hours_class = ClassRoom::whereTeacherId($id)->where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
         $last_7_Days_class = ClassRoom::whereTeacherId($id)->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->whereNull('deleted_at')->count();
@@ -66,7 +70,8 @@ class TeacherHomeController extends Controller
             'life_Time_students',
             'last_24Hours_test',
             'last_7_Days_test',
-            'life_Time_test'
+            'last_7_Days_test',
+            'transaction'
         ));
     }
     /**

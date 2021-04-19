@@ -11,6 +11,7 @@
             </div>
         </div>
     </div>
+    @if( $transaction == "0")
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -52,12 +53,12 @@
             </div>
         </div>
     </div>
-
+    @endif
 @endsection
 <script src="{{asset('public/assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
 <script>
+
     $(document).ready(function(){
-        //$('#exampleModal').modal('show');
         $('#exampleModal').modal({backdrop: 'static', keyboard: false})
         $('#exampleModal').modal('show');
     });
