@@ -600,7 +600,25 @@ class TeacherHomeController extends Controller
      */
     public function success(Request $request)
     {
-        dd($request);
+        $user = Auth::guard('teacher')->user();
+        $max = Transanction::max('id');
+        if ($request->amt == "72.0"){
+            $package = 'Basic Plan';
+        } else {
+            $package = 'Premium Plan';
+        }
+        $payment_data = [
+            'payer_id' => $user->id,
+            'invoice_number' => $max + 1,
+            'package_name' => $package,
+            'status' => !empty($request->st) ? $request->st : "",
+            'name' => $user->name,
+            'email' => $user->email,
+            'amount' => !empty($request->amt) ? $request->amt : "",
+            'currency' => !empty($request->cc) ? $request->cc : "",
+        ];
+        Transanction::create($payment_data);
+        dd($request->amt);
         try {
             $user = Auth::guard('teacher')->user();
             return view('teacher.home.subscription',compact('user'));
