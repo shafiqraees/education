@@ -193,7 +193,7 @@ class RegisterController extends Controller
                 ];
                 $data =  Teacher::create($class_data);
             DB::commit();
-            return redirect(route('teacher.login'))->with('success', 'Siginup successfully please login.');
+            return redirect(route('teacher.login'))->with('success', 'Signup successfully please login.');
         } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors(['Sorry something went wrong.']);
