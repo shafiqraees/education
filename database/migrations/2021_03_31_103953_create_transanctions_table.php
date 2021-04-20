@@ -24,6 +24,7 @@ class CreateTransanctionsTable extends Migration
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('amount')->nullable();
+            $table->string('currency')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
