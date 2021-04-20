@@ -66,9 +66,17 @@ Route::group(['middleware' => ['auth:teacher'],'prefix' => 'trainer'], function 
         Route::resource('question', \App\Http\Controllers\Teacher\QuestionController::class);
         Route::resource('classrooms', \App\Http\Controllers\Teacher\ClassRoomController::class);
         Route::resource('students', StudentController::class);
-        Route::delete('/delete/trainee', [StudentController::class, 'destroy'])->name('trainer.trainee.destroy');
+        Route::get('all/trainee/{id}', [StudentController::class,'index'])->name('all.trainee');
+        Route::get('create/trainee/{id}', [StudentController::class,'createTrainee'])->name('create.trainee');
+        Route::get('edit/trainee/{id}', [StudentController::class,'editTrainee'])->name('edit.trainee');
+        Route::post('save/trainee/{id}', [StudentController::class,'storeTrainee'])->name('save.trainee');
+        Route::post('update/trainee/{id}', [StudentController::class,'updateTrainee'])->name('update.trainee');
+        Route::delete('delete/trainee/{id}', [StudentController::class, 'destroy'])->name('trainer.trainee.destroy');
         Route::resource('quiz', PaperController::class);
         Route::get('/result', [PaperController::class, 'result'])->name('result.quiz');
+        Route::get('/archive', [PaperController::class, 'archive'])->name('archive.quiz');
+        Route::post('archive/status/{id}', [LaunchQuizController::class, 'QuizPutToArchive'])->name('putarchive');
+        Route::post('archive/revert/{id}', [LaunchQuizController::class, 'archiveRevrt'])->name('archive.revert');
         Route::get('get/options', [PaperController::class, 'getQuestionOptions'])->name('getoption');
         Route::resource('launch', LaunchQuizController::class);
         Route::get('/quiz/attempt/{id}', [LaunchQuizController::class, 'attemptQuiz'])->name('quizattempt');

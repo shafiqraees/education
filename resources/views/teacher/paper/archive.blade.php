@@ -7,9 +7,9 @@
                     <div class="card">
                         <div class="card-header card-header-primary card-header-icon">
                             <div class="card-icon">
-                                <i class="material-icons">launch</i>
+                                <i class="material-icons">bookmark</i>
                             </div>
-                            <h4 class="card-title">Results</h4>
+                            <h4 class="card-title">Archive</h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -44,7 +44,7 @@
                                         <th>Trainee Group Code</th>
                                         <th>Course Name</th>
                                         <th>Course Code</th>
-                                        <th>Created Date</th>
+                                        <th>Status</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                     </thead>
@@ -55,7 +55,7 @@
                                         <th>Trainee Group Code</th>
                                         <th>Course Name</th>
                                         <th>Course Code</th>
-                                        <th>Created Date</th>
+                                        <th>Status</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
                                     </tfoot>
@@ -68,11 +68,11 @@
                                                 <td>{{isset($row->classRoom->class_code) ? $row->classRoom->class_code : ""}} </td>
                                                 <td>{{isset($row->questionPaper->name) ? $row->questionPaper->name : ""}} </td>
                                                 <td>{{isset($row->questionPaper->paper_code) ? $row->questionPaper->paper_code : ""}} </td>
-                                                <td>{{!empty($row->created_at->diffForHumans()) ? $row->created_at->diffForHumans() : ""}}</td>
+                                                <td>{{!empty($row->status) ? $row->status : ""}}</td>
                                                 <td class="text-right">
                                                     <a href="{{route('trainee.result',$row->id)}}" class="btn btn-link btn-danger btn-just-icon"><i class="material-icons">preview</i></a>
                                                     <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('launch.destroy',$row->id)}}"><i class="material-icons">close</i></a>
-                                                    <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon archive" data-url="{{route('putarchive',$row->id)}}"><i class="material-icons">bookmark</i></a>
+                                                    <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon archive" data-url="{{route('archive.revert',$row->id)}}"><i class="material-icons">bookmark</i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

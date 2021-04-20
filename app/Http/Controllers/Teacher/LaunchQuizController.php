@@ -190,6 +190,57 @@ class LaunchQuizController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function QuizPutToArchive($id)
+    {
+        try {
+            $ques= LaunchQuiz::find($id);
+            if ($ques) {
+                $archive = [
+                    'status' => 'Arvhive',
+                ];
+                $data = $ques->update($archive);
+                return $this->apiResponse(JsonResponse::HTTP_OK, 'data', $data);
+            } else {
+                return $this->apiResponse(JsonResponse::HTTP_NOT_FOUND, 'message', 'Question not found');
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
+        }
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function archiveRevrt($id)
+    {
+        try {
+            $ques= LaunchQuiz::find($id);
+            if ($ques) {
+                $archive = [
+                    'status' => 'Unarchive',
+                ];
+                $data = $ques->update($archive);
+                return $this->apiResponse(JsonResponse::HTTP_OK, 'data', $data);
+            } else {
+                return $this->apiResponse(JsonResponse::HTTP_NOT_FOUND, 'message', 'Question not found');
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
+        }
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

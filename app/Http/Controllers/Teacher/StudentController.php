@@ -26,17 +26,19 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         try {
-            $id = Auth::guard('teacher')->user()->id;
+            /*$id = Auth::guard('teacher')->user()->id;
 
             $data = User::whereIsActive('true')->whereNull('deleted_at')
                 ->whereHas('classRoom',function ($query) use ($id){
                     $query->whereTeacherId($id);
                 })->with('classRoom')->orderBy('id','desc')->get();
 
-            return view('teacher.students.list', compact('data'));
+            return view('teacher.students.list', compact('data'));*/
+            $data = User::whereClassRoomId($id)->whereIsActive('true')->whereNull('deleted_at')->orderBy('id','desc')->get();
+            return view('teacher.classrooms.trainee', compact('data','id'));
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -216,6 +218,123 @@ class StudentController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createTrainee($id)
+    {
+        try {
+            $teacher_id = Auth::guard('teacher')->user()->id;
+            $class = ClassRoom::whereId($id)->whereStatus('Publish')->whereNull('deleted_at')->get();
+            return view('teacher.students.create',compact('class','id'));
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('home'))->withErrors('Sorry record not found.');
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editTrainee($id)
+    {
+        try {
+            $data = User::find($id);
+            if ($data) {
+                $id = Auth::guard('teacher')->user()->id;
+                $class = ClassRoom::whereTeacherId($id)->whereStatus('Publish')->whereNull('deleted_at')->get();
+                return view('teacher.students.detail',compact('data','class'));
+            } else {
+                return Redirect::back()->withErrors('Sorry user not found');
+            }
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors('Sorry Record not found');
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeTrainee(UserRequest $request,$id)
+    {
+        try {
+            $path = "default.png";
+            if($request->hasFile('image')){
+                SaveImageAllSizes($request, 'profile/');
+                $path = 'profile/'.$request->image->hashName();
+            }
+            DB::beginTransaction();
+            $class_data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'class_room_id' => $id,
+                'is_active' => $request->status,
+                'password' => Hash::make($request->password),
+                'org_password' => $request->password,
+                'pincode' => rand(11111111, 99999999),
+                'profile_photo_path' => !empty($path) ? $path : "",
+                'teacher_id' => Auth::guard('teacher')->user()->id,
+            ];
+            $data =  User::create($class_data);
+            DB::commit();
+            return redirect(route('classrooms.show',$id))->with('success', 'Trainee added successfully.');
+
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors('Sorry Record not found');
+        }
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateTrainee(Request $request, $id)
+    {
+        if(!empty($request->password)){
+            $validated = $request->validate([
+                'password_confirmation' => 'required|same:password',
+            ]);
+        }
+        try {
+            $data = User::find($id);
+            if ($data) {
+                if($request->hasFile('profile_pic')){
+                    UpdateImageAllSizes($request, 'profile/', $data->profile_photo_path);
+                    $path = 'profile/'.$request->profile_pic->hashName();
+                }
+                DB::beginTransaction();
+                $user_data = [
+                    'name' => $request->name,
+                    'class_room_id' => $request->class_room,
+                    'is_active' => !empty($request->status) ? $request->status : $data->is_active,
+                    'profile_photo_path' => !empty($path) ? $path : $data->profile_photo_path,
+                    'password' => !empty($request->Password) ? bcrypt($request->Password) : $data->password,
+                ];
+                $data->update($user_data);
+                DB::commit();
+                return redirect(route('students.index'))->with('success', 'Trainee Group updated successfully.');
+            } else {
+                return Redirect::back()->withErrors(['Sorry student not found.']);
+            }
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors(['Sorry Record not found.']);
         }
     }
 }

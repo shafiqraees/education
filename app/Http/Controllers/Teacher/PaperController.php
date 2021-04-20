@@ -226,8 +226,25 @@ class PaperController extends Controller
 
         try {
             $id = Auth::guard('teacher')->user()->id;
-            $data = LaunchQuiz::whereTeacherId($id)->orderBy('id','desc')->get();
+            $data = LaunchQuiz::whereTeacherId($id)->whereNotIn('status',['Arvhive'])->orderBy('id','desc')->get();
             return view('teacher.paper.result', compact('data'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('home'))->withErrors('Sorry record not found.');
+        }
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function archive()
+    {
+
+        try {
+            $id = Auth::guard('teacher')->user()->id;
+            $data = LaunchQuiz::whereTeacherId($id)->where('status','Arvhive')->orderBy('id','desc')->get();
+            return view('teacher.paper.archive', compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect(route('home'))->withErrors('Sorry record not found.');

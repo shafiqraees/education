@@ -91,7 +91,7 @@ class ClassRoomController extends Controller
     {
         try {
             $data = User::whereClassRoomId($id)->whereIsActive('true')->whereNull('deleted_at')->orderBy('id','desc')->get();
-            return view('teacher.classrooms.trainee', compact('data'));
+            return view('teacher.classrooms.trainee', compact('data','id'));
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect(route('home'))->withErrors('Sorry record not found.');

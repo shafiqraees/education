@@ -14,7 +14,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-3 col-md-6">
-                                    <div class="form-actions"> <a href="{{ route('students.create')}}" class="btn btn-primary"> <span class="la la-plus font-medium-3"></span> Add New Trainee</a> </div>
+                                    <div class="form-actions"> <a href="{{ route('create.trainee',$id)}}" class="btn btn-primary"> <span class="la la-plus font-medium-3"></span> Add New Trainee</a> </div>
                                 </div>
                             </div>
                             <div class="toolbar">
@@ -67,12 +67,19 @@
                                     <tbody>
                                     @if(!empty($data))
                                         @foreach($data as $row)
+                                            @php
+                                                if ($row->is_active == "true"){
+                                                    $status = "Active";
+                                                } else {
+                                                $status = "Deactive";
+                                                }
+                                            @endphp
                                             <tr>
                                                 <td>{{$row->id}} </td>
                                                 <td>{{$row->name}} </td>
                                                 <td>{{$row->email}} </td>
-                                                <td>{{$row->class_code}} </td>
-                                                <td>{{$row->status}}</td>
+                                                <td>{{$row->pincode}} </td>
+                                                <td>{{$status}}</td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                                 <td class="text-right">
                                                     <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('trainer.trainee.destroy',$row->id)}}"><i class="material-icons">close</i></a>

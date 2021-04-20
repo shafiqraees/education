@@ -187,7 +187,7 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{route('result.quiz')}}">
+                            <a class="nav-link" href="{{route('archive.quiz')}}">
                                 <span class="sidebar-mini"> A </span>
                                 <span class="sidebar-normal">Archive </span>
                             </a>
@@ -195,7 +195,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item">
+            {{--<li class="nav-item">
                 <a class="nav-link" href="{{ route('teacher.logout') }}"
                    onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
@@ -204,7 +204,7 @@
                 <form id="logout-form" action="{{ route('teacher.logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
-            </li>
+            </li>--}}
         </ul>
     </div>
     <div class="sidebar-background"></div>

@@ -23,7 +23,7 @@
         @endif
         <div class="row">
             <div class="col-md-12">
-                <form id="LoginValidation" action="{{route('students.store')}}" method="post" enctype="multipart/form-data">
+                <form id="LoginValidation" action="{{route('save.trainee',$id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card ">
                         <div class="card-header card-header-rose card-header-icon">
@@ -65,6 +65,7 @@
                                             @if(!empty($class))
                                                 @foreach($class as $name)
                                                     <option value="{{  $name->id }}">{{  $name->name }}</option>
+                                                    <option value="{{  $name->id }}" {{ ( $id == $name->id) ? 'selected' : '' }}>{{  $name->name }}</option>
                                                 @endforeach
                                             @endif
                                         </select>
