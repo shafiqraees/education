@@ -72,7 +72,7 @@
                                                 <td class="text-right">
                                                     <a href="{{route('trainee.result',$row->id)}}" class="btn btn-link btn-danger btn-just-icon"><i class="material-icons">preview</i></a>
                                                     <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('launch.destroy',$row->id)}}"><i class="material-icons">close</i></a>
-                                                    <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon archive" data-url="{{route('archive.revert',$row->id)}}"><i class="material-icons">bookmark</i></a>
+                                                    <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon archive" data-url="{{route('archive.revert',$row->id)}}"><i class="material-icons">unarchive</i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
