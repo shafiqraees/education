@@ -60,20 +60,24 @@ Route::group(['prefix' => 'trainer'], function () {
 
 Route::group(['middleware' => ['auth:teacher'],'prefix' => 'trainer'], function () {
     Route::get('/', [TeacherHomeController::class, 'index'])->name('teacher.home');
-    Route::resource('question', \App\Http\Controllers\Teacher\QuestionController::class);
-    Route::resource('classrooms', \App\Http\Controllers\Teacher\ClassRoomController::class);
-    Route::resource('students', StudentController::class);
-    Route::delete('/delete/trainee', [StudentController::class, 'destroy'])->name('trainer.trainee.destroy');
-    Route::resource('quiz', PaperController::class);
-    Route::get('/result', [PaperController::class, 'result'])->name('result.quiz');
-    Route::get('get/options', [PaperController::class, 'getQuestionOptions'])->name('getoption');
-    Route::resource('launch', LaunchQuizController::class);
-    Route::get('/quiz/attempt/{id}', [LaunchQuizController::class, 'attemptQuiz'])->name('quizattempt');
-    Route::get('/trianee/result/{id}', [LaunchQuizController::class, 'trineeResult'])->name('trainee.result');
-    Route::get('/profile', [TeacherHomeController::class, 'editProfile'])->name('profile.edit');
-    Route::post('/profile/edit', [TeacherHomeController::class, 'profileUpdate'])->name('profile.update');
-    Route::get('/subscription/plan', [TeacherHomeController::class, 'subscriptionPlan'])->name('subs.plan');
-    Route::get('get/trainee', [PaperController::class, 'getTrainee'])->name('get.traine');
+    Route::get('/success', [TeacherHomeController::class, 'success'])->name('success');
+    Route::get('/return', [TeacherHomeController::class, 'failure'])->name('failure');
+    Route::middleware([\App\Http\Middleware\Subscription::class])->group(function(){
+        Route::resource('question', \App\Http\Controllers\Teacher\QuestionController::class);
+        Route::resource('classrooms', \App\Http\Controllers\Teacher\ClassRoomController::class);
+        Route::resource('students', StudentController::class);
+        Route::delete('/delete/trainee', [StudentController::class, 'destroy'])->name('trainer.trainee.destroy');
+        Route::resource('quiz', PaperController::class);
+        Route::get('/result', [PaperController::class, 'result'])->name('result.quiz');
+        Route::get('get/options', [PaperController::class, 'getQuestionOptions'])->name('getoption');
+        Route::resource('launch', LaunchQuizController::class);
+        Route::get('/quiz/attempt/{id}', [LaunchQuizController::class, 'attemptQuiz'])->name('quizattempt');
+        Route::get('/trianee/result/{id}', [LaunchQuizController::class, 'trineeResult'])->name('trainee.result');
+        Route::get('/profile', [TeacherHomeController::class, 'editProfile'])->name('profile.edit');
+        Route::post('/profile/edit', [TeacherHomeController::class, 'profileUpdate'])->name('profile.update');
+        Route::get('/subscription/plan', [TeacherHomeController::class, 'subscriptionPlan'])->name('subs.plan');
+        Route::get('get/trainee', [PaperController::class, 'getTrainee'])->name('get.traine');
+    });
 });
 
 Route::group(['prefix' => 'admin'], function () {

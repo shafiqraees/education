@@ -592,4 +592,39 @@ class TeacherHomeController extends Controller
             return Redirect::back()->withErrors('Sorry Record not found');
         }
     }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function success(Request $request)
+    {
+        dd($request);
+        try {
+            $user = Auth::guard('teacher')->user();
+            return view('teacher.home.subscription',compact('user'));
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors('Sorry Record not found');
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function failure(Request $request)
+    {
+        dd($request);
+        try {
+            $user = Auth::guard('teacher')->user();
+            return view('teacher.home.subscription',compact('user'));
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors('Sorry Record not found');
+        }
+    }
 }
