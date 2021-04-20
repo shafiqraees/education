@@ -43,13 +43,19 @@
             </div>
         </div>
         <ul class="nav">
-            {{--<li class="nav-item active ">
+            {{--<li class="nav-item active">
                 <a class="nav-link" href="{{route('teacher.home')}}">
                     <i class="material-icons">dashboard</i>
                     <p> Dashboard </p>
                 </a>
             </li>--}}
             <li class="nav-item ">
+                <a class="nav-link" href="{{route('launch.create')}}">
+                    <i class="material-icons">dashboard</i>
+                    <p> Start Course </p>
+                </a>
+            </li>
+            {{--<li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#launch">
                     <i class="material-icons">launch</i>
                     <p>Launch Courses
@@ -72,7 +78,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li>--}}
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#quiz">
                     <i class="material-icons">launch</i>

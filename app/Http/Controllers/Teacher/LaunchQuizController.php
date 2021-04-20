@@ -121,7 +121,7 @@ class LaunchQuizController extends Controller
                     }
                 }
                 DB::commit();
-                return redirect(route('launch.index'))->with('success', 'Quiz launch successfully.');
+                return redirect(route('result.quiz'))->with('success', 'Quiz launch successfully.');
             } else {
                 DB::rollBack();
                 return Redirect::back()->withErrors('Please first add Students selected calss');
