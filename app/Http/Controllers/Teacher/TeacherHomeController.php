@@ -634,6 +634,7 @@ class TeacherHomeController extends Controller
      */
     public function failure(Request $request)
     {
+        dd($request);
         $user = Auth::guard('teacher')->user();
         $max = Transanction::max('id');
         if ($request->amt == "72.0"){
