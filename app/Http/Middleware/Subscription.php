@@ -18,7 +18,7 @@ class Subscription
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Transanction::wherePayerId(Auth::guard('teacher')->user()->id)->count() >=1) {
+        if (Transanction::wherePayerId(Auth::guard('teacher')->user()->id)->whereNotIn('status', ['Cancelled'])->count() >=1) {
             return $next($request);
         }
         return redirect('/trainer');

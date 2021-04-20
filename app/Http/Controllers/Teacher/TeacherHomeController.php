@@ -43,7 +43,7 @@ class TeacherHomeController extends Controller
 
         //$id = 2;
         $classess = ClassRoom::whereTeacherId($id)->whereNull('deleted_at')->pluck('id');
-        $transaction = Transanction::wherePayerId($id)->whereNull('deleted_at')->count();
+        $transaction = Transanction::wherePayerId($id)->whereNotIn('status', ['Cancelled'])->count();
 
         #-------------------- for ClassRoom----------------------------------#
         $last_24Hours_class = ClassRoom::whereTeacherId($id)->where('created_at', '>=', \Carbon\Carbon::now()->subDay())->whereNull('deleted_at')->count();
@@ -634,29 +634,18 @@ class TeacherHomeController extends Controller
      */
     public function failure(Request $request)
     {
-        dd($request);
-        $user = Auth::guard('teacher')->user();
-        $max = Transanction::max('id');
-        if ($request->amt == "72.0"){
-            $package = 'Basic Plan';
-        } else {
-            $package = 'Premium Plan';
-        }
-        $payment_data = [
-            'payer_id' => $user->id,
-            'invoice_number' => $max + 1,
-            'package_name' => $package,
-            'status' => !empty($request->st) ? $request->st : "",
-            'name' => $user->name,
-            'email' => $user->email,
-            'amount' => !empty($request->amt) ? $request->amt : "",
-            'currency' => !empty($request->cc) ? $request->cc : "",
-        ];
-        Transanction::create($payment_data);
-        dd($request->amt);
         try {
-
-            return view('teacher.home.subscription',compact('user'));
+            $user = Auth::guard('teacher')->user();
+            $max = Transanction::max('id');
+            $payment_data = [
+                'payer_id' => $user->id,
+                'invoice_number' => $max + 1,
+                'status' =>  "Cancelled",
+                'name' => $user->name,
+                'email' => $user->email,
+            ];
+            Transanction::create($payment_data);
+            return redirect(route('teacher.home'))->withErrors('Payment Cancelled');
         } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');
