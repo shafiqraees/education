@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="col-md-6 ">
-                                <a href="{{route('teacher.login')}}"> <img src="{{asset('public/assets/img/Educatioo-Premium.png')}}" style="width: 150px;margin-left: 28px;";></a>
+                                <a href="javascript:void(0)"> <img src="{{asset('public/assets/img/Educatioo-Premium.png')}}" style="width: 150px;margin-left: 28px;";></a>
                                 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                     <input type="hidden" name="cmd" value="_s-xclick">
                                     <input type="hidden" name="hosted_button_id" value="2J6Y6F4S8Z49S">
