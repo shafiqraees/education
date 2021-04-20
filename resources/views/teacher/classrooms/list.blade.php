@@ -139,9 +139,9 @@
                     success: function (results) {
                         if (results.data) {
                             if (results.data == true){
-                                swal("deleted!", "Class room deleted successfully.", "success");
+                                swal("deleted!", "Trainee group deleted successfully.", "success");
                             } else {
-                                swal("warning!", "Class room not deleted successfully.", "warning");
+                                swal("warning!", "Trainee group not deleted successfully.", "warning");
                             }
 
                             location.reload();
