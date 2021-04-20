@@ -45,24 +45,25 @@
                     <div class="container-fluid">
                         <div class="row">
 
-                            <div class="col-md-6 ml-auto ">
-                                <label>Basic Plan</label>
+                            <div class="col-md-6 ">
+                                <a href="javascript:void(0)"> <img src="{{asset('public/assets/img/Educatioo-Basic.png')}}" style="width: 150px;margin-left: 28px;";>
+
                                 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                     <input type="hidden" name="cmd" value="_s-xclick">
                                     <input type="hidden" name="hosted_button_id" value="EJGPP2YQR4T2N">
-                                    <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribe_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                                    <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                                    <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribe_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="margin-left: 52px;margin-top: 10;">
+                                    <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" >
                                 </form>
-
+                                </a>
                             </div>
 
-                            <div class="col-md-6 ml-auto ">
-                                <label>Premium Plan</label>
+                            <div class="col-md-6 ">
+                                <a href="{{route('teacher.login')}}"> <img src="{{asset('public/assets/img/Educatioo-Premium.png')}}" style="width: 150px;margin-left: 28px;";></a>
                                 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
                                     <input type="hidden" name="cmd" value="_s-xclick">
                                     <input type="hidden" name="hosted_button_id" value="2J6Y6F4S8Z49S">
-                                    <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribe_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                                    <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                                    <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribe_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="margin-left: 54px;margin-top: 10;">
+                                    <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" >
                                 </form>
                             </div>
                         </div>
