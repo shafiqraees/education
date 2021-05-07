@@ -152,7 +152,7 @@
 
                     </ul>
                 </div>
-            </li>--}}
+            </li>
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#formsExamples">
                     <i class="material-icons">content_paste</i>
@@ -177,6 +177,7 @@
                     </ul>
                 </div>
             </li>
+            --}}
             <li class="nav-item ">
                 <a class="nav-link" data-toggle="collapse" href="#Results">
                     <i class="material-icons">launch</i>
