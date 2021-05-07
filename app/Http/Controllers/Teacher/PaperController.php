@@ -69,6 +69,7 @@ class PaperController extends Controller
     public function store(Request $request)
     {
 
+
         $validated = $request->validate([
             'paper_name' => 'required',
             'paper_code' => 'required|unique:question_papers',
@@ -82,7 +83,7 @@ class PaperController extends Controller
             ];
             // dd($quiz_data);
             $quiz = QuestionPaper::create($quiz_data);
-            if ($request->quiz_id) {
+            /*if ($request->quiz_id) {
                 foreach ($request->quiz_id as  $quiz_option) {
                     $option_data = [
                         'question_id' => $quiz_option,
@@ -91,9 +92,9 @@ class PaperController extends Controller
                     ];
                     QuestonPapersQuestion::create($option_data);
                 }
-            }
+            }*/
             DB::commit();
-            return redirect(route('quiz.index'))->with('success', 'Course created successfully.');
+            return redirect(route('question.create',['id'=>$quiz->id]))->with('success', 'Course created successfully.');
         } catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');

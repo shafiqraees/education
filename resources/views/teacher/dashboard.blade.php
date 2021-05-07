@@ -24,9 +24,9 @@
                             </ul>
                         </div>
                     @endif
-                    <div class="card card-stats">
-                        <img src="{{asset('public/assets/img/Educatioo.png')}}">
-                    </div>
+                    {{--<div class="card card-stats">--}}
+                        <img src="{{asset('public/forntend/images/trainer-educatioo.png')}}" style="-webkit-filter: blur(5px);" width="80%"; >
+                    {{--</div>--}}
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ClassRoom;
 use App\Models\Question;
 use App\Models\QuestionOption;
+use App\Models\QuestionPaper;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,14 +42,20 @@ class QuestionController extends Controller
      */
     public function create()
     {
+        //dd(\request('id'));
         try {
             $id = Auth::guard('teacher')->user()->id;
-
+            $course = QuestionPaper::find(\request('id'));
+            //dd($course);
             $quiz = Question::whereTeacherId($id)->whereStatus('Publish')->whereNull('deleted_at')->get();
             $number = Question::orderBy('id', 'desc')->first();
 
             $quiz_number = isset($number->id) ? $number->id : 0 + 1;
-            return view('teacher.questions.create',compact('quiz','quiz_number'));
+
+
+            $data = Question::whereTeacherId($id)->whereNull('deleted_at')->orderBy('id','desc')->get();
+
+            return view('teacher.questions.create',compact('quiz','quiz_number','course','data'));
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -109,6 +116,7 @@ class QuestionController extends Controller
                         'question_id' => $quiz->id,
                         'suggested_question_id' => $question_ids[$key],
                         'answer' => $answer,
+                        'Feedback' => $request->Feedback[$key],
                         'name' => $quiz_option,
                         'image' => !empty($path[$key]) ? $path[$key] : "",
                     ];
@@ -132,8 +140,11 @@ class QuestionController extends Controller
                 ];
                 QuestionOption::create($option_data);
             }*/
+            $id = $request->id;
             DB::commit();
-            return redirect(route('question.index'))->with('success', 'Question added successfully.');
+            //return redirect(route('question.create'))->with('success', 'Question added successfully.');
+            return redirect(route('question.create',['id'=>$request->id]))->with('success', 'Question created successfully.');
+
 
         } catch ( \Exception $e) {
             DB::rollBack();
@@ -234,6 +245,7 @@ class QuestionController extends Controller
                     ];
                     QuestionOption::create($option_data);
                 }*/
+                dd('as');
                 DB::commit();
                 return redirect(route('question.index'))->with('success', 'Question updated successfully.');
             } else {

@@ -34,19 +34,19 @@
                         </div>
                         <div class="card-body ">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleEmails" class="bmd-label-floating"> Name *</label>
                                         <input type="text" class="form-control" id="name" required="true" name="paper_name">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleEmails" class="bmd-label-floating"> Course Code *</label>
                                         <input type="text" class="form-control" id="name" required="true" name="paper_code">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                {{--<div class="col-md-4">
                                     <div class="form-group">
                                         <select name="quizselect" id="question" class="form-control select2 quiz">
                                             <option value="">Select first Question</option>
@@ -55,11 +55,12 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
                             <div class="row" id="extrafileds">
 
                             </div>
+
                         </div>
                         <div class="card-footer ml-auto mr-auto">
                             <button type="submit" class="btn btn-rose">Submit</button>
@@ -159,4 +160,5 @@
 
         $('.select2').select2();
     });
+
 </script>
