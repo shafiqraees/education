@@ -1,120 +1,221 @@
 @extends('teacher.layouts.main')
-<style>
-    .dataTables_filter{
-        display: none;
-    }
-</style>
 @section('content')
-    <div class="app-content content">
-        <div class="content-wrapper">
-            <div class="content-header row">
-                <div class="content-header-left col-md-12 col-12 mb-2 breadcrumb-new">
-                    <h3 class="content-header-title mb-0 d-inline-block">Students</h3>
-                    <div class="row breadcrumbs-top d-inline-block">
-                        <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('teacher.home')}}">Dashboard</a> </li>
-                                <li class="breadcrumb-item"><a href="{{route('all.students')}}">Students</a> </li>
-                                <li class="breadcrumb-item active">Student edit </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @if (session()->has('success'))
-                <div class="alert alert-success"> @if(is_array(session('success')))
-                        <ul>
-                            @foreach (session('success') as $message)
-                                <li>{{ $message }}</li>
-                            @endforeach
-                        </ul>
-                    @else
-                        {{ session('success') }}
-                    @endif </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
+    <div class="container-fluid">
+        @if (session()->has('success'))
+            <div class="alert alert-success"> @if(is_array(session('success')))
                     <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                        @foreach (session('success') as $message)
+                            <li>{{ $message }}</li>
                         @endforeach
                     </ul>
-                </div>
-            @endif
-            <div class="content-body">
-                <form class="form-horizontal" id="formsss" method="post" action="{{route('update.student',$data->id)}}" name="specifycontent" enctype="multipart/form-data">
+                @else
+                    {{ session('success') }}
+                @endif </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="row">
+            <div class="col-md-12">
+                <form id="LoginValidation" action="{{route('question.update',$course->id)}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                     @csrf
-                    <section id="card-bordered-options">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12">
-                                <div class="card box-shadow-0 border-dark">
-                                    <div class="card-header card-head-inverse bg-dark">
-                                        <h4 class="card-title text-white">Update Student</h4>
+                    @method('PUT')
+                    <div class="card ">
+                        <div class="card-header card-header-rose card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">contacts</i>
+                            </div>
+                        </div>
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Name *</label>
+                                        <input type="text" class="form-control" id="name" value="{{$course->name}}" name="paper_name">
                                     </div>
-                                    <div class="card-content collapse show">
-                                        <div class="card-body">
-                                            <fieldset class="form-group row">
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Name</label>
-                                                    <input type="text" name="name" value="{{$data->name}}" class="form-control heightinputs" id="basicInput" required>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Email</label>
-                                                    <input type="email" name="email" value="{{$data->email}}" class="form-control heightinputs" id="basicInput" required readonly>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Class Room</label>
-                                                    <select class="form-control" aria-invalid="false" name="class_room" required>
-                                                        <option value="">Select Claas Room</option>
-                                                        @foreach($class as $room)
-                                                            <option value="{{$room->id}}"{{ ( $room->id == $data->class_room_id) ? 'selected' : '' }}>{{$room->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-block" for="sel1">Gender</label>
-                                                    <select class="form-control" aria-invalid="false" name="gender" required>
-                                                        <option value="Male" {{ ( $data->gender == "Male") ? 'selected' : '' }}>Publish</option>
-                                                        <option value="Female" {{ ( $data->gender == "Female") ? 'selected' : '' }}>Unpublish</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-                                                    <label class="inline-
-                                                    block" for="sel1">Phone</label>
-                                                    <input type="text" name="phone" value="{{$data->phone}}" class="form-control heightinputs " id="basicInput" required>
-                                                </div>
-                                                <div class="col-md-6 mt-1">
-
-                                                    <div class="form-group ">
-                                                        <label class="inline-block" for="sel1">Image</label>
-
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                    <span class="input-group-text bg-dark border-dark white" id="basic-addon7 fonticon-container">
-                                                            <div class="fonticon-wrap">
-                                                                <i class="ft-image"></i>
-                                                            </div>
-                                                                    </span>
-                                                            </div>
-                                                            <input type="file" name="profile_pic"  id="basicInputfiled" class="form-control  heightinputs errormessage " accept="image/*" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 mt-3">
-                                                    <img src="{{Storage::disk('public')->exists('xs/'.$data->profile_photo_path) ? Storage::disk('public')->url('xs/'.$data->profile_photo_path) : Storage::disk('public')->url('default.png')}}"  />
-                                                </div>
-                                            </fieldset>
-                                            <div class="form-actions float-right mt-0 pt-0 buttonbordertop">
-                                                <button type="submit" class="btn btn-social btn-dark btn-dark text-center  pr-1"> <span class="la la-check font-medium-3"></span> Update </button>
-                                            </div>
-                                        </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Course Code *</label>
+                                        <input type="text" class="form-control" id="name" value="{{$course->paper_code}}" required="true" name="paper_code">
                                     </div>
                                 </div>
                             </div>
+
                         </div>
-                    </section>
+                        <div class="card-footer ml-auto mr-auto">
+                            <button type="submit" class="btn btn-rose">Submit</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+
+                        <h4 class="card-title">All Question of {{isset($course->name) ? $course->name : ""}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        @if (session()->has('success'))
+                            <div class="alert alert-success"> @if(is_array(session('success')))
+                                    <ul>
+                                        @foreach (session('success') as $message)
+                                            <li>{{ $message }}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    {{ session('success') }}
+                                @endif </div>
+                        @endif
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <div class="material-datatables">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Question Type</th>
+                                    <th>Created Date</th>
+                                    <th class="disabled-sorting text-right">Actions</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Question Type</th>
+                                    <th>Created Date</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                @if(!empty($data))
+                                    @foreach($data as $row)
+                                        <tr>
+                                            <td>{{$row->serial_id}} </td>
+                                            <td>{{$row->name}} </td>
+                                            <td>{{$row->type}}</td>
+                                            <td>{{ $row->created_at->diffForHumans() }}</td>
+                                            <td class="text-right">
+                                                {{--<a href="{{route('question.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>--}}
+                                                <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('question.destroy',$row->id)}}"><i class="material-icons">close</i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
     </div>
 @endsection
+<script src="{{asset('public/assets/js/core/jquery.min.js')}}" type="text/javascript"></script>
+<script>
+    $(window).on('load', function () {
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+    var count =  1;
+    $(document).on('click','a[data-toggle=add_extra_field]',function (event) {
+
+        event.preventDefault();
+
+        var str = '<div class="col-md-1 MultipleChoice">\n' +
+            '<div class="form-group">\n' +
+            '<input type="radio" name="answer" value="'+ (count ++) +'" class="form-control" id="name">\n' +
+            '</div>\n' +
+            '</div>\n' +
+            '<div class="col-md-6 MultipleChoice">\n' +
+            '<div class="form-group">\n' +
+            '<label for="exampleEmails" class="bmd-label-floating"> Option </label>\n' +
+            '<input type="text" class="form-control" id="name" name="option[]">\n' +
+            '</div>\n' +
+            '</div>\n' +
+            '<div class="col-md-2 MultipleChoice">\n' +
+            '<div class="form-group">\n' +
+            '<label for="exampleEmails" class="bmd-label-floating"> suggested Question Id *</label>\n' +
+            '<input type="number" class="form-control" id="name" name="question_id[]">\n' +
+            '</div>\n' +
+            '</div>\n' +
+            '<div class="col-md-3 MultipleChoice" >\n' +
+            '<div class="form-group">\n' +
+            '<input type="file" class="form-control" name="image[]" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>\n' +
+            '</div>\n' +
+            '</div>';
+        $('#extrafileds').append(str);
+
+        //var nameval = $('#field_name').val();
+    });
+    $(document).ready(function() {
+        $("#add").click(function() {
+            var lastField = $("#buildyourform div:last");
+            var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
+            var fieldWrapper = $("<div class=\"row\" id=\"field" + intId + "\"/>");
+            fieldWrapper.data("idx", intId);
+            // var fName = $("<input type=\"text\" class=\"fieldname\" />");
+            var fName = '<div class="col-md-1 MultipleChoice">\n' +
+                '<div class="form-group">\n' +
+                '<input type="radio" name="answer" value="'+ (count ++) +'" class="form-control" id="name">\n' +
+                '</div>\n' +
+                '</div>\n' +
+                '<div class="col-md-3 MultipleChoice">\n' +
+                '<div class="form-group">\n' +
+                '<label for="exampleEmails" class="bmd-label-floating"> Option </label>\n' +
+                '<input type="text" class="form-control" id="name" name="option[]">\n' +
+                '</div>\n' +
+                '</div>\n' +
+                '<div class="col-md-3 MultipleChoice">\n' +
+                '<div class="form-group">\n' +
+                '<label for="exampleEmails" class="bmd-label-floating"> Feedback </label>\n' +
+                '<input type="text" class="form-control" id="Feedback" name="Feedback[]">\n' +
+                '</div>\n' +
+                '</div>\n' +
+                '<div class="col-md-2 MultipleChoice">\n' +
+                '<div class="form-group">\n' +
+                '<label for="exampleEmails" class="bmd-label-floating"> suggested Question Id *</label>\n' +
+                '<input type="number" class="form-control" id="name" name="question_id[]">\n' +
+                '</div>\n' +
+                '</div>\n' +
+                '<div class="col-md-2 MultipleChoice" >\n' +
+                '<div class="form-group">\n' +
+                '<input type="file" class="form-control" name="image[]" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>\n' +
+                '</div>\n' +
+                '</div>';
+            var removeButton = $("<input type=\"button\" class=\"remove btn btn-rose\" value=\"-\" />");
+            removeButton.click(function() {
+                $(this).parent().remove();
+            });
+            fieldWrapper.append(fName);
+            fieldWrapper.append(removeButton);
+            $("#buildyourform").append(fieldWrapper);
+        });
+
+    });
+
+</script>

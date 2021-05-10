@@ -53,8 +53,8 @@ class QuestionController extends Controller
             $quiz_number = isset($number->id) ? $number->id : 0 + 1;
 
 
-            $data = Question::whereTeacherId($id)->whereNull('deleted_at')->orderBy('id','desc')->get();
-
+            $data = Question::whereTeacherId($id)->whereQuestionPaperId(\request('id'))->whereNull('deleted_at')->orderBy('id','desc')->get();
+            //dd($data);
             return view('teacher.questions.create',compact('quiz','quiz_number','course','data'));
 
         } catch (\Exception $e) {
@@ -83,11 +83,12 @@ class QuestionController extends Controller
             }
             DB::beginTransaction();
             $serial = 1;
-            $que_series = Question::whereTeacherId(Auth::guard('teacher')->user()->id)->max('serial_id');
+            $que_series = Question::whereTeacherId(Auth::guard('teacher')->user()->id)->whereQuestionPaperId($request->id)->max('serial_id');
             $que_series = $que_series + $serial;
             $quiz_data = [
                 'name' => $request->name,
                 'teacher_id' => Auth::guard('teacher')->user()->id,
+                'question_paper_id' => $request->id,
                 'type' => $request->type,
                 'serial_id' => isset($que_series) ? $que_series : "",
                 'image' => !empty($quiz_image) ? $quiz_image : "",

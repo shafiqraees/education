@@ -120,7 +120,16 @@ class PaperController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $teacher_id = Auth::guard('teacher')->user()->id;
+            $course = QuestionPaper::find($id);
+            $data = Question::whereTeacherId($teacher_id)->whereQuestionPaperId($id)->get();
+
+            return view('teacher.paper.detail', compact('data','course'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect(route('teacher.home'))->withErrors('Sorry record not found.');
+        }
     }
 
     /**

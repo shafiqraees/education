@@ -16,6 +16,7 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->unsignedBigInteger('question_paper_id')->nullable();
             $table->string('name');
             $table->text('questio_code')->nullable();
             $table->text('image')->nullable();
@@ -26,6 +27,7 @@ class CreateQuestionsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+            $table->foreign('question_paper_id')->references('id')->on('question_papers')->onDelete('cascade');
         });
     }
 
