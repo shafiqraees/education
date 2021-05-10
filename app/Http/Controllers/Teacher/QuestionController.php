@@ -90,6 +90,7 @@ class QuestionController extends Controller
                 'teacher_id' => Auth::guard('teacher')->user()->id,
                 'question_paper_id' => $request->id,
                 'type' => $request->type,
+                'final_question' => $request->final_question,
                 'serial_id' => isset($que_series) ? $que_series : "",
                 'image' => !empty($quiz_image) ? $quiz_image : "",
                 'questio_code' => Hash::make($request->name.time()),

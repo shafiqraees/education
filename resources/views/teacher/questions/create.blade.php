@@ -50,9 +50,15 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="file" class="form-control" name="image" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 " style="margin-top: -17px;">
+                                    <div class="form-group">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Final question </label>
+                                        <input type="checkbox" name="final_question" class="form-control " value="Final question">
                                     </div>
                                 </div>
                             </div>
