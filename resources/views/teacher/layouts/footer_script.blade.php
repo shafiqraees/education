@@ -125,6 +125,10 @@
         setFormValidation('#LoginValidation');
         setFormValidation('#RangeValidation');
     });
+    $(document).on('click','.editpopup',function(e){
+        e.preventDefault();
+        $('#exampleModal').modal('show');
+    });
 </script>
 
 
