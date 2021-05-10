@@ -7,6 +7,7 @@ use App\Models\ClassRoom;
 use App\Models\Question;
 use App\Models\QuestionOption;
 use App\Models\QuestionPaper;
+use App\Traits\Transformer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -174,13 +175,27 @@ class QuestionController extends Controller
     public function edit($id)
     {
         try {
-            $data = Question::find($id);
+            $data = Question::whereId($id)->whereHas('option')->first();
             return view('teacher.questions.detail',compact('data'));
 
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect(route('home'))->withErrors('Sorry record not found.');
         }
+
+       /* try {
+            $ques = Question::whereId($id)->whereHas('option')->first();
+            if ($ques) {
+                $transformed_posts = Transformer::transformQuestionDetail($ques);
+                return $this->apiResponse(JsonResponse::HTTP_OK, 'data', $transformed_posts);
+            } else {
+                return $this->apiResponse(JsonResponse::HTTP_NOT_FOUND, 'message', 'Question not found');
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->apiResponse(JsonResponse::HTTP_INTERNAL_SERVER_ERROR, 'message', $e->getMessage());
+        }*/
     }
 
     /**
@@ -208,6 +223,7 @@ class QuestionController extends Controller
                     'name' => !empty($request->name) ? $request->name : $data->name,
                     'teacher_id' => Auth::guard('teacher')->user()->id,
                     'type' => !empty($request->type) ? $request->type : $data->type,
+                    'final_question' => !empty($request->final_question) ? $request->final_question : $data->final_question,
                 ];
                 $data->update($cat_data);
                 $option_data = QuestionOption::whereQuestionId($id)->get();
@@ -226,6 +242,7 @@ class QuestionController extends Controller
                             'suggested_question_id' => $question_ids[$key],
                             'answer' => !empty($answer) ? $answer : "",
                             'name' => $quiz_option,
+                            'Feedback' => $request->Feedback[$key],
                             'image' => !empty($path[$key]) ? $path[$key] : "",
                         ];
                         QuestionOption::create($option_data);
@@ -247,15 +264,17 @@ class QuestionController extends Controller
                     ];
                     QuestionOption::create($option_data);
                 }*/
-                dd('as');
+
                 DB::commit();
-                return redirect(route('question.index'))->with('success', 'Question updated successfully.');
+                //return redirect(route('question.index'))->with('success', 'Question updated successfully.');
+                return redirect(route('question.create',['id'=>$request->id]))->with('success', 'Question updated successfully.');
+
             } else {
                 return Redirect::back()->withErrors(['Sorry Record not found.']);
             }
         } catch ( \Exception $e) {
             DB::rollBack();
-            return Redirect::back()->withErrors(['Sorry Record not found.']);
+            return Redirect::back()->withErrors(['something went wrong.']);
         }
     }
 

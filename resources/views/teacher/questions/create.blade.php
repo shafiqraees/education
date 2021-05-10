@@ -94,13 +94,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <fieldset id="buildyourform">
+                            <fieldset id="option_dorm">
 
                             </fieldset>
                             {{--<div class="mt-2 ml-1 More" style="display: block">
                                 <a data-toggle="add_extra_field" class="btn btn-rose">Add More Field</a>
                             </div>--}}
-                            <input type="button" value="Add more options" class="add btn btn-rose" id="add" />
+                            <input type="button" value="Add more options" class="add btn btn-rose" id="addmore" />
                             <input type="hidden" value="{{request('id')}}" name="id" />
                         </div>
                         <div class="card-footer ml-auto mr-auto">
@@ -226,8 +226,8 @@
         //var nameval = $('#field_name').val();
     });
     $(document).ready(function() {
-        $("#add").click(function() {
-            var lastField = $("#buildyourform div:last");
+        $("#addmore").click(function() {
+            var lastField = $("#option_dorm div:last");
             var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
             var fieldWrapper = $("<div class=\"row\" id=\"field" + intId + "\"/>");
             fieldWrapper.data("idx", intId);
@@ -266,7 +266,7 @@
             });
             fieldWrapper.append(fName);
             fieldWrapper.append(removeButton);
-            $("#buildyourform").append(fieldWrapper);
+            $("#option_dorm").append(fieldWrapper);
         });
 
     });

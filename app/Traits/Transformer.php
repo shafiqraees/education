@@ -154,6 +154,37 @@ trait Transformer
         return $temp;
     }
 
+    // transform Buisness Profile
+    public static function transformQuestionDetail($data)
+    {
+        $temp = [];
+        if (!empty($data)) {
+            $temp = [
+                'id' => (int)$data->id,
+                'serial_id' => (int)$data->user_id,
+                'question_paper_id' => (int)$data->user_id,
+                'questio_code' => !empty($data->questio_code) ? (string)$data->questio_code : "",
+                'name' => (string)$data->name,
+                'final_question' => (string)$data->final_question,
+                ];
+            if (!empty($data->option)) {
+                $temp_record = [];
+                foreach ($data->option as $category) {
+                    $temp_image = [
+                        'option_id' => (int)$category->id,
+                        'option_name' => (string)$category->name,
+                        'suggested_question_id' => (int)$category->suggested_question_id,
+                        'answer' => (string)$category->answer,
+                        'Feedback' => (string)$category->Feedback,
+                    ];
+                    array_push($temp_record, $temp_image);
+                }
+                $temp['option'] = $temp_record;
+            }
+        }
+        return $temp;
+    }
+
     // transform All friends
     public static function transformAllFriends($followers,$following, $keyword)
     {

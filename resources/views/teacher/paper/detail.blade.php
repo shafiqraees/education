@@ -24,7 +24,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <form id="LoginValidation" action="{{route('question.update',$course->id)}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                <form id="LoginValidation" action="{{route('quiz.update',$course->id)}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="card ">
@@ -117,7 +117,7 @@
                                             <td>{{$row->type}}</td>
                                             <td>{{ $row->created_at->diffForHumans() }}</td>
                                             <td class="text-right">
-                                                {{--<a href="{{route('question.edit',$row->id)}}" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>--}}
+                                                <a href="javascript:void(0)" class="btn btn-link btn-info btn-just-icon like editpopup" data-action="{{route('question.edit',$row->id)}}"><i class="material-icons">edit</i></a>
                                                 <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('question.destroy',$row->id)}}"><i class="material-icons">close</i></a>
                                             </td>
                                         </tr>

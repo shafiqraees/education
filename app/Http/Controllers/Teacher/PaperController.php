@@ -141,7 +141,26 @@ class PaperController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'paper_name' => 'required',
+        ]);
+        try {
+            DB::beginTransaction();
+            $course = QuestionPaper::find($id);
+            if ($course) {
+                $quiz_data = [
+                    'name' => $request->paper_name,
+                    'teacher_id' => Auth::guard('teacher')->user()->id,
+                ];
+                $quiz = $course->update($quiz_data);
+            }
+            DB::commit();
+            //return redirect(route('question.create',['id'=>$quiz->id]))->with('success', 'Course created successfully.');
+            return Redirect::back()->with('success', 'Course updated successfully.');
+        } catch ( \Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->withErrors('Sorry Record not found');
+        }
     }
 
     /**

@@ -127,8 +127,25 @@
     });
     $(document).on('click','.editpopup',function(e){
         e.preventDefault();
-        $('#exampleModal').modal('show');
+        /*var _token = $("input[name='_token']").val();
+
+        var data_url = $(this).attr("data-action");
+        alert(data_url);
+        $.ajax({
+
+            url: data_url,
+
+            type:'get',
+
+            success: function(data) {
+
+            }
+
+        });*/
+        $('#edit_modal').find('.modal-body').load($(this).attr("data-action"));
+        $('#edit_modal').modal('show');
     });
+
 </script>
 
 
