@@ -53,7 +53,7 @@
                             <div class="col-md-3 MultipleChoice">
                                 <div class="form-group">
                                     <label for="exampleEmails" class="bmd-label-floating"> Feedback </label>
-                                    <input type="text" class="form-control" id="name" name="Feedback[]">
+                                    <input type="text" class="form-control" id="name" name="Feedback[]" value="{{$option->Feedback}}">
                                 </div>
                             </div>
                             <div class="col-md-2 MultipleChoice">
