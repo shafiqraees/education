@@ -142,6 +142,7 @@ class HomeController extends Controller
 
             if ($launchqiz) {
                 $attempt = UserQuizAttempt::whereUserId($current_user->id)->whereQuestionPaperId($launchqiz->question_paper_id)->get();
+
                 //dd($attempt);
                 /*if(!$attempt->isEmpty()){
                     //return Redirect::back()->withErrors('No quiz avialable');
@@ -152,8 +153,8 @@ class HomeController extends Controller
                 $endTime = date("H:i", strtotime($launchqiz->end_datetime));
                 //if(($startTime == $currenttime) || (($endTime > $currenttime))){
                     $UserQuiz = UserQuiz::whereLaunchQuizId($launchqiz->id)->whereTeacherId($launchqiz->teacher_id)->whereUserId($current_user->id)->first();
-                    $data = QuestonPapersQuestion::whereQuestionPaperId($launchqiz->question_paper_id)->whereTeacherId($launchqiz->teacher_id)->inRandomOrder()->first();
-
+                    $data = Question::whereQuestionPaperId($launchqiz->question_paper_id)->whereTeacherId($launchqiz->teacher_id)->inRandomOrder()->first();
+                    //dd($data);
                     return view('user.home.attempt',compact('data','UserQuiz'));
                 /*} else {
                     return Redirect::back()->withErrors('please wait quiz not start yet.');
@@ -193,6 +194,7 @@ class HomeController extends Controller
                 'question_option_id' => !empty($request->question_option_id) ? $request->question_option_id : "",
                 'launch_quiz_id' => !empty($request->launch_quiz_id) ? $request->launch_quiz_id : "",
                 'user_quiz_id' => !empty($request->user_quiz_id) ? $request->user_quiz_id : "",
+                'status' => !empty($request->status) ? $request->status : "Pending",
             ];
             UserQuizAttempt::create($data);
             //$this->startQuizes($request->question_paper_id,$request->question_option_id,$request->question_id);
@@ -211,28 +213,33 @@ class HomeController extends Controller
      */
     public function startQuizes(Request $request) {
 
-        try {
+        //try {
+
             $result = 0;
             $current_user = Auth::user();
-            $attempt = UserQuizAttempt::whereUserId($current_user->id)->whereQuestionPaperId($request->question_paper_id)->pluck('question_id');
+            $attempt = UserQuizAttempt::whereUserId($current_user->id)->whereQuestionPaperId($request->question_paper_id)->whereStatus('Completed')->pluck('question_id');
             $UserQuiz = UserQuiz::whereUserId($current_user->id)->whereQuestionPaperId($request->question_paper_id)->whereHas('questionPaper')->first();
-
+            //dd($UserQuiz);
             if ($UserQuiz) {
                 $question_data = Question::whereId($request->question_id)->first();
                 $option_data = QuestionOption::whereId($request->question_option_id)->first();
                 $answer_data = QuestionOption::whereQuestion_id($request->question_id)->where('answer','!=','')->first();
-
-                $data = QuestonPapersQuestion::whereQuestionPaperId($request->question_paper_id)
-                    ->whereNotIn('question_id',$attempt)->inRandomOrder()->first();
-               // dd($option_id);
+                //dd($option_data);
+                if ($request->question_option_id == $answer_data->id) {
+                    $data = Question::whereQuestionPaperId($request->question_paper_id)
+                        ->whereNotIn('id',$attempt)->inRandomOrder()->first();
+                } else {
+                    $data = Question::whereQuestionPaperId($request->question_paper_id)
+                        ->whereSerialId($option_data->suggested_question_id)->first();
+                }
                 if ($data) {
                     return view('user.home.attempt',compact('data','UserQuiz','question_data','option_data','answer_data'));
 
                 } else {
-
-                    $attempt_id = UserQuizAttempt::whereUserId($current_user->id)->whereQuestionPaperId($request->question_paper_id)->pluck('question_option_id');
+                    $attempt_id = UserQuizAttempt::whereUserId($current_user->id)->whereQuestionPaperId($request->question_paper_id)->whereStatus('Completed')->pluck('question_option_id');
                     $attempt = QuestionPaper::whereId($request->question_paper_id)->whereHas('question')->withCount('question')->first();
                     $attempted_option = QuestionOption::where('answer','!=','')->whereIn('id',$attempt_id)->count();
+                    //dd($request->question_paper_id);
                     if ($attempted_option){
                         $result =  $attempted_option/$attempt->question_count*100;
                     }
@@ -241,14 +248,15 @@ class HomeController extends Controller
                     return view('user.home.attempt',compact('data','UserQuiz','question_data','option_data','answer_data','result','attempt','attempted_option'));
                 }
 
+
             } else {
                 return Redirect::back()->withErrors('paper completed');
             }
 
-        } catch ( \Exception $e) {
+        /*} catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');
-        }
+        }*/
     }
 
     /**

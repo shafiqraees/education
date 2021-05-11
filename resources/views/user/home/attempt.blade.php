@@ -39,13 +39,13 @@
                                         $x = 'A';
                                     @endphp
                                     @if(!empty($data))
-                                        @if(isset($data->getQuestion))
-                                            <h4>1. {{$data->getQuestion->name}}?</h4>
-                                            @if(!empty($data->getQuestion->image))
-                                                <img src="{{Storage::disk('public')->exists('md/'.$data->getQuestion->image) ? Storage::disk('public')->url('md/'.$data->getQuestion->image) : Storage::disk('public')->url('default.png')}}" alt="option" style="height: 30px;width: 30px;">
+                                        @if(isset($data))
+                                            <h4>1. {{$data->name}}?</h4>
+                                            @if(!empty($data->image))
+                                                <img src="{{Storage::disk('public')->exists('md/'.$data->image) ? Storage::disk('public')->url('md/'.$data->image) : Storage::disk('public')->url('default.png')}}" alt="option" style="height: 30px;width: 30px;">
                                             @endif
-                                            @if(isset($data->getQuestion->option))
-                                                @foreach($data->getQuestion->option as $key => $option)
+                                            @if(isset($data->option))
+                                                @foreach($data->option as $key => $option)
                                                     <div class="col-sm-12 checkbox-radios">
                                                         <div class="form-check">
                                                             <label class="form-check-label">{{$x}} </label>
@@ -57,7 +57,8 @@
                                                             </label>
                                                             <input type="hidden" name="user_quiz_id" value="{{$UserQuiz->id}}">
                                                             <input type="hidden" name="launch_quiz_id" value="{{$UserQuiz->launch_quiz_id}}">
-                                                            <input type="hidden" name="question_id" value="{{$data->getQuestion->id}}">
+                                                            <input type="hidden" name="suggested_question_id" value="{{$UserQuiz->suggested_question_id}}">
+                                                            <input type="hidden" name="question_id" value="{{$data->id}}">
                                                             <input type="hidden" name="question_paper_id" value="{{$UserQuiz->question_paper_id}}">
 
                                                             @if(!empty($option->image))
@@ -66,6 +67,16 @@
                                                     </div>
                                                     @php   $x++; @endphp
                                                 @endforeach
+                                                    <div class="col-sm-12 checkbox-radios">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input selectedbutton" type="checkbox" name="status" value="Completed"> Do you want to add in result?
+                                                                <span class="circle">
+                                                                <span class="check"></span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                             @endif
                                         @endif
                                     @endif
@@ -74,6 +85,7 @@
                             <input type="hidden" id="quizanswer" name="quizanswer" value="{{isset($answer_data->name) ? $answer_data->name : "" }}">
                             <input type="hidden" id="question_data" name="Question" value="{{isset($question_data->name) ? $question_data->name : "" }}">
                             <input type="hidden" id="option_data" name="option_data" value="{{isset($option_data->name) ? $option_data->name : "" }}">
+                            <input type="hidden" id="feefback" name="feefback" value="{{isset($option_data->Feedback) ? $option_data->Feedback : "" }}">
                             <input type="hidden" id="attempt_data" name="attempt_data" value="{{isset($attempt->question_count) ? $attempt->question_count : "" }}">
                             <input type="hidden" id="result" name="result" value="{{isset($result) ? $result : "" }}">
                             <input type="hidden" id="attempted_option" name="attempted_option" value="{{isset($attempted_option) ? $attempted_option : "" }}">
@@ -200,6 +212,7 @@
         var logout_url = $('#logout_url').val();
         var status = "Incorrect";
         var statusText = "Ok";
+        var feedback = $('#feefback').val();
         if (option_data === quizanswer){
             status = "Correct"
             statusText = "Cancel"
@@ -207,7 +220,7 @@
         if (question_data) {
             swal({
                 title: status,
-                text: "Question:" +"\n" + question_data +"\n" + "Correct Answer: "+"\n" + quizanswer,
+                text: feedback,
                 icon: "success",
                 showCancelButton: true,
                 buttons: {
