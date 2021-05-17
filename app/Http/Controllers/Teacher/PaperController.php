@@ -35,7 +35,7 @@ class PaperController extends Controller
 
         try {
             $id = Auth::guard('teacher')->user()->id;
-            $data = QuestionPaper::whereTeacherId($id)->whereNull('deleted_at')->orderBy('id','desc')->paginate(10);
+            $data = QuestionPaper::whereTeacherId($id)->whereNull('deleted_at')->orderBy('id','desc')->get();
             return view('teacher.paper.list', compact('data'));
         } catch (\Exception $e) {
             DB::rollBack();

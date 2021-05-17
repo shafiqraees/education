@@ -61,10 +61,14 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary card-header-icon">
-
                         <h4 class="card-title">All Question of {{isset($course->name) ? $course->name : ""}}</h4>
                     </div>
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="form-actions"> <a href="{{ route('question.create',['id'=>$course->id])}}" class="btn btn-rose"> <span class="la la-plus font-medium-3"></span> Add New Question</a> </div>
+                            </div>
+                        </div>
                         <div class="toolbar">
                             <!--        Here you can write extra buttons/actions for the toolbar              -->
                         </div>

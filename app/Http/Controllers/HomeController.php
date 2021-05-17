@@ -186,17 +186,32 @@ class HomeController extends Controller
         ]);
         try {
             $user = Auth::user();
-            $data = [
-                'question_paper_id' => !empty($request->question_paper_id) ? $request->question_paper_id : "",
-                'class_room_id' => $user->class_room_id,
-                'user_id' => $user->id,
-                'question_id' => !empty($request->question_id) ? $request->question_id : "",
-                'question_option_id' => !empty($request->question_option_id) ? $request->question_option_id : "",
-                'launch_quiz_id' => !empty($request->launch_quiz_id) ? $request->launch_quiz_id : "",
-                'user_quiz_id' => !empty($request->user_quiz_id) ? $request->user_quiz_id : "",
-                'status' => !empty($request->status) ? $request->status : "Pending",
-            ];
-            UserQuizAttempt::create($data);
+            $check_record = UserQuizAttempt::whereQuestionPaperId($request->question_paper_id)->whereUserId($user->id)
+                ->whereLaunchQuizId($request->launch_quiz_id)->whereStatus('Completed')->first();
+            if ($check_record) {
+                $data = [
+                    'question_paper_id' => !empty($request->question_paper_id) ? $request->question_paper_id : $check_record->question_paper_id,
+                    'class_room_id' => $user->class_room_id,
+                    'user_id' => $user->id,
+                    'question_id' => !empty($request->question_id) ? $request->question_id : $check_record->question_id,
+                    'question_option_id' => !empty($request->question_option_id) ? $request->question_option_id : $check_record->question_option_id,
+                    'launch_quiz_id' => !empty($request->launch_quiz_id) ? $request->launch_quiz_id : $check_record->launch_quiz_id,
+                    'user_quiz_id' => !empty($request->user_quiz_id) ? $request->user_quiz_id : $check_record->user_quiz_id,
+                ];
+                $check_record->update($data);
+            } else {
+                $data = [
+                    'question_paper_id' => !empty($request->question_paper_id) ? $request->question_paper_id : "",
+                    'class_room_id' => $user->class_room_id,
+                    'user_id' => $user->id,
+                    'question_id' => !empty($request->question_id) ? $request->question_id : "",
+                    'question_option_id' => !empty($request->question_option_id) ? $request->question_option_id : "",
+                    'launch_quiz_id' => !empty($request->launch_quiz_id) ? $request->launch_quiz_id : "",
+                    'user_quiz_id' => !empty($request->user_quiz_id) ? $request->user_quiz_id : "",
+                    'status' => !empty($request->status) ? $request->status : "Pending",
+                ];
+                UserQuizAttempt::create($data);
+            }
             //$this->startQuizes($request->question_paper_id,$request->question_option_id,$request->question_id);
             return redirect(route('start.quizes',['question_paper_id'=>$request->question_paper_id,'question_option_id'
             =>$request->question_option_id,'question_id' => $request->question_id]));
