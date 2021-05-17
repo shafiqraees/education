@@ -78,7 +78,7 @@ class QuestionController extends Controller
             'Feedback' => 'required',
         ]);
         //dd($request);
-        try {
+        //try {
             if($request->hasFile('photo')){
                 SavePhotoAllSizes($request, 'quiz/');
                 $quiz_image = 'quiz/'.$request->photo->hashName();
@@ -150,10 +150,10 @@ class QuestionController extends Controller
             return redirect(route('question.create',['id'=>$request->id]))->with('success', 'Question created successfully.');
 
 
-        } catch ( \Exception $e) {
+        /*} catch ( \Exception $e) {
             DB::rollBack();
             return Redirect::back()->withErrors('Sorry Record not found');
-        }
+        }*/
     }
 
     /**
