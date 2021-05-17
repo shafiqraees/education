@@ -75,6 +75,7 @@ class QuestionController extends Controller
 
         $validated = $request->validate([
             'name' => 'required',
+            'Feedback' => 'required',
         ]);
         //dd($request);
         try {

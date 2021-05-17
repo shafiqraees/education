@@ -246,7 +246,7 @@
                 '<div class="col-md-3 MultipleChoice">\n' +
                 '<div class="form-group">\n' +
                 '<label for="exampleEmails" class="bmd-label-floating"> Feedback </label>\n' +
-                '<input type="text" class="form-control" id="Feedback" name="Feedback[]">\n' +
+                '<input type="text" class="form-control" id="Feedback" name="Feedback[]" required="true">\n' +
                 '</div>\n' +
                 '</div>\n' +
                 '<div class="col-md-2 MultipleChoice">\n' +
