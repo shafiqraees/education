@@ -24,7 +24,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <form id="LoginValidation" action="{{route('question.store')}}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+                <form id="LoginValidation" action="{{route('question.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card ">
                         <div class="card-header card-header-rose card-header-icon">
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input type="file" class="form-control" name="image" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>
+                                        <input type="file" class="form-control" name="photo" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>
                                     </div>
                                 </div>
                                 <div class="col-md-2 " style="margin-top: -17px;">
@@ -148,6 +148,7 @@
                                         <th>Id</th>
                                         <th>Title</th>
                                         <th>Question Type</th>
+                                        <th>Image</th>
                                         <th>Created Date</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
@@ -157,6 +158,7 @@
                                         <th>Id</th>
                                         <th>Title</th>
                                         <th>Question Type</th>
+                                        <th>Image</th>
                                         <th>Created Date</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
@@ -168,6 +170,8 @@
                                                 <td>{{$row->serial_id}} </td>
                                                 <td>{{$row->name}} </td>
                                                 <td>{{$row->type}}</td>
+                                                <td><img src="{{Storage::disk('public')->exists('xs/'.$row->image) ? Storage::disk('public')->url('xs/'.$row->image) : Storage::disk('public')->url('default.png')}}" class="rounded-circle  height-150"
+                                                         alt="Card image" height="50px"></td>
                                                 <td>{{ $row->created_at->diffForHumans() }}</td>
                                                 <td class="text-right">
                                                     <a href="javascript:void(0)" class="btn btn-link btn-info btn-just-icon like editpopup" data-action="{{route('question.edit',$row->id)}}"><i class="material-icons">edit</i></a>

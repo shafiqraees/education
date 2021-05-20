@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <input type="file" class="form-control" name="image" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>
+                            <input type="file" class="form-control" name="photo" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>
                         </div>
                     </div>
                     <div class="col-md-2 " style="margin-top: -17px;">

@@ -99,6 +99,7 @@
                                     <th>Id</th>
                                     <th>Title</th>
                                     <th>Question Type</th>
+                                    <th>Image</th>
                                     <th>Created Date</th>
                                     <th class="disabled-sorting text-right">Actions</th>
                                 </tr>
@@ -108,6 +109,7 @@
                                     <th>Id</th>
                                     <th>Title</th>
                                     <th>Question Type</th>
+                                    <th>Image</th>
                                     <th>Created Date</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
@@ -119,6 +121,8 @@
                                             <td>{{$row->serial_id}} </td>
                                             <td>{{$row->name}} </td>
                                             <td>{{$row->type}}</td>
+                                            <td><img src="{{Storage::disk('public')->exists('xs/'.$row->image) ? Storage::disk('public')->url('xs/'.$row->image) : Storage::disk('public')->url('default.png')}}" class="rounded-circle  height-150"
+                                                     alt="Card image" height="50px"></td>
                                             <td>{{ $row->created_at->diffForHumans() }}</td>
                                             <td class="text-right">
                                                 <a href="javascript:void(0)" class="btn btn-link btn-info btn-just-icon like editpopup" data-action="{{route('question.edit',$row->id)}}"><i class="material-icons">edit</i></a>

@@ -72,7 +72,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-
+        //dd($request);
         $validated = $request->validate([
             'name' => 'required',
             'Feedback' => 'required',
@@ -83,6 +83,7 @@ class QuestionController extends Controller
                 SavePhotoAllSizes($request, 'quiz/');
                 $quiz_image = 'quiz/'.$request->photo->hashName();
             }
+           // dd($quiz_image);
             DB::beginTransaction();
             $serial = 1;
             $que_series = Question::whereTeacherId(Auth::guard('teacher')->user()->id)->whereQuestionPaperId($request->id)->max('serial_id');
@@ -94,7 +95,7 @@ class QuestionController extends Controller
                 'type' => $request->type,
                 'final_question' => $request->final_question,
                 'serial_id' => isset($que_series) ? $que_series : "",
-                'image' => !empty($quiz_image) ? $quiz_image : "",
+                'image' => !empty($quiz_image) ? $quiz_image : "default.pn",
                 'questio_code' => Hash::make($request->name.time()),
             ];
             // dd($quiz_data);
