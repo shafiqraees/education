@@ -49,13 +49,12 @@ class QuestionController extends Controller
             $course = QuestionPaper::find(\request('id'));
             //dd($course);
             $quiz = Question::whereTeacherId($id)->whereStatus('Publish')->whereNull('deleted_at')->get();
-            $number = Question::orderBy('id', 'desc')->first();
+            $number = Question::whereTeacherId($id)->whereQuestionPaperId(\request('id'))->whereNull('deleted_at')->orderBy('id', 'desc')->max('serial_id');
 
-            $quiz_number = isset($number->id) ? $number->id : 0 + 1;
-
+            $quiz_number = isset($number) ? $number +1 : 1;
 
             $data = Question::whereTeacherId($id)->whereQuestionPaperId(\request('id'))->whereNull('deleted_at')->orderBy('id','desc')->get();
-            //dd($data);
+
             return view('teacher.questions.create',compact('quiz','quiz_number','course','data'));
 
         } catch (\Exception $e) {

@@ -35,24 +35,22 @@
                         </div>
                         <div class="card-body ">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-1">
                                     <div class="form-group">
-                                        <label for="exampleEmails" class="bmd-label-floating"> Name *</label>
-                                        <input type="text" class="form-control" id="name" required="true" name="name">
+                                        <label for="exampleEmails" class="bmd-label-floating"> Question #</label>
+                                        <input type="text" class="form-control" id="question_number" value="{{$quiz_number}}"  name="question_number" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <select name="type" id="type" class="form-control">
-                                            <option value="Multiple Choice">Multiple Choice</option>
-                                            {{--<option value="True/False">True/False</option>
-                                            <option value="Short Answer">Short Answer</option>--}}
-                                        </select>
+                                        <label for="exampleEmails" class="bmd-label-floating"> Enter Question here *</label>
+                                        <input type="text" class="form-control" id="name" required="true" name="name">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input type="file" class="form-control" name="photo" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>
+                                        <label for="exampleEmails" class="bmd-label-floating"> Points *</label>
+                                        <input type="text" class="form-control" id="points" required="true" name="points">
                                     </div>
                                 </div>
                                 <div class="col-md-2 " style="margin-top: -17px;">
@@ -61,34 +59,42 @@
                                         <input type="checkbox" name="final_question" class="form-control " value="Final question">
                                     </div>
                                 </div>
+                                <div class="col-md-3 col-sm-4 image">
+                                        <div class="fileinput fileinput-new text-center" data-provides="fileinput" style="display: block !important;">
+                                            <div class="fileinput-new thumbnail">
+                                                <img src="{{asset('public/assets/img/placeholder.jpg')}}" alt="...">
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                            <div>
+                                              <span class="btn btn-rose btn-round btn-file">
+                                                <span class="fileinput-new">Select image</span>
+                                                <span class="fileinput-exists">Change</span>
+                                                <input type="file" name="photo" accept="image/x-png,image/gif,image/jpeg" />
+                                              </span>
+                                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
-
-
                             <div class="row" id="extrafileds">
                                 <div class="col-md-1 MultipleChoice">
                                     <div class="form-group">
                                         <input type="radio" name="answer" value="0" class="form-control" id="name">
                                     </div>
                                 </div>
-                                <div class="col-md-3 MultipleChoice">
+                                <div class="col-md-4 MultipleChoice">
                                     <div class="form-group">
                                         <label for="exampleEmails" class="bmd-label-floating"> Option </label>
                                         <input type="text" class="form-control" id="name" name="option[]">
                                     </div>
                                 </div>
-                                <div class="col-md-3 MultipleChoice">
+                                <div class="col-md-4 MultipleChoice">
                                     <div class="form-group">
-                                        <label for="exampleEmails" class="bmd-label-floating"> Feedback </label>
-                                        <input type="text" class="form-control" id="name" name="Feedback[]">
-                                    </div>
-                                </div>
-                                <div class="col-md-2 MultipleChoice">
-                                    <div class="form-group">
-                                        <label for="exampleEmails" class="bmd-label-floating"> suggested Question Id *</label>
+                                        <label for="exampleEmails" class="bmd-label-floating"> Go to Question ID *</label>
                                         <input type="number" class="form-control" id="name" name="question_id[]">
                                     </div>
                                 </div>
-                                <div class="col-md-2 MultipleChoice" >
+                                <div class="col-md-3 MultipleChoice" >
                                     <div class="form-group">
                                         <input type="file" class="form-control" name="image[]" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>
                                     </div>
@@ -115,7 +121,7 @@
                     <div class="card">
                         <div class="card-header card-header-primary card-header-icon">
 
-                            <h4 class="card-title">All Question of {{isset($course->name) ? $course->name : ""}}</h4>
+                            <h4 class="card-title">All Question of <strong>{{isset($course->name) ? $course->name : ""}}</strong></h4>
                         </div>
                         <div class="card-body">
                             <div class="toolbar">
@@ -145,21 +151,23 @@
                                 <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                     <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Question Type</th>
+                                        <th>Question ID</th>
+                                        <th>Question</th>
+                                        <th>Options</th>
+                                        <th>Include in Result</th>
+                                        <th>Points</th>
                                         <th>Image</th>
-                                        <th>Created Date</th>
-                                        <th class="disabled-sorting text-right">Actions</th>
+                                        <th class="text-right">Actions</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Title</th>
-                                        <th>Question Type</th>
+                                        <th>Question ID</th>
+                                        <th>Question</th>
+                                        <th>Options</th>
+                                        <th>Include in Result</th>
+                                        <th>Points</th>
                                         <th>Image</th>
-                                        <th>Created Date</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
                                     </tfoot>
@@ -168,11 +176,31 @@
                                         @foreach($data as $row)
                                             <tr>
                                                 <td>{{$row->serial_id}} </td>
+
                                                 <td>{{$row->name}} </td>
-                                                <td>{{$row->type}}</td>
+                                                <td>
+                                                    @foreach($row->option as $option)
+                                                    <div class="radio d-inline">
+                                                        <label class=""><input type="radio" name="{{$option->name}}" {{ ($option->answer != "")? "checked" : "" }} disabled> {{$option->name}}</label>
+                                                    </div>
+                                                    <br>
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" type="checkbox" value="" {{ ($row->final_question != "")? "checked" : "" }} disabled>
+                                                            <span class="form-check-sign">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+
+                                                </td>
+                                                <td>{{ !empty($row->marks) ? $row->marks : "Not Assign" }}</td>
                                                 <td><img src="{{Storage::disk('public')->exists('xs/'.$row->image) ? Storage::disk('public')->url('xs/'.$row->image) : Storage::disk('public')->url('default.png')}}" class="rounded-circle  height-150"
                                                          alt="Card image" height="50px"></td>
-                                                <td>{{ $row->created_at->diffForHumans() }}</td>
+
                                                 <td class="text-right">
                                                     <a href="javascript:void(0)" class="btn btn-link btn-info btn-just-icon like editpopup" data-action="{{route('question.edit',$row->id)}}"><i class="material-icons">edit</i></a>
                                                     <a href="javascript:void(0)" class="btn btn-link btn-danger btn-just-icon remove" data-url="{{route('question.destroy',$row->id)}}"><i class="material-icons">close</i></a>
@@ -241,7 +269,7 @@
                 '<input type="radio" name="answer" value="'+ (count ++) +'" class="form-control" id="name">\n' +
                 '</div>\n' +
                 '</div>\n' +
-                '<div class="col-md-3 MultipleChoice">\n' +
+                '<div class="col-md-4 MultipleChoice">\n' +
                 '<div class="form-group">\n' +
                 '<label for="exampleEmails" class="bmd-label-floating"> Option </label>\n' +
                 '<input type="text" class="form-control" id="name" name="option[]">\n' +
@@ -249,17 +277,11 @@
                 '</div>\n' +
                 '<div class="col-md-3 MultipleChoice">\n' +
                 '<div class="form-group">\n' +
-                '<label for="exampleEmails" class="bmd-label-floating"> Feedback </label>\n' +
-                '<input type="text" class="form-control" id="Feedback" name="Feedback[]" required="true">\n' +
-                '</div>\n' +
-                '</div>\n' +
-                '<div class="col-md-2 MultipleChoice">\n' +
-                '<div class="form-group">\n' +
-                '<label for="exampleEmails" class="bmd-label-floating"> suggested Question Id *</label>\n' +
+                '<label for="exampleEmails" class="bmd-label-floating"> Go to Question ID *</label>\n' +
                 '<input type="number" class="form-control" id="name" name="question_id[]">\n' +
                 '</div>\n' +
                 '</div>\n' +
-                '<div class="col-md-2 MultipleChoice" >\n' +
+                '<div class="col-md-3 MultipleChoice" >\n' +
                 '<div class="form-group">\n' +
                 '<input type="file" class="form-control" name="image[]" accept="image/x-png,image/gif,image/jpeg" style="position: unset;opacity: unset;height: unset;"/>\n' +
                 '</div>\n' +
